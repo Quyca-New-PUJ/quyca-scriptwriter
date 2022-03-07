@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scriptCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="10dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="@color/teal_700"
+    app:cardPreventCornerOverlap="true"
+    >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_scriptline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_editor_absoluteX="15dp">
+            <ImageButton
+                android:id="@+id/drag_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:autoSizeTextType="none"
+                android:background="@null"
+                android:singleLine="true"
+                android:src="@drawable/ic_baseline_drag_handle_24"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/move_label"
+                android:contentDescription="@string/move_label" />
+
+                <TextView
+                    android:id="@+id/action"
+                    android:layout_weight="10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="" />
+
+            <ImageButton
+                android:id="@+id/play_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:autoSizeTextType="none"
+                android:background="@null"
+                android:singleLine="true"
+                android:src="@drawable/ic_baseline_play_arrow_24"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/play_label"
+                android:contentDescription="@string/play_label" />
+
+            <ImageButton
+                android:id="@+id/edit_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:autoSizeTextType="none"
+                android:background="@null"
+                android:singleLine="true"
+                android:src="@drawable/ic_baseline_edit_24"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/edit_label"
+                android:contentDescription="@string/edit_label" />
+
+            <ImageButton
+                android:id="@+id/delete_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:autoSizeTextType="none"
+                android:background="@null"
+                android:singleLine="true"
+                android:src="@drawable/ic_baseline_delete_24"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/delete_label"
+                android:contentDescription="@string/delete_label" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

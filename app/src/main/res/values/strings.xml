@@ -1,0 +1,125 @@
+<resources>
+    <string name="app_name">QuycaScriptWriter</string>
+    <string name="title_home">Visor de Escena</string>
+    <string name="title_setup_play">Gestionar Obra</string>
+    <string name="title_new_macro">Nueva Secuencia de Acciones</string>
+    <string name="title_actscript">Guion Activo</string>
+    <string name="title_config">Configuracion</string>
+    <string name="title_emoprofile">Perfil Emocional</string>
+    <string name="label_exec">Ejecutar Guion</string>
+    <string name="label_edit_script">Edita Tu Guion</string>
+    <string name="label_edit_emotion">Edita la emocion</string>
+    <string name="label_edit_matrix">Edita la cara</string>
+    <string name="label_save_action">Guardar Accion</string>
+    <string name="emo_label">Emocion</string>
+    <string name="act_label">Accion</string>
+    <string name="move_text_label">Movimiento</string>
+    <string name="act_conf_label">Acciones Disponibles</string>
+    <string name="intes_label">Intensidad</string>
+    <string name="edit_params">Editar Parametros</string>
+    <string name="edit_matrix">Editar Matriz</string>
+    <string name="delete_label">Eliminar</string>
+    <string name="go_label">Seleccionar</string>
+    <string name="edit_label">Editar</string>
+    <string name="play_label">Ejecutar</string>
+    <string name="add_act_label">Agregar accion</string>
+    <string name="add_label">Agregar</string>
+    <string name="move_label">Mover</string>
+    <string name="new_script">Nuevo Guion</string>
+    <string name="time_label">Duracion</string>
+    <string name="action_label">Accion:</string>
+    <string name="emotion_label">Emocion:</string>
+    <string name="intensity_label">Intensidad:</string>
+    <string name="duration_label">Duracion:</string>
+    <string name="load_label">Cargar Guion</string>
+    <string name="save_label">Guardar Guion</string>
+    <string name="config_loader_label">Cargar Configuracion Quyca</string>
+    <string name="config_saver_label">Guardar Configuracion Quyca</string>
+    <string name="config_robot_loader_label">Cargar Datos del Actor</string>
+    <string name="pref_ip">IP</string>
+    <string name="play_name">Nombre de la Obra</string>
+    <string name="default_play_name">Obra</string>
+    <string name="def_char_placeholder">Character Iamge</string>
+    <string name="stop_script">Pausar Guion</string>
+    <string name="resume_script">Continuar Guion</string>
+    <string name="cancel_script">Cancelar Guion</string>
+    <string name="create_macro">Crear Secuencia de Acciones</string>
+    <string name="start_play">Iniciar Obra</string>
+    <string name="save_macro">Guardar Secuencia de Acciones</string>
+    <string name="add_action_button">Agregar Acciones</string>
+    <string name="macro_name_label">Nombre de la Secuencia de Acciones</string>
+    <string name="macro_aux_label">Escena …</string>
+    <string name="scene_placeholder">Escena</string>
+    <string name="emotion_aux_label">Emocion …</string>
+    <string name="save_emotion">Guardar Emocion</string>
+    <string name="emotion_name_label">Nombre de la Emocion</string>
+    <string name="param_value_placeholder">Nombre de la Emocion</string>
+
+
+    <string name="permission_read_storage">Se necesita el permiso para poder leer la configuracion</string>
+    <string name="permission_read_script">Se necesita el permiso para poder leer el guion</string>
+
+    <string name="permission_read_play">Se necesita el permiso para poder leer la obra</string>
+    <string name="na">NA</string>
+    <string name="permission_write_script">Se necesita el permiso para poder cargar el guion</string>
+    <string name="script_prefix">QuycaScript</string>
+    <string name="play_prefix">QuycaPlay</string>
+    <string name="char_img_name">CharacterImage.jpg</string>
+    <string name="char_spec_name">CharacterSpec.json</string>
+    <string name="scene_dir">QuycaScenes</string>
+    <string name="char_dir">QuycaCharacters</string>
+    <string name="scenes_dir">QuycaScenes</string>
+    <string name="macro_dir">QuycaMacros</string>
+    <string name="macro_file">QuycaMacro.json</string>
+    <string name="sound_dir">QuycaSounds</string>
+    <string name="scenes_file">QuycaScene.json</string>
+    <string name="conf_dir">QuycaConf</string>
+    <string name="conf_file">QuycaConfig</string>
+    <string name="robot_conf_file">QuycaRobotConfig</string>
+    <string name="config_prefix">QuycaConfig_</string>
+    <string name="json_postfix">.json</string>
+    <string name="image_placeholder">Imagen</string>
+    <string name="screen_toggle_label">Extras</string>
+    <string name="record_toggle_label">Hablar</string>
+    <string name="image_placeholer">Image</string>
+    <string name="movement_toggle_label">Moverse</string>
+    <string name="prev_macro_label">Ver Secuencia de Acciones</string>
+    <string name="end_macro_label">Finalizar Secuencia de Acciones</string>
+
+    <string name="rec_label">Grabar</string>
+    <string name="sound_label">Nombre del Audio</string>
+    <string name="save_act_label">Guardar Accion</string>
+    <string name="save_record_label">Guardar Audio</string>
+    <string name="save_extra_act_label">Guardar Accion Extra</string>
+    <string name="recording_start_label">Empieza a Grabar</string>
+    <string name="recording_prog_label">Grabando...</string>
+    <string name="recording_end_label">¡Ya grabaste!</string>
+
+
+
+    <string name="disc_label">Descartar</string>
+    <string name="temp_dir">tmp</string>
+    <string name="mp4file">.mp4</string>
+
+
+    <string name="play_play">Ejecutar Obra</string>
+    <string name="Regresar">Regresar</string>
+    <string name="regresar_macro_home">Regresar al Guion de</string>
+    <string name="regresar_main">Regresar a Menu de Personajes</string>
+    <string name="regresar_accion">Regresar a Menu de Acciones</string>
+    <string name="regresar_lista">Regresar a Secuencia</string>
+    <string name="arriba">Arriba</string>
+    <string name="abajo">Abajo</string>
+    <string name="izquierda">Izquierda</string>
+    <string name="derecha">Derecha</string>
+    <string name="centro">Carita</string>
+    <string name="muy_feliz">Muy Feliz</string>
+    <string name="feliz">Feliz</string>
+    <string name="neutro">Neutro</string>
+    <string name="triste">Triste</string>
+    <string name="muy_triste">Muy Triste</string>
+    <string name="furioso">Furioso</string>
+    <string name="sorprendido">Sorprendido</string>
+    <string name="enfermo">Enfermo</string>
+
+</resources>

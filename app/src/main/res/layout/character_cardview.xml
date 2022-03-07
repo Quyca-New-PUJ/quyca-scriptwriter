@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scriptCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="10dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardPreventCornerOverlap="true"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_scriptline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_editor_absoluteX="15dp"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:id="@+id/char_view"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/def_char_placeholder" />
+
+            <TextView
+                android:id="@+id/char_name"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="end|center_vertical"
+                android:text="" />
+
+            <ImageButton
+                android:id="@+id/go_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="2"
+                android:autoSizeTextType="none"
+                android:background="@null"
+                android:contentDescription="@string/go_label"
+                android:singleLine="true"
+                android:src="@drawable/ic_baseline_double_arrow_24"
+                android:text="@string/go_label" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

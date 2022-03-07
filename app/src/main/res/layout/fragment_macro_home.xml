@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.macros.MacroHomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/movement_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_radio_action"
+                android:button="@android:color/transparent"
+                android:textSize="20sp"
+
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="@string/movement_toggle_label"
+                />
+            <RadioButton
+                android:id="@+id/record_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/record_toggle_label"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:background="@drawable/custom_radio_audio"
+                android:button="@android:color/transparent"/>
+
+            <RadioButton
+                android:id="@+id/screen_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="@string/screen_toggle_label"
+                android:textAlignment="center"
+                android:background="@drawable/custom_radio_extras"
+                android:button="@android:color/transparent"
+                />
+        </LinearLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/actionFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_weight="17"
+            android:layout_height="0dp" />
+        <Button
+            android:id="@+id/prev_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textSize="20sp"
+            android:layout_weight="2"
+            android:text="@string/prev_macro_label" />
+    </LinearLayout>
+
+</FrameLayout>

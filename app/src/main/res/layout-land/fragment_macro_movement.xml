@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.macros.MacroMovementFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/conf"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/act_label" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_action"
+                    android:button="@android:color/transparent"
+                    android:enabled="false"
+                    android:gravity="center" />
+
+                <ImageButton
+                    android:id="@+id/arriba"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_radio_action"
+                    android:button="@android:color/transparent"
+                    android:contentDescription="@string/arriba"
+                    android:gravity="center"
+                    android:src="@drawable/ic_baseline_arrow_circle_up_24" />
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_action"
+                    android:button="@android:color/transparent"
+                    android:enabled="false"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/izq"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_radio_action"
+                    android:button="@android:color/transparent"
+                    android:contentDescription="@string/izquierda"
+                    android:gravity="center"
+                    android:src="@drawable/ic_baseline_arrow_circle_left_24" />
+
+                <ImageButton
+                    android:id="@+id/centro"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_radio_action"
+                    android:button="@android:color/transparent"
+                    android:contentDescription="@string/centro"
+                    android:gravity="center"
+                    android:src="@drawable/ic_baseline_face_24" />
+
+                <ImageButton
+                    android:id="@+id/der"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_radio_action"
+                    android:button="@android:color/transparent"
+                    android:contentDescription="@string/derecha"
+                    android:gravity="center"
+                    android:src="@drawable/ic_baseline_arrow_circle_right_24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_action"
+                    android:button="@android:color/transparent"
+                    android:enabled="false"
+                    android:gravity="center" />
+
+                <ImageButton
+                    android:id="@+id/abajo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_radio_action"
+                    android:button="@android:color/transparent"
+                    android:contentDescription="@string/abajo"
+                    android:gravity="center"
+                    android:src="@drawable/ic_baseline_arrow_circle_down_24" />
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_action"
+                    android:button="@android:color/transparent"
+                    android:enabled="false"
+                    android:gravity="center" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/emo_label"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/emo_label" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/muy_feliz"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_emotion"
+                    android:button="@android:color/transparent"
+                    android:src="@drawable/ic_muyfeliz"
+                    android:contentDescription="@string/muy_feliz"
+                    android:gravity="center" />
+
+                <ImageButton
+                    android:id="@+id/feliz"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_emotion"
+                    android:button="@android:color/transparent"
+                    android:contentDescription="@string/feliz"
+                    android:src="@drawable/ic_feliz"
+                    android:gravity="center" />
+
+                <ImageButton
+                    android:id="@+id/triste"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_emotion"
+                    android:button="@android:color/transparent"
+                    android:contentDescription="@string/triste"
+                    android:src="@drawable/ic_triste"
+                    android:gravity="center" />
+
+                <ImageButton
+                    android:id="@+id/muy_triste"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_emotion"
+                    android:button="@android:color/transparent"
+                    android:src="@drawable/ic_muytriste"
+                    android:contentDescription="@string/muy_triste"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/neutro"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_emotion"
+                    android:button="@android:color/transparent"
+                    android:contentDescription="@string/neutro"
+                    android:src="@drawable/ic_neutro"
+                    android:gravity="center" />
+
+                <ImageButton
+                    android:id="@+id/furioso"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_emotion"
+                    android:button="@android:color/transparent"
+                    android:src="@drawable/ic_furioso"
+                    android:contentDescription="@string/furioso"
+                    android:gravity="center" />
+
+                <ImageButton
+                    android:id="@+id/sorprendido"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_emotion"
+                    android:button="@android:color/transparent"
+                    android:contentDescription="@string/sorprendido"
+                    android:src="@drawable/ic_sorprendido"
+                    android:gravity="center" />
+
+                <ImageButton
+                    android:id="@+id/enfermo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_radio_emotion"
+                    android:button="@android:color/transparent"
+                    android:contentDescription="@string/enfermo"
+                    android:src="@drawable/ic_enfermo"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/save_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/save_act_label" />
+    </LinearLayout>
+</FrameLayout>
