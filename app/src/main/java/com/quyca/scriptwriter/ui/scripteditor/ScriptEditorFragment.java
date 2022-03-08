@@ -1,8 +1,16 @@
 package com.quyca.scriptwriter.ui.scripteditor;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.FileUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -18,19 +26,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.FileUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import com.quyca.scriptwriter.MainActivity;
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.databinding.FragmentScriptEditorBinding;
 import com.quyca.scriptwriter.model.Action;
-import com.quyca.scriptwriter.model.Playable;
 import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.Scene;
 import com.quyca.scriptwriter.model.Script;
@@ -43,8 +42,6 @@ import com.quyca.scriptwriter.utils.AudioRepository;
 import com.quyca.scriptwriter.utils.FileRepository;
 
 import java.io.BufferedWriter;
-import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -56,7 +53,6 @@ import java.util.List;
 public class ScriptEditorFragment extends Fragment implements StartDragListener {
     private List<Action> selectActions;
     private Button saveButton;
-    private EditText editName;
     private ActivityResultLauncher<String> requestWriteLauncher;
     private ActivityResultLauncher<String> requestEditLauncher;
     private ActivityResultLauncher<String> requestRemoveLauncher;
@@ -73,11 +69,12 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
     private boolean isCreate;
     private Button addActionButton;
     private ExecScriptViewModel mViewModel;
+    private String name;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MainActivity main= (MainActivity) requireActivity();
+        MainActivity main = (MainActivity) requireActivity();
         if (getArguments() != null) {
             macroPos = getArguments().getInt("macroPos");
 
@@ -95,7 +92,6 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
         setupFragment();
         selectActions = new ArrayList<>();
         saveButton = root.findViewById(R.id.new_macro);
-        editName = root.findViewById(R.id.editName);
         addActionButton = root.findViewById(R.id.add_actions);
         mViewModel = new ViewModelProvider(requireActivity()).get(ExecScriptViewModel.class);
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
@@ -109,7 +105,7 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
         addActionButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt("macroPos", macroPos);
-            Navigation.findNavController(v).navigate(R.id.navigation_macro_home,bundle);
+            Navigation.findNavController(v).navigate(R.id.navigation_macro_home, bundle);
         });
         model.getSceneObservable().observe(getViewLifecycleOwner(), scene -> {
             actScene = scene;
@@ -117,23 +113,21 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
         model.getScriptObservable().observe(getViewLifecycleOwner(), script -> {
             if (script != null) {
                 actScript = script;
-                if(macroPos==-1){
-                    saveButton.setEnabled(actScript.getLines().size()>0);
+                if (macroPos == -1) {
+                    saveButton.setEnabled(actScript.getLines().size() > 0);
                 }
                 setScriptEditorAdapter();
             }
         });
-        if(macroPos==-1){
-            model.getCharacterObservable().observe(getViewLifecycleOwner(),playCharacter -> {
-                MainActivity main= (MainActivity) requireActivity();
-                main.setBackButtonText(requireContext().getResources().getString(R.string.regresar_macro_home)+" "+playCharacter.getName());
-            });
-        }
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),new OnBackPressedCallback(true) {
+        model.getCharacterObservable().observe(getViewLifecycleOwner(), playCharacter -> {
+            MainActivity main = (MainActivity) requireActivity();
+            main.setBackButtonText(requireContext().getResources().getString(R.string.regresar_macro_home) + " " + playCharacter.getName());
+        });
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if(buttonPressed||isCreate){
-                    buttonPressed=false;
+                if (buttonPressed || isCreate) {
+                    buttonPressed = false;
                     setEnabled(false);
                     requireActivity().onBackPressed();
                 }
@@ -145,12 +139,10 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
     @Override
     public void onResume() {
         super.onResume();
-        MainActivity main= (MainActivity) requireActivity();
+        MainActivity main = (MainActivity) requireActivity();
         if (getArguments() != null) {
             macroPos = getArguments().getInt("macroPos");
             main.setBackButtonEnabled(false);
-            main.setBackButtonText(requireContext().getResources().getString(R.string.regresar_macro_home));
-
         } else {
             macroPos = -1;
             main.setBackButtonText(requireContext().getResources().getString(R.string.regresar_accion));
@@ -158,25 +150,54 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
     }
 
     private void createNewMacro() throws IOException {
-        String name = editName.getText().toString();
-        if (!name.isEmpty()) {
-            if (macroPos == -1) {
-                Macro newMacro = new Macro(selectActions);
-                newMacro.setMacroName(name);
-                actScene.getMacros().add(newMacro);
-                startWritingPermissionProcess();
-                model.setScriptObservable(new Script());
-            } else {
-                startEditingPermissionProcess();
-                MainActivity act= (MainActivity) requireActivity();
-                act.enableSceneSpinner(true);
-            }
-            model.setSceneObservable(actScene);
-            buttonPressed = true;
-            Navigation.findNavController(editName).popBackStack(R.id.navigation_script_viewer,false);
-        }else {
-            Toast.makeText(requireContext(), "No olvides nombrar la escena", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder alert = new AlertDialog.Builder(requireContext());
+
+        alert.setTitle(requireContext().getResources().getString(R.string.macro_name_label));
+
+        final EditText input = new EditText(requireContext());
+        if (macroPos != -1) {
+            Macro macro = actScene.getMacros().get(macroPos);
+            input.setText(macro.getMacroName());
         }
+        alert.setView(input);
+
+        alert.setPositiveButton("Guardar", (dialog, whichButton) -> {
+            name = input.getText().toString();
+
+            if (!name.isEmpty()) {
+                if (macroPos == -1) {
+                    Macro newMacro = new Macro(selectActions);
+                    newMacro.setMacroName(name);
+                    actScene.getMacros().add(newMacro);
+                    try {
+                        startWritingPermissionProcess();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    model.setScriptObservable(new Script());
+                } else {
+                    try {
+                        startEditingPermissionProcess();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    MainActivity act = (MainActivity) requireActivity();
+                    act.enableSceneSpinner(true);
+                }
+                model.setSceneObservable(actScene);
+                buttonPressed = true;
+                Navigation.findNavController(saveButton).popBackStack(R.id.navigation_script_viewer, false);
+            } else {
+                Toast.makeText(requireContext(), "No olvides nombrar la lista de acciones", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alert.setNegativeButton("Cancelar", (dialog, whichButton) -> {
+
+        });
+
+        alert.show();
+
     }
 
     private void startEditingPermissionProcess() throws IOException {
@@ -193,7 +214,6 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
     private void editMacro() throws IOException {
         Macro macro;
         macro = actScene.getMacros().get(macroPos);
-        String name = editName.getText().toString();
         macro.setPosition(macroPos);
         DocumentFile sceneDir = FileRepository.getSceneDir();
         DocumentFile macrosDir = sceneDir.findFile(getResources().getString(R.string.macro_dir));
@@ -206,11 +226,11 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
             macroDir = macrosDir.findFile(macro.getMacroName());
             assert macroDir != null;
             DocumentFile soundDir = macroDir.findFile(getResources().getString(R.string.sound_dir));
-            assert soundDir!=null;
+            assert soundDir != null;
             macro.getActions().forEach(action -> {
-                if(action instanceof SoundAction){
-                        DocumentFile soundFile = soundDir.findFile(((SoundAction) action).getName());
-                        AudioRepository.replaceSound((SoundAction) action,soundFile);
+                if (action instanceof SoundAction) {
+                    DocumentFile soundFile = soundDir.findFile(((SoundAction) action).getName());
+                    AudioRepository.replaceSound((SoundAction) action, soundFile);
 
                 }
 
@@ -219,10 +239,10 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
         DocumentFile macroFile = macroDir.findFile(getResources().getString(R.string.macro_file));
         assert macroFile != null;
         boolean del = macroFile.delete();
-        if(del){
-            macroFile = macroDir.createFile("*/*",getResources().getString(R.string.macro_file));
-        }else{
-            throw  new IOException("Archivo de macro no se pudo eliminar");
+        if (del) {
+            macroFile = macroDir.createFile("*/*", getResources().getString(R.string.macro_file));
+        } else {
+            throw new IOException("Archivo de macro no se pudo eliminar");
         }
         assert macroFile != null;
         BufferedWriter jsonWriter = new BufferedWriter(new OutputStreamWriter(requireContext().getContentResolver().openOutputStream(macroFile.getUri())));
@@ -232,27 +252,26 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
         jsonWriter.close();
 
 
-}
+    }
 
     private void setScriptEditorAdapter() {
         boolean saved = macroPos != -1;
         if (saved) {
-            isCreate=false;
+            isCreate = false;
             Macro macro = actScene.getMacros().get(macroPos);
-            MainActivity act= (MainActivity) requireActivity();
+            MainActivity act = (MainActivity) requireActivity();
             act.enableSceneSpinner(false);
             selectActions = macro.getActions();
-            editName.setText(macro.getMacroName());
             FileRepository.setCurrentMacroName(macro.getMacroName());
             model.setMacroObservable(macro);
         } else {
-            isCreate=true;
+            isCreate = true;
             selectActions = actScript.getLines();
             model.setMacroObservable(null);
         }
         manager = new LinearLayoutManager(getContext());
         binding.scriptEditorView.setLayoutManager(manager);
-        slAdapter = new MacroActionAdapter(selectActions, this, requestRemoveLauncher,saved);
+        slAdapter = new MacroActionAdapter(selectActions, this, requestRemoveLauncher, saved);
         ItemTouchHelper.Callback callback =
                 new ItemMoveCallback<>(slAdapter);
         touchHelper = new ItemTouchHelper(callback);
@@ -370,7 +389,7 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
                     OutputStream descrOut = requireContext().getContentResolver().openOutputStream(newSoundFile.getUri());
                     FileUtils.copy(descrIn, descrOut);
                     soundFile.delete();
-                    AudioRepository.replaceSound(sa,newSoundFile);
+                    AudioRepository.replaceSound(sa, newSoundFile);
                 }
             }
         }
@@ -378,7 +397,7 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
 
     }
 
-    public ExecScriptViewModel getExecViewModel(){
+    public ExecScriptViewModel getExecViewModel() {
         return mViewModel;
     }
 

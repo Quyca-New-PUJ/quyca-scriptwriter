@@ -72,6 +72,7 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
     private PlayLineAdapter slAdapter;
     private Play selPlay;
     private Button playButton;
+    private Button saveButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,6 +86,8 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
         View root = binding.getRoot();
         sceneSpinner = root.findViewById(R.id.scene_spinner);
         playButton = root.findViewById(R.id.play_button);
+        saveButton = root.findViewById(R.id.back_button);
+
         requestReadLauncher =
                 registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                     if (isGranted) {
@@ -104,6 +107,8 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
             model.setToDoActionsObservable(selPlay.getPlayGraph());
             Navigation.findNavController(v).navigate(R.id.navigation_execscript_play);
         });
+
+        saveButton.setOnClickListener(v -> requireActivity().onBackPressed());
 
         model.getPlayObservable().observe(getViewLifecycleOwner(), play -> {
             if(play!=null){
@@ -193,9 +198,7 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
     private void setUpSceneSpinner() {
         List<String> sceneNames = new ArrayList<>();
         List<Scene> scenes = selPlay.getScenes();
-        scenes.forEach(scene -> {
-            sceneNames.add(scene.getName());
-        });
+        scenes.forEach(scene -> sceneNames.add(scene.getName()));
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, sceneNames);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sceneSpinner.setAdapter(arrayAdapter);
@@ -211,8 +214,7 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
             }
         });
         sceneSpinner.setSelection(0);
-        selPlay.getScenes().forEach(scene ->
-                Log.i("PLAYSCENE", scene.getName()));
+
     }
 
     private void startScriptView(Scene actScene) {

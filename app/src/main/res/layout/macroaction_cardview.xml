@@ -90,7 +90,7 @@
                 android:autoSizeTextType="none"
                 android:background="@null"
                 android:singleLine="true"
-                android:src="@drawable/ic_baseline_play_arrow_24"
+                android:src="@drawable/ic_robot"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/play_label"
                 android:contentDescription="@string/play_label" />

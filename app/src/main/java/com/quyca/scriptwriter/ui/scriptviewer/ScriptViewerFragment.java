@@ -1,8 +1,5 @@
 package com.quyca.scriptwriter.ui.scriptviewer;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +11,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -23,17 +19,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quyca.scriptwriter.MainActivity;
-import com.quyca.scriptwriter.PlayActivity;
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.config.QuycaConfiguration;
 import com.quyca.scriptwriter.databinding.FragmentScriptViewerBinding;
 import com.quyca.scriptwriter.model.Scene;
 import com.quyca.scriptwriter.model.Script;
 import com.quyca.scriptwriter.ui.execscript.ExecScriptViewModel;
-import com.quyca.scriptwriter.ui.scripteditor.MacroActionAdapter;
+import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 import com.quyca.scriptwriter.ui.touchhelper.ItemMoveCallback;
 import com.quyca.scriptwriter.ui.touchhelper.StartDragListener;
-import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 
 import java.io.IOException;
 
@@ -49,7 +43,6 @@ public class ScriptViewerFragment extends Fragment implements StartDragListener 
     private Scene actScene;
     private SharedViewModel model;
     private Button createMacro;
-    private Button startPlay;
     private QuycaConfiguration conf;
     private ItemTouchHelper touchHelper;
     private ActivityResultLauncher<String> requestRemoveLauncher;
@@ -87,19 +80,12 @@ public class ScriptViewerFragment extends Fragment implements StartDragListener 
         });
 
         createMacro = root.findViewById(R.id.create_macro);
-        startPlay =root.findViewById(R.id.start_play);
 
         createMacro.setOnClickListener(v -> {
             model.setScriptObservable(new Script());
             Navigation.findNavController(v).navigate(R.id.navigation_macro_home);
         });
-        startPlay.setOnClickListener(v -> {
-            MainActivity act=(MainActivity)requireActivity();
-            Intent i = new Intent(requireContext(), PlayActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            i.putExtra("play",act.getPlay());
-            requireActivity().startActivity(i);
-        });
+
 
         return root;
     }

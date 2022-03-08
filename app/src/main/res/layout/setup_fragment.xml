@@ -7,13 +7,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.setup.SetupFragment">
 
+    <Button
+        android:id="@+id/start_play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/scriptline_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/custom_radio_emotion"
+        app:layout_constraintHeight_percent=".05"
+        android:button="@android:color/transparent"
+        android:text="@string/start_play" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/scriptline_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".95"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/start_play" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,79 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.macros.MacroRecordFragment">
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:id="@+id/linearLayout3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintHeight_percent=".9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/save_button">
 
 
         <TextView
-            android:id="@+id/audio_label"
+            android:id="@+id/record_label"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="@string/sound_label"
             android:layout_weight="1.3"
+            android:text="@string/recording_start_label"
+            android:textAlignment="center"
             android:textSize="20sp"
-            />
-
-        <EditText
-            android:id="@+id/audio_name"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2.3"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text=""
-            android:autofillHints="@string/sound_label" />
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/record_button"
             android:layout_width="match_parent"
-            android:singleLine="true"
-            android:background="@null"
-            android:button="@android:color/transparent"
             android:layout_height="0dp"
             android:layout_weight="8"
-            android:src="@drawable/ic_baseline_mic_24"
-            android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/rec_label" />
+            android:background="@null"
+            android:button="@android:color/transparent"
+            android:contentDescription="@string/rec_label"
+            android:scaleType="fitCenter"
+            android:singleLine="true"
+            android:src="@drawable/ic_baseline_mic_24" />
 
         <ImageButton
             android:id="@+id/play_button"
             android:layout_width="match_parent"
-            android:background="@null"
-            android:singleLine="true"
-            android:button="@android:color/transparent"
             android:layout_height="0dp"
             android:layout_weight="8"
-            android:src="@drawable/ic_baseline_play_arrow_24"
-            android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/rec_label" />
+            android:background="@null"
+            android:button="@android:color/transparent"
+            android:contentDescription="@string/rec_label"
+            android:scaleType="fitCenter"
+            android:singleLine="true"
+            android:src="@drawable/ic_baseline_play_arrow_24" />
 
         <ImageButton
             android:id="@+id/disc_button"
             android:layout_width="match_parent"
-            android:background="@null"
             android:layout_height="0dp"
             android:layout_weight="8"
-            android:src="@drawable/ic_baseline_delete_24"
-            android:button="@android:color/transparent"
-            android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/disc_label" />
-
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:text="@string/save_record_label" />
+            android:background="@null"
+            android:button="@android:color/transparent"
+            android:contentDescription="@string/disc_label"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_delete_24" />
 
     </LinearLayout>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/save_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".1"
+        android:background="@drawable/custom_radio_emotion"
+        android:textSize="15sp"
+        android:button="@android:color/transparent"
+        android:text="@string/save_record_label" />
+</androidx.constraintlayout.widget.ConstraintLayout>
