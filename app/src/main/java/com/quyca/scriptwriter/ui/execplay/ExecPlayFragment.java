@@ -104,7 +104,7 @@ public class ExecPlayFragment extends Fragment {
         cancel.setOnClickListener(v -> {
             execManager.stop();
             execThread.interrupt();
-            requireActivity().getSupportFragmentManager().popBackStack();
+            requireActivity().onBackPressed();
         });
 
         return root;

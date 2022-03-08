@@ -107,7 +107,8 @@ public class MacroHomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mvtButton.callOnClick();
+        if(!mvtButton.isSelected())
+            mvtButton.callOnClick();
     }
 
     public void onClick(View v){

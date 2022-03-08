@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.macros.MacroExtrasFragment">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
+        app:layout_constraintHeight_percent=".9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical">
 
         <TextView
@@ -16,136 +23,134 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/act_conf_label"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/extra1"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_radio_extras"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text=""
-                 />
+                android:text="" />
 
             <RadioButton
                 android:id="@+id/extra2"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_radio_extras"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text=""
-                 />
+                android:text="" />
 
             <RadioButton
                 android:id="@+id/extra3"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_radio_extras"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text=""
-                 />
+                android:text="" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/extra4"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_radio_extras"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text=""
-                />
+                android:text="" />
 
             <RadioButton
                 android:id="@+id/extra5"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_radio_extras"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text=""
-                 />
+                android:text="" />
 
             <RadioButton
                 android:id="@+id/extra6"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_radio_extras"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text=""
-                 />
+                android:text="" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/extra7"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_radio_extras"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text=""
-                 />
+                android:text="" />
 
             <RadioButton
                 android:id="@+id/extra8"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_radio_extras"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text=""
-                 />
+                android:text="" />
 
             <RadioButton
                 android:id="@+id/extra9"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@drawable/custom_radio_extras"
                 android:button="@android:color/transparent"
                 android:gravity="center"
-                android:text=""
-                 />
+                android:text="" />
         </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_weight="10"
-            android:layout_height="0dp" />
-
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/custom_radio_emotion"
-            android:button="@android:color/transparent"
-            android:text="@string/save_extra_act_label" />
-
+            android:layout_weight="10" />
     </LinearLayout>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/save_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".1"
+        android:background="@drawable/custom_radio_emotion"
+        android:button="@android:color/transparent"
+        android:textSize="15sp"
+        android:text="@string/save_extra_act_label" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

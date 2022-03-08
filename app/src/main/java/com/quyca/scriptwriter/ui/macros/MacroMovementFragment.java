@@ -84,10 +84,10 @@ public class MacroMovementFragment extends Fragment {
 
         save.setOnClickListener(v -> {
             if (currentAction == null) {
-                Toast.makeText(requireContext(), "Selecciona una accion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Selecciona una accion", Toast.LENGTH_LONG).show();
 
             } else if (currentEmotion == null) {
-                Toast.makeText(requireContext(), "Selecciona una emocion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Selecciona una emocion", Toast.LENGTH_LONG).show();
 
             } else {
                 Action newAction = new Action(currentEmotion, currentAction,false);
