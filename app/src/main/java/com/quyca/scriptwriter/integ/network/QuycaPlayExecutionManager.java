@@ -48,7 +48,6 @@ public class QuycaPlayExecutionManager implements Runnable{
                 act.runOnUiThread(() -> model.setActionListObservable(macroList));
             }
         }
-
     }
 
     public void pause(){
@@ -62,6 +61,8 @@ public class QuycaPlayExecutionManager implements Runnable{
     public void stop(){
         flag.set(false);
         stop.set(true);
+        sender.closeSender();
+
     }
 
 }

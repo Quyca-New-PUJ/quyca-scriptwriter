@@ -65,9 +65,19 @@ public class TestQuycaSender implements QuycaSender {
         }
         return isOk;
     }
-    
+
+    @Override
+    public boolean closeSender() {
+        try {
+            closeSocket();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private boolean sendSocket(@NonNull QuycaMessage msg) throws IOException {
-       // initStreams();
+        //initStreams();
         String toSend = msg.toMessageString();
         //out.write(toSend);
         Log.i("SENDING1",toSend);
@@ -90,6 +100,13 @@ public class TestQuycaSender implements QuycaSender {
             socket.setSoTimeout(TIME_OUT);
         }
         return socket;
+    }
+
+    private boolean closeSocket() throws IOException {
+        if(socket!=null){
+            socket.close();
+        }
+        return true;
     }
 
     private void initStreams() throws IOException {

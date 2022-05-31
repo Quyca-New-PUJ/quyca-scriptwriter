@@ -48,7 +48,6 @@ public class QuycaExecutionManager implements Runnable{
             }
 
         }
-
     }
 
     public void pause(){
@@ -60,6 +59,7 @@ public class QuycaExecutionManager implements Runnable{
     }
 
     public void stop(){
+        sender.closeSender();
         flag.set(false);
         stop.set(true);
     }

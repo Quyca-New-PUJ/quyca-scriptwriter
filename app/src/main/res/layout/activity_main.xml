@@ -32,6 +32,13 @@
             android:layout_weight="3"
             />
 
+        <Button
+            android:id="@+id/calibrate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/calibrate" />
+
     </LinearLayout>
     <Button
         android:id="@+id/back_button"

@@ -17,6 +17,7 @@ import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -61,20 +62,32 @@ public class TestPlayQuycaSender implements QuycaSender{
         return isOk;
     }
 
+    @Override
+    public boolean closeSender() {
+        for (String s : sockets.keySet()) {
+            try {
+                Objects.requireNonNull(sockets.get(s)).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
     private boolean sendSocket(@NonNull QuycaMessage msg) throws IOException {
-        // getSockets();
-       // initStreams();
-       // BufferedWriter output = getOut(msg.getCharName());
-       // DataInputStream input = getIn(msg.getCharName());
+        //getSockets();
+        //initStreams();
+        //BufferedWriter output = getOut(msg.getCharName());
+        //DataInputStream input = getIn(msg.getCharName());
         String toSend = msg.toMessageString();
         //output.write(toSend);
         Log.i("SENDING1",toSend);
         //output.flush();
         Log.i("WAITING",toSend);
         //int response = input.readInt();
-       // Log.i("RECEIVED",response+"");
+        //Log.i("RECEIVED",response+"");
 
-       // return response==msg.getTimestamp();
+        //return response==msg.getTimestamp();
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {

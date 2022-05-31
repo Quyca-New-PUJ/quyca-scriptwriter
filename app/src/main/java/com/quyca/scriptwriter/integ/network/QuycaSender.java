@@ -17,4 +17,6 @@ public interface QuycaSender{
      */
     boolean send(List<QuycaMessage> msg);
     boolean send(QuycaMessage msg);
+    boolean closeSender();
+
 }

@@ -1,7 +1,5 @@
 package com.quyca.scriptwriter.config;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.gson.FieldNamingPolicy;
@@ -182,13 +180,12 @@ public class QuycaConfiguration implements Serializable {
         QuycaConfiguration conf = new QuycaConfiguration();
         List <String>defaultParams = new ArrayList<>();
         defaultParams.add("perc_nominal_vel");
-        defaultParams.add("perc_oscilacion_giro");
         //Todo:add spec
 
-        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.REVERSA,"Reversa",new ArrayList<>(defaultParams)));
-        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.HACIA_CRUCE,"Avanzar",new ArrayList<>(defaultParams)));
-        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.DERECHA,"Girar a la Derecha",new ArrayList<>(defaultParams)));
-        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.IZQUIERDA,"Girar a la Izquierda",new ArrayList<>(defaultParams)));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.reverse,"Reversa",new ArrayList<>(defaultParams)));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.forward,"Avanzar",new ArrayList<>(defaultParams)));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.right,"Girar a la Derecha",new ArrayList<>(defaultParams)));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.left,"Girar a la Izquierda",new ArrayList<>(defaultParams)));
         conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.CAMBIAR_PANTALLA,"Cambiar Emocion",new ArrayList<>()));
 
 

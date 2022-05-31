@@ -15,6 +15,7 @@
     <string name="act_label">Accion</string>
     <string name="move_text_label">Movimiento</string>
     <string name="act_conf_label">Acciones Disponibles</string>
+    <string name="act_conf_label2">Listas de Acciones Disponibles</string>
     <string name="intes_label">Intensidad</string>
     <string name="edit_params">Editar Parametros</string>
     <string name="edit_matrix">Editar Matriz</string>
@@ -83,6 +84,7 @@
     <string name="screen_toggle_label">Extras</string>
     <string name="record_toggle_label">Hablar</string>
     <string name="image_placeholer">Image</string>
+    <string name="calibrate">Calibrar</string>
     <string name="movement_toggle_label">Moverse</string>
     <string name="prev_macro_label">Ver Lista de Acciones</string>
     <string name="end_macro_label">Finalizar Lista de Acciones</string>

@@ -2,7 +2,7 @@
 <resources>
     <integer name="max_intensity">10</integer>
     <integer name="def_intensity">5</integer>
-    <integer name="port_value">12345</integer>
+    <integer name="port_value">6000</integer>
     <integer name="but_x_row">4</integer>
     <string name="def_time">10</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.quyca.scriptwriter;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.quyca.scriptwriter.config.ConfiguredRobot;
 import com.quyca.scriptwriter.config.QuycaConfiguration;
 import com.quyca.scriptwriter.databinding.ActivityMainBinding;
+import com.quyca.scriptwriter.integ.model.QuycaMessage;
+import com.quyca.scriptwriter.integ.network.TestQuycaSender;
 import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.Play;
 import com.quyca.scriptwriter.model.PlayCharacter;
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedViewModel model;
     private Spinner sceneSpinner;
     private Play play;
+    private Button calibrate;
     private int pos;
     private PlayCharacter character;
     private ActivityResultLauncher<String> requestReadLauncher;
@@ -71,9 +75,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         charView = findViewById(R.id.char_view);
         sceneSpinner = findViewById(R.id.scene_spinner);
+        calibrate = findViewById(R.id.calibrate);
         FileRepository.setUp(this);
         backButton= findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> onBackPressed());
+        calibrate.setOnClickListener(v -> {
+            Activity helper = this;
+            Runnable mRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    QuycaMessage actMsg = new QuycaMessage(0);
+                    actMsg.setActionId("calibrate");
+                    int port = getResources().getInteger(R.integer.port_value);
+                    String ip = character.getIp();
+                    TestQuycaSender sender = new TestQuycaSender(ip, port);
+                    sender.send(actMsg);
+                    sender.closeSender();
+                    helper.runOnUiThread(() -> {Toast.makeText(helper, "Calibrado!", Toast.LENGTH_LONG).show();});
+                }
+            };
+            new Thread(mRunnable).start();
+
+        });
         requestReadLauncher =
                 registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                     if (isGranted) {

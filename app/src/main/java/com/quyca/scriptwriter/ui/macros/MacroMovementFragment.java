@@ -191,10 +191,10 @@ public class MacroMovementFragment extends Fragment {
         actionButtons.add(der);
 
         centro.setTag(conf.getActionsFromId(FixedConfiguredAction.CAMBIAR_PANTALLA.name()));
-        arriba.setTag(conf.getActionsFromId(FixedConfiguredAction.HACIA_CRUCE.name()));
-        abajo.setTag(conf.getActionsFromId(FixedConfiguredAction.REVERSA.name()));
-        izq.setTag(conf.getActionsFromId(FixedConfiguredAction.IZQUIERDA.name()));
-        der.setTag(conf.getActionsFromId(FixedConfiguredAction.DERECHA.name()));
+        arriba.setTag(conf.getActionsFromId(FixedConfiguredAction.forward.name()));
+        abajo.setTag(conf.getActionsFromId(FixedConfiguredAction.reverse.name()));
+        izq.setTag(conf.getActionsFromId(FixedConfiguredAction.left.name()));
+        der.setTag(conf.getActionsFromId(FixedConfiguredAction.right.name()));
 
         emoButtons=new ArrayList<>();
 

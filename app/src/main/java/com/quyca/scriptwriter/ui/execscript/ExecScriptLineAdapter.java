@@ -17,6 +17,8 @@ import com.quyca.scriptwriter.model.QuycaCommandState;
 import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.SoundAction;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -31,6 +33,7 @@ public class ExecScriptLineAdapter extends RecyclerView.Adapter<ExecScriptLineAd
      */
     public static class ExecScriptLineViewHolder extends RecyclerView.ViewHolder
     {
+        private final TextView emotionLabel;
         /**
          * The Script card.
          */
@@ -53,6 +56,7 @@ public class ExecScriptLineAdapter extends RecyclerView.Adapter<ExecScriptLineAd
         {
             super( v );
             scriptCard = v.findViewById( R.id.scriptCard );
+            emotionLabel = v.findViewById(R.id.emotion_label);
             action = v.findViewById( R.id.action );
             emotion = v.findViewById( R.id.emotion );
         }
@@ -83,13 +87,15 @@ public class ExecScriptLineAdapter extends RecyclerView.Adapter<ExecScriptLineAd
         if(play instanceof Action){
             if(play instanceof SoundAction){
                 SoundAction line = (SoundAction) lines.get(position);
-                holder.action.setText( line.getName());
-                holder.emotion.setText("");
+                holder.action.setText(line.getNameWithoutPrefix());
+                holder.emotionLabel.setVisibility(View.INVISIBLE);
+                holder.emotion.setVisibility(View.INVISIBLE);
             }else{
                 Action line = (Action) lines.get(position);
-                holder.action.setText( line.getAction().getActionId());
+                holder.action.setText( line.getAction().getActionName());
                 if(line.isExtra()){
-                    holder.emotion.setText("");
+                    holder.emotionLabel.setVisibility(View.INVISIBLE);
+                    holder.emotion.setVisibility(View.INVISIBLE);
                 }else{
                     holder.emotion.setText( line.getEmotion().getEmotionId().name());
                 }
