@@ -76,7 +76,7 @@ public class MacroExtrasFragment extends Fragment {
 
         save.setOnClickListener(v -> {
             if (currentAction == null) {
-                Toast.makeText(requireContext(), "Selecciona una accion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Selecciona una accion", Toast.LENGTH_LONG).show();
 
             } else {
                 Action newAction = new Action(currentAction,true);

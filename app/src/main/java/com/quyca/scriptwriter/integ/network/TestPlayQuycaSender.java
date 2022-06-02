@@ -1,6 +1,5 @@
 package com.quyca.scriptwriter.integ.network;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -8,15 +7,18 @@ import androidx.annotation.NonNull;
 import com.quyca.scriptwriter.integ.model.QuycaMessage;
 import com.quyca.scriptwriter.model.PlayCharacter;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -29,7 +31,7 @@ public class TestPlayQuycaSender implements QuycaSender{
     private Map<String,Socket> sockets;
     private int port;
     private Map<String,BufferedWriter> out;
-    private Map<String,DataInputStream> in;
+    private Map<String, BufferedReader> in;
 
     public TestPlayQuycaSender(List<PlayCharacter> characs, int port) {
         this.characs= characs;
@@ -61,26 +63,38 @@ public class TestPlayQuycaSender implements QuycaSender{
         return isOk;
     }
 
-    private boolean sendSocket(@NonNull QuycaMessage msg) throws IOException {
-        // getSockets();
-       // initStreams();
-       // BufferedWriter output = getOut(msg.getCharName());
-       // DataInputStream input = getIn(msg.getCharName());
-        String toSend = msg.toMessageString();
-        //output.write(toSend);
-        Log.i("SENDING1",toSend);
-        //output.flush();
-        Log.i("WAITING",toSend);
-        //int response = input.readInt();
-       // Log.i("RECEIVED",response+"");
+    @Override
+    public boolean closeSender() {
+        for (String s : sockets.keySet()) {
+            try {
+                Objects.requireNonNull(sockets.get(s)).close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 
-       // return response==msg.getTimestamp();
-        try {
+    private boolean sendSocket(@NonNull QuycaMessage msg) throws IOException {
+        getSockets();
+        initStreams();
+        BufferedWriter output = getOut(msg.getCharName());
+        BufferedReader input = getIn(msg.getCharName());
+        String toSend = msg.toMessageString();
+        output.write(toSend);
+        Log.i("TEST_SENDING1",toSend);
+        output.flush();
+        Log.i("TEST_WAITING",toSend);
+        int response = Integer.parseInt(input.readLine());
+        Log.i("TEST_RECEIVED",response+"");
+
+        return response==msg.getTimestamp();
+/*        try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return true;
+        return true;*/
     }
 
     private void getSockets()  {
@@ -103,7 +117,7 @@ public class TestPlayQuycaSender implements QuycaSender{
         sockets.forEach((name, socket) -> {
             try {
                 out.put(name, new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
-                in.put(name, new DataInputStream(socket.getInputStream()));
+                in.put(name, new BufferedReader( new InputStreamReader(socket.getInputStream())));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -115,7 +129,7 @@ public class TestPlayQuycaSender implements QuycaSender{
 
     }
 
-    private DataInputStream getIn(String name) {
+    private BufferedReader getIn(String name) {
         return in.get(name);
     }
 

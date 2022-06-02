@@ -3,56 +3,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.scripteditor.ScriptEditorFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.scripteditor.ScriptEditorFragment"
+    android:paddingTop="10dp">
 
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+    <Space
+        android:id="@+id/spacetop"
+        app:layout_constraintBottom_toTopOf="@id/new_macro"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="5dp" />
 
         <Button
             android:id="@+id/new_macro"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.7"
-            android:autoSizeTextType="uniform"
-            android:background="@null"
-            android:text="@string/save_macro" />
+            app:layout_constraintHeight_percent=".06"
+            android:background="@drawable/custom_radio_emotion"
+            app:layout_constraintBottom_toTopOf="@id/space"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spacetop"
+            android:text="@string/save_macro"
+            android:textSize="15sp"/>
 
-        <Button
+    <Space
+        android:id="@+id/space"
+        app:layout_constraintBottom_toTopOf="@id/add_actions"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/new_macro"
+        android:layout_width="wrap_content"
+        android:layout_height="5dp" />
+
+    <Button
             android:id="@+id/add_actions"
             android:layout_width="match_parent"
-            android:textSize="20sp"
+            app:layout_constraintHeight_percent=".06"
             android:layout_height="0dp"
-            android:layout_weight="1.7"
-            android:autoSizeTextType="uniform"
-            android:text="@string/add_action_button" />
-
-        <TextView
-            android:id="@+id/macro_name_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/macro_name_label" />
-
-        <EditText
-            android:id="@+id/editName"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:autofillHints="@string/macro_aux_label"
-            android:ems="10"
-            android:inputType="text"
-            android:text="" />
+            android:background="@drawable/custom_radio_emotion"
+            app:layout_constraintBottom_toTopOf="@id/script_editor_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space"
+            android:text="@string/add_action_button"
+            android:textSize="15sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/script_editor_view"
             android:layout_width="match_parent"
+            android:paddingTop="5dp"
+            app:layout_constraintHeight_percent=".88"
             android:layout_height="0dp"
-            android:layout_weight="20"/>
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_actions"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

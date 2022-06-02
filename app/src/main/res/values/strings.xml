@@ -2,11 +2,11 @@
     <string name="app_name">QuycaScriptWriter</string>
     <string name="title_home">Visor de Escena</string>
     <string name="title_setup_play">Gestionar Obra</string>
-    <string name="title_new_macro">Nueva Secuencia de Acciones</string>
+    <string name="title_new_macro">Nueva Lista de Acciones</string>
     <string name="title_actscript">Guion Activo</string>
     <string name="title_config">Configuracion</string>
     <string name="title_emoprofile">Perfil Emocional</string>
-    <string name="label_exec">Ejecutar Guion</string>
+    <string name="label_exec">A Mover los Robots</string>
     <string name="label_edit_script">Edita Tu Guion</string>
     <string name="label_edit_emotion">Edita la emocion</string>
     <string name="label_edit_matrix">Edita la cara</string>
@@ -15,6 +15,7 @@
     <string name="act_label">Accion</string>
     <string name="move_text_label">Movimiento</string>
     <string name="act_conf_label">Acciones Disponibles</string>
+    <string name="act_conf_label2">Listas de Acciones Disponibles</string>
     <string name="intes_label">Intensidad</string>
     <string name="edit_params">Editar Parametros</string>
     <string name="edit_matrix">Editar Matriz</string>
@@ -39,15 +40,15 @@
     <string name="pref_ip">IP</string>
     <string name="play_name">Nombre de la Obra</string>
     <string name="default_play_name">Obra</string>
-    <string name="def_char_placeholder">Character Iamge</string>
-    <string name="stop_script">Pausar Guion</string>
-    <string name="resume_script">Continuar Guion</string>
-    <string name="cancel_script">Cancelar Guion</string>
-    <string name="create_macro">Crear Secuencia de Acciones</string>
+    <string name="def_char_placeholder">Character Image</string>
+    <string name="stop_script">Pausar Obra</string>
+    <string name="resume_script">Continuar Obra</string>
+    <string name="cancel_script">Cancelar Obra</string>
+    <string name="create_macro">Crear Lista de Acciones</string>
     <string name="start_play">Iniciar Obra</string>
-    <string name="save_macro">Guardar Secuencia de Acciones</string>
+    <string name="save_macro">Guardar Lista de Acciones</string>
     <string name="add_action_button">Agregar Acciones</string>
-    <string name="macro_name_label">Nombre de la Secuencia de Acciones</string>
+    <string name="macro_name_label">Nombre de la Lista de Acciones</string>
     <string name="macro_aux_label">Escena …</string>
     <string name="scene_placeholder">Escena</string>
     <string name="emotion_aux_label">Emocion …</string>
@@ -72,6 +73,7 @@
     <string name="macro_dir">QuycaMacros</string>
     <string name="macro_file">QuycaMacro.json</string>
     <string name="sound_dir">QuycaSounds</string>
+    <string name="sound_tmp_name">temp</string>
     <string name="scenes_file">QuycaScene.json</string>
     <string name="conf_dir">QuycaConf</string>
     <string name="conf_file">QuycaConfig</string>
@@ -82,32 +84,33 @@
     <string name="screen_toggle_label">Extras</string>
     <string name="record_toggle_label">Hablar</string>
     <string name="image_placeholer">Image</string>
+    <string name="calibrate">Calibrar</string>
     <string name="movement_toggle_label">Moverse</string>
-    <string name="prev_macro_label">Ver Secuencia de Acciones</string>
-    <string name="end_macro_label">Finalizar Secuencia de Acciones</string>
+    <string name="prev_macro_label">Ver Lista de Acciones</string>
+    <string name="end_macro_label">Finalizar Lista de Acciones</string>
 
     <string name="rec_label">Grabar</string>
-    <string name="sound_label">Nombre del Audio</string>
+    <string name="sound_label">Ingresa el nombre del audio</string>
     <string name="save_act_label">Guardar Accion</string>
     <string name="save_record_label">Guardar Audio</string>
     <string name="save_extra_act_label">Guardar Accion Extra</string>
     <string name="recording_start_label">Empieza a Grabar</string>
-    <string name="recording_prog_label">Grabando...</string>
+    <string name="recording_prog_label">Grabando…</string>
     <string name="recording_end_label">¡Ya grabaste!</string>
 
-
+    <string name="play_back_bttn">Regresar al Menu de Personajes</string>
 
     <string name="disc_label">Descartar</string>
     <string name="temp_dir">tmp</string>
     <string name="mp4file">.mp4</string>
 
 
-    <string name="play_play">Ejecutar Obra</string>
+    <string name="play_play">Ver la Obra</string>
     <string name="Regresar">Regresar</string>
     <string name="regresar_macro_home">Regresar al Guion de</string>
     <string name="regresar_main">Regresar a Menu de Personajes</string>
     <string name="regresar_accion">Regresar a Menu de Acciones</string>
-    <string name="regresar_lista">Regresar a Secuencia</string>
+    <string name="regresar_lista">Regresar a Lista</string>
     <string name="arriba">Arriba</string>
     <string name="abajo">Abajo</string>
     <string name="izquierda">Izquierda</string>

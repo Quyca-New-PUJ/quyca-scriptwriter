@@ -6,32 +6,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.playeditor.PlayViewerFragment">
 
+    <Button
+        android:id="@+id/back_button"
+        android:button="@android:color/transparent"
+        app:layout_constraintHeight_percent=".06"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/play_back_bttn"
+        app:layout_constraintBottom_toTopOf="@+id/lay"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/custom_radio_emotion"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical"
+        android:id="@+id/lay"
+        android:paddingTop="5dp"
+        app:layout_constraintHeight_percent=".92"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/back_button">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="2"
+            android:layout_weight="1.5"
             >
             <Spinner
                 android:id="@+id/scene_spinner"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 />
 
             <Button
                 android:id="@+id/play_button"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_radio_emotion"
                 android:layout_weight="1"
                 android:text="@string/play_play" />
         </LinearLayout>
@@ -41,4 +59,5 @@
             android:layout_height="0dp"
             android:layout_weight="20"/>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

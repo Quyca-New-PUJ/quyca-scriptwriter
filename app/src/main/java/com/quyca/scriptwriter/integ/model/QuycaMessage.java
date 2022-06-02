@@ -2,6 +2,7 @@ package com.quyca.scriptwriter.integ.model;
 
 import com.quyca.scriptwriter.model.Action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public class QuycaMessage {
 
     public QuycaMessage(int timestamp) {
         this.timestamp = timestamp;
+        params=new ArrayList<>();
     }
 
     public String getActionId() {
@@ -68,9 +70,8 @@ public class QuycaMessage {
             buff.append(param);
             buff.append(" ");
         } );
-        buff.append("T ");
         buff.append(timestamp);
-        buff.append("\n");
+        //buff.append("\n");
         return buff.toString();
     }
 }

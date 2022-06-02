@@ -84,10 +84,10 @@ public class MacroMovementFragment extends Fragment {
 
         save.setOnClickListener(v -> {
             if (currentAction == null) {
-                Toast.makeText(requireContext(), "Selecciona una accion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Selecciona una accion", Toast.LENGTH_LONG).show();
 
             } else if (currentEmotion == null) {
-                Toast.makeText(requireContext(), "Selecciona una emocion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Selecciona una emocion", Toast.LENGTH_LONG).show();
 
             } else {
                 Action newAction = new Action(currentEmotion, currentAction,false);
@@ -190,11 +190,11 @@ public class MacroMovementFragment extends Fragment {
         actionButtons.add(izq);
         actionButtons.add(der);
 
-        centro.setTag(conf.getActionsFromId(FixedConfiguredAction.CAMBIAR_PANTALLA.name()));
-        arriba.setTag(conf.getActionsFromId(FixedConfiguredAction.HACIA_CRUCE.name()));
-        abajo.setTag(conf.getActionsFromId(FixedConfiguredAction.REVERSA.name()));
-        izq.setTag(conf.getActionsFromId(FixedConfiguredAction.IZQUIERDA.name()));
-        der.setTag(conf.getActionsFromId(FixedConfiguredAction.DERECHA.name()));
+        centro.setTag(conf.getActionsFromId(FixedConfiguredAction.emotions.name()));
+        arriba.setTag(conf.getActionsFromId(FixedConfiguredAction.forward.name()));
+        abajo.setTag(conf.getActionsFromId(FixedConfiguredAction.reverse.name()));
+        izq.setTag(conf.getActionsFromId(FixedConfiguredAction.left.name()));
+        der.setTag(conf.getActionsFromId(FixedConfiguredAction.right.name()));
 
         emoButtons=new ArrayList<>();
 
@@ -207,14 +207,14 @@ public class MacroMovementFragment extends Fragment {
         emoButtons.add(neutro);
         emoButtons.add(feliz);
 
-        sorprendido.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.SORPRENDIDO));
-        muyTriste.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.MUY_TRISTE));
-        muyFeliz.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.MUY_FELIZ));
-        furioso.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.FURIOSO));
-        enfermo.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.ENFERMO));
-        triste.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.TRISTE));
-        neutro.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.NEUTRO));
-        feliz.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.FELIZ));
+        sorprendido.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.surprised));
+        muyTriste.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.verysad));
+        muyFeliz.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.veryhappy));
+        furioso.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.angry));
+        enfermo.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.sick));
+        triste.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.sad));
+        neutro.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.neutral));
+        feliz.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.happy));
 
 
         if(toEdit!=-1){

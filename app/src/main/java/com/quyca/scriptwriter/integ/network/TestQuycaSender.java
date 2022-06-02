@@ -7,13 +7,17 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
+import com.quyca.scriptwriter.config.FixedConfiguredAction;
 import com.quyca.scriptwriter.integ.model.QuycaMessage;
 import com.quyca.scriptwriter.model.Playable;
 import com.quyca.scriptwriter.model.QuycaCommandState;
 import com.quyca.scriptwriter.ui.execscript.ExecScriptViewModel;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -25,12 +29,12 @@ import java.util.List;
  */
 public class TestQuycaSender implements QuycaSender {
 
-    private static final int TIME_OUT =1000 ;
+    private static final int TIME_OUT =10000000 ;
     private Socket socket;
     private String ip;
     private int port;
     private BufferedWriter out;
-    private DataInputStream in;
+    private BufferedReader in;
 
     /**
      * Instantiates a new Test quyca sender.
@@ -47,7 +51,7 @@ public class TestQuycaSender implements QuycaSender {
     @Override
     public boolean send(List<QuycaMessage> msgs) {
         msgs.forEach(this::send);
-
+        closeSender();
         return false;
 
     }
@@ -65,23 +69,36 @@ public class TestQuycaSender implements QuycaSender {
         }
         return isOk;
     }
-    
-    private boolean sendSocket(@NonNull QuycaMessage msg) throws IOException {
-       // initStreams();
-        String toSend = msg.toMessageString();
-        //out.write(toSend);
-        Log.i("SENDING1",toSend);
-        //out.flush();
-        Log.i("WAITING",toSend);
-        //int response = in.readInt();
-        //Log.i("RECEIVED",response+"");
+
+    @Override
+    public boolean closeSender() {
         try {
+            closeSocket();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean sendSocket(@NonNull QuycaMessage msg) throws IOException {
+        initStreams();
+        boolean endedResponse = true;
+        String toSend = msg.toMessageString();
+        out.write(toSend);
+        Log.i("TEST_SENDING1",toSend);
+        out.flush();
+        Log.i("TEST_WAITING",toSend);
+        int response = Integer.parseInt(in.readLine());
+        Log.i("TEST_RECEIVED",response+"");
+        /*try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }*/
+        if(msg.getActionId().equals(FixedConfiguredAction.emotions.name())){
+            endedResponse=response==msg.getTimestamp();
         }
-        //return response==msg.getTimestamp();
-        return true;
+        return endedResponse;
     }
 
     private Socket getSocket() throws IOException {
@@ -90,6 +107,13 @@ public class TestQuycaSender implements QuycaSender {
             socket.setSoTimeout(TIME_OUT);
         }
         return socket;
+    }
+
+    private boolean closeSocket() throws IOException {
+        if(socket!=null){
+            socket.close();
+        }
+        return true;
     }
 
     private void initStreams() throws IOException {
@@ -105,7 +129,7 @@ public class TestQuycaSender implements QuycaSender {
 
     private void getIn() throws IOException {
         if(in == null){
-            in = new DataInputStream(getSocket().getInputStream());
+            in = new BufferedReader( new InputStreamReader((getSocket().getInputStream())));
         }
     }
 

@@ -1,6 +1,7 @@
 package com.quyca.scriptwriter.ui.macros;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -47,8 +49,8 @@ public class MacroRecordFragment extends Fragment {
     private ImageButton playButton;
     private Button saveButton;
     private ImageButton discButton;
+    private TextView recordInfo;
 
-    private EditText editText;
     private MediaRecorder recorder;
     private SoundAction sAction;
     private ActivityResultLauncher<String> requestRemoveLauncher;
@@ -72,12 +74,13 @@ public class MacroRecordFragment extends Fragment {
         recordButton = root.findViewById(R.id.record_button);
         playButton = root.findViewById(R.id.play_button);
         saveButton = root.findViewById(R.id.save_button);
-        editText = root.findViewById(R.id.audio_name);
         discButton = root.findViewById(R.id.disc_button);
+        recordInfo = root.findViewById(R.id.record_label);
         playButton.setEnabled(false);
         discButton.setEnabled(false);
+        recordInfo.setText(requireContext().getResources().getString(R.string.recording_start_label));
         saveButton.setEnabled(false);
-        oldColor=0;
+        oldColor = 0;
         recordButton.setOnClickListener(v -> {
             try {
                 startRecordingPermissionProcess();
@@ -97,33 +100,56 @@ public class MacroRecordFragment extends Fragment {
         });
 
         saveButton.setOnClickListener(v -> {
-            AudioRepository.addAudio(sAction,audiotempFile);
-            sAction.setSound(null);
-            if(selMacro!=null){
-                selMacro.getActions().add(sAction);
-                model.setMacroObservable(selMacro);
-            }else{
-                actScript.getLines().add(sAction);
-                model.setScriptObservable(actScript);
-            }
+            AlertDialog.Builder alert = new AlertDialog.Builder(requireContext());
 
-            Toast.makeText(requireContext(), "¡Sonido Agregado!", Toast.LENGTH_SHORT).show();
-            recordButton.setImageResource(R.drawable.ic_baseline_mic_24);
-            playButton.setEnabled(false);
-            saveButton.setEnabled(false);
-            discButton.setEnabled(false);
-            recordButton.setEnabled(true);
-            editText.setText("");
-            audiotempFile = null;
-            sAction = null;
+            alert.setTitle(requireContext().getResources().getString(R.string.sound_label));
+
+            final EditText input = new EditText(requireContext());
+            alert.setView(input);
+
+            alert.setPositiveButton("Guardar", (dialog, whichButton) -> {
+                String name = input.getText().toString();
+                if (!name.isEmpty()) {
+                    name += requireContext().getResources().getString(R.string.mp4file);
+                    audiotempFile.renameTo(name);
+                    sAction.setName(name);
+                    AudioRepository.addAudio(sAction, audiotempFile);
+                    sAction.setSound(null);
+                    if (selMacro != null) {
+                        selMacro.getActions().add(sAction);
+                        model.setMacroObservable(selMacro);
+                    } else {
+                        actScript.getLines().add(sAction);
+                        model.setScriptObservable(actScript);
+                    }
+
+                    Toast.makeText(requireContext(), "¡Sonido Agregado!", Toast.LENGTH_SHORT).show();
+                    recordButton.setImageResource(R.drawable.ic_baseline_mic_24);
+                    recordInfo.setText(requireContext().getResources().getString(R.string.recording_start_label));
+                    playButton.setEnabled(false);
+                    saveButton.setEnabled(false);
+                    discButton.setEnabled(false);
+                    recordButton.setEnabled(true);
+                    audiotempFile = null;
+                    sAction = null;
+                } else {
+                    Toast.makeText(requireContext(), "No olvides darle un nombre al sonido", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            alert.setNegativeButton("Cancelar", (dialog, whichButton) -> {
+
+            });
+
+            alert.show();
         });
 
         model.getScriptObservable().observe(getViewLifecycleOwner(), script -> {
             actScript = script;
         });
 
-        model.getMacroObservable().observe(getViewLifecycleOwner(),macro -> {
-            selMacro=macro;
+        model.getMacroObservable().observe(getViewLifecycleOwner(), macro -> {
+            selMacro = macro;
         });
 
         return root;
@@ -224,16 +250,17 @@ public class MacroRecordFragment extends Fragment {
         playButton.setEnabled(true);
         discButton.setEnabled(true);
         saveButton.setEnabled(true);
+        recordInfo.setText(requireContext().getResources().getString(R.string.recording_end_label));
         recordButton.setEnabled(false);
         recorder = null;
     }
 
     private void startRecording() throws IOException {
         sAction = new SoundAction();
-        String name = editText.getText().toString();
+        String name = requireContext().getResources().getString(R.string.sound_tmp_name);
         if (!name.isEmpty()) {
             ParcelFileDescriptor descr = null;
-            if(selMacro!=null){
+            if (selMacro != null) {
                 DocumentFile macrosDir = FileRepository.getMacrosDir();
                 DocumentFile macroDir = macrosDir.findFile(FileRepository.getCurrentMacroName());
                 assert macroDir != null;
@@ -245,7 +272,7 @@ public class MacroRecordFragment extends Fragment {
                 descr = requireContext().getContentResolver().openFileDescriptor(audioFile.getUri(), "rwt");
                 sAction.setName(name + requireContext().getResources().getString(R.string.mp4file));
                 sAction.setSound(descr.getFileDescriptor());
-            }else {
+            } else {
                 DocumentFile charDir = FileRepository.getCharDir();
                 if (charDir != null && charDir.exists()) {
                     DocumentFile tempDir = FileRepository.getTempDir();
@@ -263,6 +290,8 @@ public class MacroRecordFragment extends Fragment {
             }
             if (descr != null) {
                 recordButton.setBackgroundColor(Color.RED);
+                recordInfo.setText(requireContext().getResources().getString(R.string.recording_prog_label));
+
                 recorder = new MediaRecorder();
                 recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                 recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
@@ -273,7 +302,7 @@ public class MacroRecordFragment extends Fragment {
                 recorder.start();
             }
         } else {
-            Toast.makeText(requireContext(), "Recuerda poner el nombre del audio!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Recuerda poner el nombre del audio!", Toast.LENGTH_LONG).show();
         }
 
     }

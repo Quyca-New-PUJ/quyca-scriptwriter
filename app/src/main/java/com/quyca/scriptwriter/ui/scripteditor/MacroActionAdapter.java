@@ -3,7 +3,6 @@ package com.quyca.scriptwriter.ui.scripteditor;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,7 +24,6 @@ import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.config.FixedConfiguredAction;
 import com.quyca.scriptwriter.model.Action;
 import com.quyca.scriptwriter.model.Playable;
-import com.quyca.scriptwriter.model.Script;
 import com.quyca.scriptwriter.model.SoundAction;
 import com.quyca.scriptwriter.ui.touchhelper.ItemMoveCallback;
 import com.quyca.scriptwriter.utils.AudioRepository;
@@ -170,7 +168,7 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
             oldColor=ContextCompat.getColor(mStartDragListener.requireContext(),R.color.audio);
         }else if(holder.playable instanceof Action){
             Action a = (Action) holder.playable;
-            if(!a.getAction().getActionId().equalsIgnoreCase(FixedConfiguredAction.CAMBIAR_PANTALLA.name())){
+            if(!a.getAction().getActionId().equalsIgnoreCase(FixedConfiguredAction.emotions.name())){
                 if(a.isExtra()){
                     oldColor=ContextCompat.getColor(mStartDragListener.requireContext(),R.color.extras);
                 }else{
