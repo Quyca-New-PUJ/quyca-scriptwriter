@@ -1,7 +1,5 @@
 package com.quyca.scriptwriter.integ.network;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.quyca.scriptwriter.config.ConfiguredRobot;
@@ -35,7 +33,7 @@ public class QuycaMessageCreator implements QuycaMessageTransformer{
     public List<QuycaMessage> createMessages(@NonNull Action action) {
         List<QuycaMessage> msg = new ArrayList<>();
 
-        if(!action.isSameAction(FixedConfiguredAction.CAMBIAR_PANTALLA)){
+        if(!action.isSameAction(FixedConfiguredAction.emotions)){
             QuycaMessage actMsg = new QuycaMessage(getNewTimestamp());
             actMsg.setCharName(character.getName());
             actMsg.setAction(action);
@@ -43,14 +41,16 @@ public class QuycaMessageCreator implements QuycaMessageTransformer{
             setParamsAfterEmoLogic(action,actMsg);
             msg.add(actMsg);
         }
-        if(robot.isHasScreen() && !action.isExtra()){
+        //robot.isHasScreen() &&
+        if(!action.isExtra()){
            QuycaMessage screenMsg = new QuycaMessage(getNewTimestamp());
-           screenMsg.setActionId(FixedConfiguredAction.CAMBIAR_PANTALLA.name());
+           screenMsg.setActionId(FixedConfiguredAction.emotions.name());
             screenMsg.setCharName(character.getName());
             screenMsg.setAction(action);
             ArrayList<Object> params = new ArrayList<>();
             params.add(action.getEmotion().getEmotionId().name());
            screenMsg.setParams(params);
+           msg.add(screenMsg);
         }
         return msg;
     }

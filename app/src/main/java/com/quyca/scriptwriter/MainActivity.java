@@ -81,18 +81,17 @@ public class MainActivity extends AppCompatActivity {
         backButton.setOnClickListener(v -> onBackPressed());
         calibrate.setOnClickListener(v -> {
             Activity helper = this;
-            Runnable mRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    QuycaMessage actMsg = new QuycaMessage(0);
-                    actMsg.setActionId("calibrate");
-                    int port = getResources().getInteger(R.integer.port_value);
-                    String ip = character.getIp();
-                    TestQuycaSender sender = new TestQuycaSender(ip, port);
-                    sender.send(actMsg);
-                    sender.closeSender();
-                    helper.runOnUiThread(() -> {Toast.makeText(helper, "Calibrado!", Toast.LENGTH_LONG).show();});
-                }
+            Runnable mRunnable = () -> {
+                QuycaMessage actMsg = new QuycaMessage(0);
+                List<QuycaMessage> list = new ArrayList<>();
+                actMsg.setActionId("calibration");
+                list.add(actMsg);
+                int port = getResources().getInteger(R.integer.port_value);
+                String ip = character.getIp();
+                TestQuycaSender sender = new TestQuycaSender(ip, port);
+                sender.send(list);
+
+                helper.runOnUiThread(() -> {Toast.makeText(helper, "Calibrado!", Toast.LENGTH_LONG).show();});
             };
             new Thread(mRunnable).start();
 

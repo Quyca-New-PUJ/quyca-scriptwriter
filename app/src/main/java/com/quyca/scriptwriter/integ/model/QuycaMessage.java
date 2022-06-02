@@ -71,7 +71,7 @@ public class QuycaMessage {
             buff.append(" ");
         } );
         buff.append(timestamp);
-        buff.append("\n");
+        //buff.append("\n");
         return buff.toString();
     }
 }

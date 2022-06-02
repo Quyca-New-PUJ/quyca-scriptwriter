@@ -1,7 +1,7 @@
 package com.quyca.scriptwriter.config;
 
 public enum FixedConfiguredAction {
-    CAMBIAR_PANTALLA, forward,reverse, right, left;
+    emotions, forward,reverse, right, left;
     public boolean isFixedAction(String s){
 
         for (FixedConfiguredAction value : FixedConfiguredAction.values()) {

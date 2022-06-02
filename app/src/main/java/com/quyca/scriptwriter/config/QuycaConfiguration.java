@@ -186,18 +186,18 @@ public class QuycaConfiguration implements Serializable {
         conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.forward,"Avanzar",new ArrayList<>(defaultParams)));
         conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.right,"Girar a la Derecha",new ArrayList<>(defaultParams)));
         conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.left,"Girar a la Izquierda",new ArrayList<>(defaultParams)));
-        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.CAMBIAR_PANTALLA,"Cambiar Emocion",new ArrayList<>()));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.emotions,"Cambiar Emocion",new ArrayList<>()));
 
 
 
-        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.FELIZ,"Feliz",0.5f));
-        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.TRISTE,"Triste",-0.5f));
-        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.MUY_FELIZ,"Muy Feliz",1f));
-        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.MUY_TRISTE,"Muy Triste",-1f));
-        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.ENFERMO,"Enfermo",0));
-        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.FURIOSO,"Furioso",0));
-        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.NEUTRO,"Neutro",0));
-        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.SORPRENDIDO,"Sorprendido",0));
+        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.happy,"Feliz",0.5f));
+        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.sad,"Triste",-0.5f));
+        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.veryhappy,"Muy Feliz",1f));
+        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.verysad,"Muy Triste",-1f));
+        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.sick,"Enfermo",0));
+        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.angry,"Furioso",0.3f));
+        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.neutral,"Neutro",0.5f));
+        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.surprised,"Sorprendido",0));
         conf.setExtraActions(new ArrayList<>());
         return conf;
     }

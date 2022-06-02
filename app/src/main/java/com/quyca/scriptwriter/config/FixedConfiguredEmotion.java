@@ -1,7 +1,7 @@
 package com.quyca.scriptwriter.config;
 
 public enum FixedConfiguredEmotion {
-    MUY_FELIZ,FELIZ, TRISTE, MUY_TRISTE, NEUTRO,FURIOSO,ENFERMO,SORPRENDIDO;
+    veryhappy, happy, sad, verysad, neutral, angry, sick, surprised;
 
     public boolean isFixedEmotion(String s){
         for (FixedConfiguredEmotion value : FixedConfiguredEmotion.values()) {
