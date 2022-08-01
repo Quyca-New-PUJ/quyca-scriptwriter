@@ -14,6 +14,7 @@ public class ConfiguredRobot implements Serializable {
     private boolean hasExtraServo;
     private boolean hasScreen;
     private int screenSize;
+    private String alias;
     private Map<String, Map<String, Float>> paramsConfig;
 
     public ConfiguredRobot() {
@@ -49,6 +50,14 @@ public class ConfiguredRobot implements Serializable {
 
     public void setParamsConfig(Map<String, Map<String, Float>> paramsConfig) {
         this.paramsConfig = paramsConfig;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     public Map<String, Float> getParamConfig(String param){

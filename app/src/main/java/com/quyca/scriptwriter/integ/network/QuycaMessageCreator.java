@@ -36,15 +36,17 @@ public class QuycaMessageCreator implements QuycaMessageTransformer{
         if(!action.isSameAction(FixedConfiguredAction.emotions)){
             QuycaMessage actMsg = new QuycaMessage(getNewTimestamp());
             actMsg.setCharName(character.getName());
+            actMsg.setAlias(character.getRobotConf().getAlias());
             actMsg.setAction(action);
             actMsg.setActionId(action.getAction().getActionId());
             setParamsAfterEmoLogic(action,actMsg);
             msg.add(actMsg);
         }
-        //robot.isHasScreen() &&
+
         if(!action.isExtra()){
            QuycaMessage screenMsg = new QuycaMessage(getNewTimestamp());
            screenMsg.setActionId(FixedConfiguredAction.emotions.name());
+           screenMsg.setAlias(character.getRobotConf().getAlias());
             screenMsg.setCharName(character.getName());
             screenMsg.setAction(action);
             ArrayList<Object> params = new ArrayList<>();

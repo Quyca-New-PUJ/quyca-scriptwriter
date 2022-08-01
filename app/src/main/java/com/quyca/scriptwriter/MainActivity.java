@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             Runnable mRunnable = () -> {
                 QuycaMessage actMsg = new QuycaMessage(0);
                 List<QuycaMessage> list = new ArrayList<>();
+                actMsg.setAlias(character.getRobotConf().getAlias());
                 actMsg.setActionId("calibration");
                 list.add(actMsg);
                 int port = getResources().getInteger(R.integer.port_value);

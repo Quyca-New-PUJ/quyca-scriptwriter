@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class QuycaExecutionManager implements Runnable{
 
-    private final QuycaMessageCreator msgCreator;
+    private final QuycaMessageTransformer msgCreator;
     private final QuycaSender sender;
     private final Context context;
     private final List<Playable> actionList;
@@ -20,7 +20,7 @@ public class QuycaExecutionManager implements Runnable{
     private final AtomicBoolean stop;
     private final ExecScriptViewModel model;
 
-    public QuycaExecutionManager(QuycaMessageCreator msgCreator, QuycaSender sender, Context context, List<Playable> actionList, ExecScriptViewModel model) {
+    public QuycaExecutionManager(QuycaMessageTransformer msgCreator, QuycaSender sender, Context context, List<Playable> actionList, ExecScriptViewModel model) {
         this.msgCreator = msgCreator;
         this.sender = sender;
         this.context = context;

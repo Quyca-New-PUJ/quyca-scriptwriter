@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.annotations.Expose;
 import com.quyca.scriptwriter.integ.network.QuycaMessageCreator;
+import com.quyca.scriptwriter.integ.network.QuycaMessageTransformer;
 import com.quyca.scriptwriter.integ.network.QuycaSender;
 
 import java.io.Serializable;
@@ -18,7 +19,7 @@ public abstract class Playable implements Serializable {
     protected Playable(){
         done = QuycaCommandState.TO_EXECUTE;
     }
-    public abstract boolean play(QuycaMessageCreator msgCreator, QuycaSender msgSender, Context context);
+    public abstract boolean play(QuycaMessageTransformer msgCreator, QuycaSender msgSender, Context context);
 
     public boolean isAgrupable() {
         return isAgrupable;

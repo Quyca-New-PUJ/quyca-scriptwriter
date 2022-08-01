@@ -31,8 +31,8 @@ public class TestQuycaSender implements QuycaSender {
 
     private static final int TIME_OUT =10000000 ;
     private Socket socket;
-    private String ip;
-    private int port;
+    private final String ip;
+    private final int port;
     private BufferedWriter out;
     private BufferedReader in;
 
@@ -95,8 +95,8 @@ public class TestQuycaSender implements QuycaSender {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
-        if(msg.getActionId().equals(FixedConfiguredAction.emotions.name())){
-            endedResponse=response==msg.getTimestamp();
+        if(!msg.getActionId().equals(FixedConfiguredAction.emotions.name())){
+            endedResponse = response==msg.getTimestamp();
         }
         return endedResponse;
     }
