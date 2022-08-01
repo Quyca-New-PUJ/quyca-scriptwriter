@@ -13,10 +13,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.config.ConfiguredAction;
 import com.quyca.scriptwriter.config.QuycaConfiguration;
 import com.quyca.scriptwriter.databinding.FragmentMacroExtrasBinding;
+import com.quyca.scriptwriter.integ.backend.model.ActionDTO;
+import com.quyca.scriptwriter.integ.backend.interfaces.ActionAPI;
 import com.quyca.scriptwriter.model.Action;
 import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.PlayCharacter;
@@ -25,6 +29,15 @@ import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MacroExtrasFragment extends Fragment {
@@ -56,6 +69,15 @@ public class MacroExtrasFragment extends Fragment {
         }else{
             toEdit=-1;
         }
+
+     /*   HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();*/
+
     }
 
     @Override
@@ -132,6 +154,7 @@ public class MacroExtrasFragment extends Fragment {
             setupClickables();
 
         });
+
         return root;
     }
 

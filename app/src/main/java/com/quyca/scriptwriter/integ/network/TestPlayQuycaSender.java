@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.quyca.scriptwriter.config.FixedConfiguredAction;
 import com.quyca.scriptwriter.integ.model.QuycaMessage;
 import com.quyca.scriptwriter.model.PlayCharacter;
 
@@ -76,6 +77,7 @@ public class TestPlayQuycaSender implements QuycaSender{
     }
 
     private boolean sendSocket(@NonNull QuycaMessage msg) throws IOException {
+        boolean endedResponse=true;
         getSockets();
         initStreams();
         BufferedWriter output = getOut(msg.getCharName());
@@ -88,7 +90,10 @@ public class TestPlayQuycaSender implements QuycaSender{
         int response = Integer.parseInt(input.readLine());
         Log.i("TEST_RECEIVED",response+"");
 
-        return response==msg.getTimestamp();
+        if(!msg.getActionId().equals(FixedConfiguredAction.emotions.name())){
+            endedResponse = response==msg.getTimestamp();
+        }
+        return endedResponse;
 /*        try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -126,7 +131,6 @@ public class TestPlayQuycaSender implements QuycaSender{
 
     private BufferedWriter getOut(String name){
         return out.get(name);
-
     }
 
     private BufferedReader getIn(String name) {

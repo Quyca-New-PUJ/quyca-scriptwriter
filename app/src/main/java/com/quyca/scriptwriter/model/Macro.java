@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
 import com.quyca.scriptwriter.integ.network.QuycaMessageCreator;
+import com.quyca.scriptwriter.integ.network.QuycaMessageTransformer;
 import com.quyca.scriptwriter.integ.network.QuycaSender;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public class Macro extends Playable {
     }
 
     @Override
-    public boolean play(QuycaMessageCreator msgCreator, QuycaSender msgSender, Context context) {
+    public boolean play(QuycaMessageTransformer msgCreator, QuycaSender msgSender, Context context) {
         boolean done =true;
         for (Action action : actions) {
             done = done && action.play(msgCreator,msgSender,context);

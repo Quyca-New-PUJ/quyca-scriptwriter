@@ -9,6 +9,7 @@ import com.quyca.scriptwriter.config.ConfiguredAction;
 import com.quyca.scriptwriter.config.ConfiguredEmotion;
 import com.quyca.scriptwriter.config.FixedConfiguredAction;
 import com.quyca.scriptwriter.integ.network.QuycaMessageCreator;
+import com.quyca.scriptwriter.integ.network.QuycaMessageTransformer;
 import com.quyca.scriptwriter.integ.network.QuycaSender;
 import com.quyca.scriptwriter.integ.model.QuycaMessage;
 
@@ -97,7 +98,7 @@ public class Action extends Playable {
     }
 
     @Override
-    public boolean play(QuycaMessageCreator msgCreator, QuycaSender msgSender, Context context) {
+    public boolean play(QuycaMessageTransformer msgCreator, QuycaSender msgSender, Context context) {
         List<QuycaMessage> msg = msgCreator.createMessages(this);
         return msgSender.send(msg);
     }
