@@ -1,29 +1,28 @@
 package com.quyca.scriptwriter.model;
 
 import android.content.Context;
-import android.media.MediaPlayer;
-
-import androidx.documentfile.provider.DocumentFile;
 
 import com.google.gson.annotations.Expose;
-import com.quyca.scriptwriter.R;
-import com.quyca.scriptwriter.integ.network.QuycaMessageCreator;
-import com.quyca.scriptwriter.integ.network.QuycaSender;
+import com.quyca.robotmanager.net.PetriNet;
+import com.quyca.robotmanager.net.Place;
+import com.quyca.robotmanager.network.RobotExecutioner;
+import com.quyca.scriptwriter.integ.network.QuycaMessageTransformer;
+import com.quyca.scriptwriter.integ.petrinet.places.PlaySoundPlace;
+import com.quyca.scriptwriter.integ.utils.NetBundle;
+import com.quyca.scriptwriter.integ.utils.UIBundle;
 import com.quyca.scriptwriter.utils.AudioRepository;
-import com.quyca.scriptwriter.utils.FileRepository;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class SoundAction extends Action {
 
     private FileDescriptor sound;
     @Expose
-    private String name;
-    @Expose
     private boolean saved;
-
 
     public SoundAction() {
         super();
@@ -31,25 +30,15 @@ public class SoundAction extends Action {
     }
 
     @Override
-    public boolean play(QuycaMessageCreator msgCreator, QuycaSender msgSender, Context context) {
-        MediaPlayer player = new MediaPlayer();
-        try {
-            FileDescriptor file = getSoundFile(context);
-            player.setDataSource(file);
-            player.prepare();
-            player.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            setSound(null);
-            player.reset();
-            player.release();
-        }
-        return true;
+    public NetBundle play(Map<String, QuycaMessageTransformer> msgCreators, Map<String, RobotExecutioner> senders, PetriNet net, UIBundle bundle) {
+        List<Place> places = new ArrayList<>();
+        PlaySoundPlace soundPlace = new PlaySoundPlace(this, bundle);
+        places.add(soundPlace);
+        net.addPlace(soundPlace);
+        return new NetBundle(places, places);
     }
 
-    private FileDescriptor getSoundFile(Context context) throws FileNotFoundException {
+    public FileDescriptor getSoundFile(Context context) throws FileNotFoundException {
         return AudioRepository.getAudio(this, context);
     }
 
@@ -61,16 +50,8 @@ public class SoundAction extends Action {
         this.sound = sound;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getNameWithoutPrefix() {
         return name.split(".mp4")[0];
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isSaved() {

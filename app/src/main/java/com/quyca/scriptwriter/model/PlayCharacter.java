@@ -2,19 +2,15 @@ package com.quyca.scriptwriter.model;
 
 import android.net.Uri;
 
-import androidx.documentfile.provider.DocumentFile;
-
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.quyca.scriptwriter.config.ConfiguredRobot;
 import com.quyca.scriptwriter.config.QuycaConfiguration;
-import com.quyca.scriptwriter.gson.PlayableAdapter;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 public class PlayCharacter implements Serializable {
     @Expose
@@ -27,6 +23,8 @@ public class PlayCharacter implements Serializable {
     private ConfiguredRobot robotConf;
     @Expose
     private String color;
+    @Expose
+    private int port;
     private String imageUri;
     private String basicUri;
     private List<Scene> scenes;
@@ -52,6 +50,10 @@ public class PlayCharacter implements Serializable {
 
     public void setImageUri(Uri imageUri) {
         this.imageUri = imageUri.toString();
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 
     public String getBasicUri() {
@@ -102,8 +104,12 @@ public class PlayCharacter implements Serializable {
         this.color = color;
     }
 
-    public void setImageUri(String imageUri) {
-        this.imageUri = imageUri;
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
     @Override

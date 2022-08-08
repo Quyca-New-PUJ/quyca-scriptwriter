@@ -124,5 +124,6 @@
     <string name="furioso">Furioso</string>
     <string name="sorprendido">Sorprendido</string>
     <string name="enfermo">Enfermo</string>
+    <string name="ACTION_TRANS_NAME">END: %1s %2s , Number %3d</string>
 
 </resources>

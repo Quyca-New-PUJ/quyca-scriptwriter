@@ -1,44 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardCarrito"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="10dp"
     android:layout_margin="5dp"
     app:cardCornerRadius="10dp"
+    app:cardElevation="10dp"
     app:cardPreventCornerOverlap="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_emotion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:padding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:orientation="horizontal">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_gravity="center_vertical|center_horizontal|center"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/emo_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
                     android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginStart="10dp"
                     android:gravity="center_vertical|center_horizontal|center"
                     android:text="" />
             </LinearLayout>
@@ -47,19 +46,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="7">
+                android:layout_weight="7"
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/edit_params"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:autoSizeTextType="none"
                     android:background="@null"
                     android:src="@drawable/ic_baseline_edit_24"
-                    android:layout_weight="1"
-                    android:text="@string/edit_params"
-                    android:autoSizeTextType="none"
-                    style="?android:attr/buttonBarButtonStyle" />
+                    android:text="@string/edit_params" />
 
                 <!---Button
                     android:id="@+id/edit_matrix"

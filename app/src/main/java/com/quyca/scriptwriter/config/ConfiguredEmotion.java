@@ -5,8 +5,6 @@ import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Representa una accion configurada para un robot actor en especifico. Generalmente se carga a partir de un archivo JSON de configuracion.
@@ -27,10 +25,10 @@ public class ConfiguredEmotion implements Serializable {
      *
      * @param emotionId the emotion id
      */
-    public ConfiguredEmotion(FixedConfiguredEmotion emotionId, String name,float intensity) {
+    public ConfiguredEmotion(FixedConfiguredEmotion emotionId, String name, float intensity) {
         this.emotionId = emotionId;
-        this.emotionName=name;
-        this.intensity=intensity;
+        this.emotionName = name;
+        this.intensity = intensity;
     }
 
     /**
@@ -40,6 +38,15 @@ public class ConfiguredEmotion implements Serializable {
      */
     public FixedConfiguredEmotion getEmotionId() {
         return emotionId;
+    }
+
+    /**
+     * Sets emotion id.
+     *
+     * @param emotionId the emotion id
+     */
+    public void setEmotionId(FixedConfiguredEmotion emotionId) {
+        this.emotionId = emotionId;
     }
 
     @Override
@@ -56,15 +63,6 @@ public class ConfiguredEmotion implements Serializable {
 
     public void setIntensity(float intensity) {
         this.intensity = intensity;
-    }
-
-    /**
-     * Sets emotion id.
-     *
-     * @param emotionId the emotion id
-     */
-    public void setEmotionId(FixedConfiguredEmotion emotionId) {
-        this.emotionId = emotionId;
     }
 
     public String getEmotionName() {

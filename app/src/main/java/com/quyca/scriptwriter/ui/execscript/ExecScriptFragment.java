@@ -19,18 +19,21 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.quyca.robotmanager.network.RobotExecutioner;
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.databinding.ExecScriptFragmentBinding;
-import com.quyca.scriptwriter.integ.network.QuycaExecutionManager;
+import com.quyca.scriptwriter.integ.exceptions.NonValidPlayableException;
 import com.quyca.scriptwriter.integ.network.QuycaMessageCreator;
-import com.quyca.scriptwriter.integ.network.QuycaSender;
-import com.quyca.scriptwriter.integ.network.TestQuycaSender;
+import com.quyca.scriptwriter.integ.network.QuycaPlayExecutionManager;
+import com.quyca.scriptwriter.integ.utils.PlayBundle;
+import com.quyca.scriptwriter.integ.utils.UIBundle;
+import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.PlayCharacter;
-import com.quyca.scriptwriter.model.Playable;
 import com.quyca.scriptwriter.model.QuycaCommandState;
+import com.quyca.scriptwriter.ui.shared.ExecScriptViewModel;
 import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 
-import java.util.List;
+import java.io.IOException;
 
 /**
  * The type Exec script fragment.
@@ -40,14 +43,14 @@ public class ExecScriptFragment extends Fragment {
     private ExecScriptViewModel mViewModel;
     private ExecScriptFragmentBinding binding;
     private RecyclerView.LayoutManager manager;
-    private List<Playable> actionList;
+    private Macro actionList;
     private Button pause;
     private Button resume;
     private Button cancel;
-    private QuycaSender sender;
+    private RobotExecutioner sender;
     private SharedViewModel model;
     private PlayCharacter charac;
-    private QuycaExecutionManager execManager;
+    private QuycaPlayExecutionManager execManager;
     private ActivityResultLauncher<String> requestNetworkLauncher;
     private Thread execThread;
 
@@ -65,38 +68,45 @@ public class ExecScriptFragment extends Fragment {
         requestNetworkLauncher =
                 registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                     if (isGranted) {
+                        try {
                             sendMessages();
+                        } catch (IOException | NonValidPlayableException e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         Toast.makeText(requireContext(), "Sin permisos es imposible grabar audio", Toast.LENGTH_SHORT).show();
                     }
                 });
-        mViewModel.getToDoActionsObservable().observe(getViewLifecycleOwner(),playables -> {
-            actionList=playables;
-            actionList.forEach(playable -> playable.setDone(QuycaCommandState.TO_EXECUTE));
-            mViewModel.setActionListObservable(actionList);
+        mViewModel.getToDoActionsObservable().observe(getViewLifecycleOwner(), playables -> {
+            actionList = playables;
+            actionList.getPlayables().forEach(playable -> playable.setDone(QuycaCommandState.TO_EXECUTE));
+            mViewModel.setActionListObservable(actionList.getPlayables());
 
         });
 
-        model.getCharacterObservable().observe(getViewLifecycleOwner(),playCharacter -> {
-            charac=playCharacter;
-            startMessageSending();
+        model.getCharacterObservable().observe(getViewLifecycleOwner(), playCharacter -> {
+            charac = playCharacter;
+            try {
+                startMessageSending();
+            } catch (IOException | NonValidPlayableException e) {
+                e.printStackTrace();
+            }
         });
 
-        mViewModel.getActionListObservable().observe(getViewLifecycleOwner(),playables -> {
-            if(playables!=null){
-                ExecScriptLineAdapter slAdapter = new ExecScriptLineAdapter( actionList );
+        mViewModel.getActionListObservable().observe(getViewLifecycleOwner(), playables -> {
+            if (playables != null) {
+                ExecScriptLineAdapter slAdapter = new ExecScriptLineAdapter(actionList);
                 binding.execlineView.setAdapter(slAdapter);
                 startScriptView();
             }
         });
 
 
-
         View root = binding.getRoot();
 
-        pause = root.findViewById( R.id.stop_script );
-        resume = root.findViewById( R.id.resume_script );
-        cancel = root.findViewById( R.id.cancel_script );
+        pause = root.findViewById(R.id.stop_script);
+        resume = root.findViewById(R.id.resume_script);
+        cancel = root.findViewById(R.id.cancel_script);
 
 
         pause.setOnClickListener(v -> execManager.pause());
@@ -112,8 +122,14 @@ public class ExecScriptFragment extends Fragment {
 
         return root;
     }
+    @Override
+    public void onStop() {
+        super.onStop();
+        execManager.stop();
+        execThread.interrupt();
+    }
 
-    private void startMessageSending() {
+    private void startMessageSending() throws IOException, NonValidPlayableException {
 
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED) {
             sendMessages();
@@ -126,13 +142,11 @@ public class ExecScriptFragment extends Fragment {
 
     }
 
-    public void sendMessages(){
+    public void sendMessages() throws IOException, NonValidPlayableException {
         QuycaMessageCreator msgCreator = new QuycaMessageCreator(charac);
-        int port = getResources().getInteger(R.integer.port_value);
-        String ip = charac.getIp();
-        sender = new TestQuycaSender(ip,port);
-        execManager = new QuycaExecutionManager(msgCreator,sender,requireContext(),actionList,mViewModel);
-
+        UIBundle bundle = new UIBundle(requireContext(), mViewModel);
+        PlayBundle playBundle = new PlayBundle(actionList, charac);
+        execManager = new QuycaPlayExecutionManager(playBundle, bundle);
         execThread = new Thread(execManager);
         execThread.start();
     }

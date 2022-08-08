@@ -9,14 +9,14 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        app:layout_constraintHeight_percent=".9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/save_button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/act_conf"
@@ -132,6 +132,7 @@
                 android:gravity="center"
                 android:text="" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/act_conf_2"
             android:layout_width="match_parent"
@@ -246,6 +247,7 @@
                 android:gravity="center"
                 android:text="" />
         </LinearLayout>
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -254,16 +256,16 @@
 
     <Button
         android:id="@+id/save_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent=".1"
         android:background="@drawable/custom_radio_emotion"
         android:button="@android:color/transparent"
+        android:text="@string/save_extra_act_label"
         android:textSize="15sp"
-        android:text="@string/save_extra_act_label" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

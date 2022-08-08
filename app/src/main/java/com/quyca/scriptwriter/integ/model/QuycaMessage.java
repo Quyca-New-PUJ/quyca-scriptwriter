@@ -1,5 +1,7 @@
 package com.quyca.scriptwriter.integ.model;
 
+import com.quyca.robotmanager.network.Message;
+import com.quyca.scriptwriter.config.FixedConfiguredAction;
 import com.quyca.scriptwriter.model.Action;
 
 import java.util.ArrayList;
@@ -8,18 +10,19 @@ import java.util.List;
 /**
  * The type Quyca message.
  */
-public class QuycaMessage {
+public class QuycaMessage extends Message{
 
     private String actionId;
     private String charName;
     private String alias;
-    private int timestamp;
     private List<Object> params;
     private Action action;
 
     public QuycaMessage(int timestamp) {
-        this.timestamp = timestamp;
-        params=new ArrayList<>();
+        super();
+        this.ack = timestamp;
+        params = new ArrayList<>();
+        shouldAnswer=true;
     }
 
     public String getActionId() {
@@ -36,14 +39,6 @@ public class QuycaMessage {
 
     public void setParams(List<Object> params) {
         this.params = params;
-    }
-
-    public int getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(int timestamp) {
-        this.timestamp = timestamp;
     }
 
     public Action getAction() {
@@ -70,19 +65,33 @@ public class QuycaMessage {
         this.alias = alias;
     }
 
+    public boolean isShouldAnswer() {
+        return shouldAnswer;
+    }
+
+
+    public void setShouldAnswer(boolean shouldAnswer){
+        this.shouldAnswer = shouldAnswer;
+    }
+
+
+    @Override
+    public String toMessageString() {
+        toMessage();
+        return super.toMessageString()+"|";
+    }
+
     // AvanzarCruce 0 1 1
-    public String toMessageString(){
+    private void toMessage() {
         StringBuffer buff = new StringBuffer();
         buff.append(alias);
         buff.append(" ");
         buff.append(actionId);
         buff.append(" ");
-        params.forEach(param ->{
+        params.forEach(param -> {
             buff.append(param);
             buff.append(" ");
-        } );
-        buff.append(timestamp);
-        //buff.append("\n");
-        return buff.toString();
+        });
+        message=buff.toString();
     }
 }

@@ -8,79 +8,77 @@
     tools:context=".ui.macros.MacroHomeFragment">
 
 
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        app:layout_constraintBottom_toTopOf="@id/actionFragmentContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:paddingTop="5dp"
-            app:layout_constraintHeight_percent=".06"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/actionFragmentContainer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+        <RadioButton
+            android:id="@+id/movement_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/custom_radio_action"
+            android:button="@android:color/transparent"
 
-            <RadioButton
-                android:id="@+id/movement_toggle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/custom_radio_action"
-                android:button="@android:color/transparent"
+            android:text="@string/movement_toggle_label"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-                android:text="@string/movement_toggle_label"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+        <RadioButton
+            android:id="@+id/record_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/custom_radio_audio"
+            android:button="@android:color/transparent"
+            android:text="@string/record_toggle_label"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-            <RadioButton
-                android:id="@+id/record_toggle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/custom_radio_audio"
-                android:button="@android:color/transparent"
-                android:text="@string/record_toggle_label"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+        <RadioButton
+            android:id="@+id/screen_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/custom_radio_extras"
+            android:button="@android:color/transparent"
+            android:text="@string/screen_toggle_label"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+    </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/screen_toggle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/custom_radio_extras"
-                android:button="@android:color/transparent"
-                android:text="@string/screen_toggle_label"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-        </LinearLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/actionFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@id/prev_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".84"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout4"
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/actionFragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintHeight_percent=".84"
-            app:layout_constraintBottom_toTopOf="@id/prev_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout4"
-            android:paddingBottom="5dp"
+        />
 
-            />
-
-        <Button
-            android:id="@+id/prev_button"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="@string/prev_macro_label"
-            app:layout_constraintHeight_percent=".1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/actionFragmentContainer"
-            android:background="@drawable/custom_radio_emotion"
-            android:textSize="15sp" />
+    <Button
+        android:id="@+id/prev_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/custom_radio_emotion"
+        android:text="@string/prev_macro_label"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/actionFragmentContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

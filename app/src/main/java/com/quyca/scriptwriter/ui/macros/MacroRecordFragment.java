@@ -29,7 +29,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.databinding.FragmentMacroRecordBinding;
 import com.quyca.scriptwriter.model.Macro;
-import com.quyca.scriptwriter.model.Script;
 import com.quyca.scriptwriter.model.SoundAction;
 import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 import com.quyca.scriptwriter.utils.AudioRepository;
@@ -41,7 +40,7 @@ import java.io.IOException;
 public class MacroRecordFragment extends Fragment {
     private SharedViewModel model;
     private FragmentMacroRecordBinding binding;
-    private Script actScript;
+    private Macro actScript;
     private boolean recording = false;
     private boolean playing = false;
     private ActivityResultLauncher<String> requestRecordLauncher;
@@ -116,10 +115,10 @@ public class MacroRecordFragment extends Fragment {
                     AudioRepository.addAudio(sAction, audiotempFile);
                     sAction.setSound(null);
                     if (selMacro != null) {
-                        selMacro.getActions().add(sAction);
+                        selMacro.getPlayables().add(sAction);
                         model.setMacroObservable(selMacro);
                     } else {
-                        actScript.getLines().add(sAction);
+                        actScript.getPlayables().add(sAction);
                         model.setScriptObservable(actScript);
                     }
 

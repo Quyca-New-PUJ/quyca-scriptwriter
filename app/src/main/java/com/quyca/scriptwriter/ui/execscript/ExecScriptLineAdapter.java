@@ -12,27 +12,68 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.model.Action;
+import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.Playable;
 import com.quyca.scriptwriter.model.QuycaCommandState;
-import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.SoundAction;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
+import com.quyca.scriptwriter.utils.UIUtils;
 
 /**
  * The type Exec script line adapter.
  */
-public class ExecScriptLineAdapter extends RecyclerView.Adapter<ExecScriptLineAdapter.ExecScriptLineViewHolder>{
+public class ExecScriptLineAdapter extends RecyclerView.Adapter<ExecScriptLineAdapter.ExecScriptLineViewHolder> {
 
-    private final List<Playable> lines;
+    private final Macro lines;
+
+    /**
+     * Instantiates a new Exec script line adapter.
+     *
+     * @param lines the lines
+     */
+    public ExecScriptLineAdapter(Macro lines) {
+        this.lines = lines;
+    }
+
+    @NonNull
+    @Override
+    public ExecScriptLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.execscriptline_cardview, parent, false);
+        return new ExecScriptLineViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final ExecScriptLineViewHolder holder, int position) {
+        Playable play = lines.getPlayables().get(position);
+        if (play instanceof Action) {
+            if (play instanceof SoundAction) {
+                SoundAction line = (SoundAction) lines.getPlayables().get(position);
+                holder.action.setText(line.getNameWithoutPrefix());
+                holder.emotionLabel.setVisibility(View.INVISIBLE);
+                holder.emotion.setVisibility(View.INVISIBLE);
+            } else {
+                Action line = (Action) lines.getPlayables().get(position);
+                holder.action.setText(line.getAction().getActionName());
+                if (line.isExtra()) {
+                    holder.emotionLabel.setVisibility(View.INVISIBLE);
+                    holder.emotion.setVisibility(View.INVISIBLE);
+                } else {
+                    holder.emotion.setText(line.getEmotion().getEmotionId().name());
+                }
+            }
+        }
+        QuycaCommandState state = play.getDone();
+        UIUtils.changeQuycaHolderColor(holder,state);
+    }
+
+    @Override
+    public int getItemCount() {
+        return lines.getPlayables().size();
+    }
 
     /**
      * The type Exec script line view holder.
      */
-    public static class ExecScriptLineViewHolder extends RecyclerView.ViewHolder
-    {
+    public static class ExecScriptLineViewHolder extends RecyclerView.ViewHolder {
         private final TextView emotionLabel;
         /**
          * The Script card.
@@ -52,70 +93,14 @@ public class ExecScriptLineAdapter extends RecyclerView.Adapter<ExecScriptLineAd
          *
          * @param v the v
          */
-        public ExecScriptLineViewHolder(View v )
-        {
-            super( v );
-            scriptCard = v.findViewById( R.id.scriptCard );
+        public ExecScriptLineViewHolder(View v) {
+            super(v);
+            scriptCard = v.findViewById(R.id.scriptCard);
             emotionLabel = v.findViewById(R.id.emotion_label);
-            action = v.findViewById( R.id.action );
-            emotion = v.findViewById( R.id.emotion );
+            action = v.findViewById(R.id.action);
+            emotion = v.findViewById(R.id.emotion);
         }
 
-    }
-
-    /**
-     * Instantiates a new Exec script line adapter.
-     *
-     * @param lines the lines
-     */
-    public ExecScriptLineAdapter(List<Playable> lines)
-    {
-        this.lines = lines;
-    }
-
-
-    @NonNull
-    @Override
-    public ExecScriptLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from( parent.getContext() ).inflate( R.layout.execscriptline_cardview, parent, false );
-        return new ExecScriptLineViewHolder( v );
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull final ExecScriptLineViewHolder holder, int position) {
-        Playable play = lines.get(position);
-        if(play instanceof Action){
-            if(play instanceof SoundAction){
-                SoundAction line = (SoundAction) lines.get(position);
-                holder.action.setText(line.getNameWithoutPrefix());
-                holder.emotionLabel.setVisibility(View.INVISIBLE);
-                holder.emotion.setVisibility(View.INVISIBLE);
-            }else{
-                Action line = (Action) lines.get(position);
-                holder.action.setText( line.getAction().getActionName());
-                if(line.isExtra()){
-                    holder.emotionLabel.setVisibility(View.INVISIBLE);
-                    holder.emotion.setVisibility(View.INVISIBLE);
-                }else{
-                    holder.emotion.setText( line.getEmotion().getEmotionId().name());
-                }
-            }
-        }
-        QuycaCommandState state = play.getDone();
-        switch(state){
-            case IN_EXECUTION:
-                ContextCompat.getColor(holder.itemView.getContext(), R.color.teal_200);
-                holder.itemView.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.teal_200));
-                break;
-            case DONE:
-                holder.itemView.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.teal_700));
-                break;
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return lines.size();
     }
 
 }

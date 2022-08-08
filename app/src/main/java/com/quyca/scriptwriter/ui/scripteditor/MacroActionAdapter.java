@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.config.FixedConfiguredAction;
 import com.quyca.scriptwriter.model.Action;
+import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.Playable;
 import com.quyca.scriptwriter.model.SoundAction;
 import com.quyca.scriptwriter.ui.touchhelper.ItemMoveCallback;
@@ -40,7 +41,7 @@ import java.util.List;
 public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.ScriptLineViewHolder>
         implements ItemMoveCallback.ItemTouchHelperContract<MacroActionAdapter.ScriptLineViewHolder> {
 
-    private final List<Action> lines;
+    private final List<Playable> lines;
     private boolean saved;
     private int oldColor;
     private ScriptEditorFragment mStartDragListener;
@@ -48,7 +49,7 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
     private int toDelete;
 
 
-    public MacroActionAdapter(List<Action> lines, ScriptEditorFragment scriptEditorFragment,
+    public MacroActionAdapter(List<Playable> lines, ScriptEditorFragment scriptEditorFragment,
                               ActivityResultLauncher<String> requestRemoveLauncher, boolean saved) {
         this.lines = lines;
         this.saved = saved;
@@ -89,8 +90,8 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull final ScriptLineViewHolder holder, int position) {
-        holder.playable=lines.get(position);
-        Action play = lines.get(position);
+        holder.playable = lines.get(position);
+        Action play = (Action) lines.get(position);
         setColor(holder);
 
         holder.dragHolder.setOnTouchListener((v, event) -> {
@@ -102,13 +103,13 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
         });
 
         holder.playButton.setOnClickListener(v -> {
-            List<Playable> toPlay = new ArrayList<>();
-            toPlay.add(play);
+            Macro toPlay = new Macro(new ArrayList<>());
+            toPlay.getPlayables().add(play);
             mStartDragListener.getExecViewModel().setToDoActionsObservable(toPlay);
             Navigation.findNavController(v).navigate(R.id.navigation_execscript);
         });
 
-        if(lines.size()<2){
+        if (lines.size() < 2) {
             holder.delete.setEnabled(false);
         }
         if (play != null) {
@@ -133,18 +134,18 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
                 });
             } else {
                 holder.action.setText(play.getAction().getActionName());
-                if(play.isExtra()){
+                if (play.isExtra()) {
                     holder.emotionLabel.setVisibility(View.INVISIBLE);
                     holder.emotion.setVisibility(View.INVISIBLE);
-                }else{
+                } else {
                     holder.emotion.setText(play.getEmotion().getEmotionId().name());
                 }
                 holder.editButton.setOnClickListener(v -> {
                     Bundle bundle = new Bundle();
                     bundle.putInt("toEdit", holder.getAdapterPosition());
-                    if(play.isExtra()){
+                    if (play.isExtra()) {
                         Navigation.findNavController(v).navigate(R.id.navigation_macro_extra, bundle);
-                    }else{
+                    } else {
 
                         Navigation.findNavController(v).navigate(R.id.navigation_macro_movement, bundle);
                     }
@@ -164,19 +165,19 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
     }
 
     private void setColor(ScriptLineViewHolder holder) {
-        if(holder.playable instanceof SoundAction){
-            oldColor=ContextCompat.getColor(mStartDragListener.requireContext(),R.color.audio);
-        }else if(holder.playable instanceof Action){
+        if (holder.playable instanceof SoundAction) {
+            oldColor = ContextCompat.getColor(mStartDragListener.requireContext(), R.color.audio);
+        } else if (holder.playable instanceof Action) {
             Action a = (Action) holder.playable;
-            if(!a.getAction().getActionId().equalsIgnoreCase(FixedConfiguredAction.emotions.name())){
-                if(a.isExtra()){
-                    oldColor=ContextCompat.getColor(mStartDragListener.requireContext(),R.color.extras);
-                }else{
+            if (!a.getAction().getActionId().equalsIgnoreCase(FixedConfiguredAction.emotions.name())) {
+                if (a.isExtra()) {
+                    oldColor = ContextCompat.getColor(mStartDragListener.requireContext(), R.color.extras);
+                } else {
 
-                    oldColor=ContextCompat.getColor(mStartDragListener.requireContext(),R.color.action);
+                    oldColor = ContextCompat.getColor(mStartDragListener.requireContext(), R.color.action);
                 }
-            }else{
-                oldColor=ContextCompat.getColor(mStartDragListener.requireContext(),R.color.emotion);
+            } else {
+                oldColor = ContextCompat.getColor(mStartDragListener.requireContext(), R.color.emotion);
             }
 
         }

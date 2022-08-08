@@ -23,7 +23,6 @@ import com.quyca.scriptwriter.databinding.FragmentMacroMovementBinding;
 import com.quyca.scriptwriter.model.Action;
 import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.PlayCharacter;
-import com.quyca.scriptwriter.model.Script;
 import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ import java.util.List;
 public class MacroMovementFragment extends Fragment {
     private SharedViewModel model;
     private FragmentMacroMovementBinding binding;
-    private Script actScript;
+    private Macro actScript;
     private PlayCharacter character;
     private QuycaConfiguration conf;
     private Button save;
@@ -60,10 +59,10 @@ public class MacroMovementFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
-            toEdit= getArguments().getInt("toEdit");
-        }else{
-            toEdit=-1;
+        if (getArguments() != null) {
+            toEdit = getArguments().getInt("toEdit");
+        } else {
+            toEdit = -1;
         }
     }
 
@@ -77,8 +76,8 @@ public class MacroMovementFragment extends Fragment {
             actScript = script;
         });
 
-        model.getMacroObservable().observe(getViewLifecycleOwner(),macro -> {
-            selMacro=macro;
+        model.getMacroObservable().observe(getViewLifecycleOwner(), macro -> {
+            selMacro = macro;
         });
         save = root.findViewById(R.id.save_button);
 
@@ -90,23 +89,23 @@ public class MacroMovementFragment extends Fragment {
                 Toast.makeText(requireContext(), "Selecciona una emocion", Toast.LENGTH_LONG).show();
 
             } else {
-                Action newAction = new Action(currentEmotion, currentAction,false);
-                if(toEdit==-1){
-                    if(selMacro==null) {
-                        actScript.getLines().add(newAction);
+                Action newAction = new Action(currentEmotion, currentAction, false, character.getName());
+                if (toEdit == -1) {
+                    if (selMacro == null) {
+                        actScript.getPlayables().add(newAction);
                         model.setScriptObservable(actScript);
-                    }else{
-                        selMacro.getActions().add(newAction);
+                    } else {
+                        selMacro.getPlayables().add(newAction);
                         model.setMacroObservable(selMacro);
                     }
                     Toast.makeText(requireContext(), "Accion Creada!", Toast.LENGTH_SHORT).show();
-                }else{
-                    if(selMacro==null){
-                        actScript.getLines().set(toEdit,newAction);
+                } else {
+                    if (selMacro == null) {
+                        actScript.getPlayables().set(toEdit, newAction);
                         model.setScriptObservable(actScript);
 
-                    }else{
-                        selMacro.getActions().set(toEdit,newAction);
+                    } else {
+                        selMacro.getPlayables().set(toEdit, newAction);
                         model.setMacroObservable(selMacro);
                     }
                     Toast.makeText(requireContext(), "Accion Modificada!", Toast.LENGTH_SHORT).show();
@@ -177,13 +176,13 @@ public class MacroMovementFragment extends Fragment {
         triste.setSelected(false);
         neutro.setSelected(false);
         feliz.setSelected(false);
-        currentAction=null;
-        currentEmotion=null;
+        currentAction = null;
+        currentEmotion = null;
     }
 
     private void setUpLayout() {
 
-        actionButtons=new ArrayList<>();
+        actionButtons = new ArrayList<>();
         actionButtons.add(centro);
         actionButtons.add(arriba);
         actionButtons.add(abajo);
@@ -196,7 +195,7 @@ public class MacroMovementFragment extends Fragment {
         izq.setTag(conf.getActionsFromId(FixedConfiguredAction.left.name()));
         der.setTag(conf.getActionsFromId(FixedConfiguredAction.right.name()));
 
-        emoButtons=new ArrayList<>();
+        emoButtons = new ArrayList<>();
 
         emoButtons.add(sorprendido);
         emoButtons.add(muyTriste);
@@ -217,16 +216,16 @@ public class MacroMovementFragment extends Fragment {
         feliz.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.happy));
 
 
-        if(toEdit!=-1){
+        if (toEdit != -1) {
             Action act;
-            if(selMacro==null){
-                act= (Action) actScript.getLines().get(toEdit);
-            }else{
-                act = (Action) selMacro.getActions().get(toEdit);
+            if (selMacro == null) {
+                act = (Action) actScript.getPlayables().get(toEdit);
+            } else {
+                act = (Action) selMacro.getPlayables().get(toEdit);
             }
 
             actionButtons.forEach(radioButton -> {
-                ConfiguredAction tag= (ConfiguredAction) radioButton.getTag();
+                ConfiguredAction tag = (ConfiguredAction) radioButton.getTag();
                 if (tag.getActionId().equalsIgnoreCase(act.getAction().getActionId())) {
                     currentAction = tag;
                     radioButton.setSelected(true);
@@ -234,7 +233,7 @@ public class MacroMovementFragment extends Fragment {
             });
 
             emoButtons.forEach(radioButton -> {
-                ConfiguredEmotion tag= (ConfiguredEmotion) radioButton.getTag();
+                ConfiguredEmotion tag = (ConfiguredEmotion) radioButton.getTag();
                 if (tag.getEmotionId().equals(act.getEmotion().getEmotionId())) {
                     currentEmotion = tag;
                     radioButton.setSelected(true);

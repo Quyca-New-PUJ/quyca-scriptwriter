@@ -29,12 +29,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.quyca.scriptwriter.MainActivity;
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.databinding.FragmentScriptEditorBinding;
-import com.quyca.scriptwriter.model.Action;
 import com.quyca.scriptwriter.model.Macro;
+import com.quyca.scriptwriter.model.Playable;
 import com.quyca.scriptwriter.model.Scene;
-import com.quyca.scriptwriter.model.Script;
 import com.quyca.scriptwriter.model.SoundAction;
-import com.quyca.scriptwriter.ui.execscript.ExecScriptViewModel;
+import com.quyca.scriptwriter.ui.shared.ExecScriptViewModel;
 import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 import com.quyca.scriptwriter.ui.touchhelper.ItemMoveCallback;
 import com.quyca.scriptwriter.ui.touchhelper.StartDragListener;
@@ -51,7 +50,7 @@ import java.util.List;
 
 
 public class ScriptEditorFragment extends Fragment implements StartDragListener {
-    private List<Action> selectActions;
+    private List<Playable> selectActions;
     private Button saveButton;
     private ActivityResultLauncher<String> requestWriteLauncher;
     private ActivityResultLauncher<String> requestEditLauncher;
@@ -62,7 +61,7 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
     private Scene actScene;
     private RecyclerView.LayoutManager manager;
     private int macroPos;
-    private Script actScript;
+    private Macro actScript;
     private ItemTouchHelper touchHelper;
     private MacroActionAdapter slAdapter;
     private boolean buttonPressed;
@@ -114,7 +113,7 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
             if (script != null) {
                 actScript = script;
                 if (macroPos == -1) {
-                    saveButton.setEnabled(actScript.getLines().size() > 0);
+                    saveButton.setEnabled(actScript.getPlayables().size() > 0);
                 }
                 setScriptEditorAdapter();
             }
@@ -156,8 +155,8 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
 
         final EditText input = new EditText(requireContext());
         if (macroPos != -1) {
-            Macro macro = actScene.getMacros().get(macroPos);
-            input.setText(macro.getMacroName());
+            Macro macro = (Macro) actScene.getPlayables().get(macroPos);
+            input.setText(macro.getName());
         }
         alert.setView(input);
 
@@ -167,14 +166,14 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
             if (!name.isEmpty()) {
                 if (macroPos == -1) {
                     Macro newMacro = new Macro(selectActions);
-                    newMacro.setMacroName(name);
-                    actScene.getMacros().add(newMacro);
+                    newMacro.setName(name);
+                    actScene.getPlayables().add(newMacro);
                     try {
                         startWritingPermissionProcess();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    model.setScriptObservable(new Script());
+                    model.setScriptObservable(new Macro(new ArrayList<>()));
                 } else {
                     try {
                         startEditingPermissionProcess();
@@ -213,21 +212,21 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
 
     private void editMacro() throws IOException {
         Macro macro;
-        macro = actScene.getMacros().get(macroPos);
+        macro = (Macro) actScene.getPlayables().get(macroPos);
         macro.setPosition(macroPos);
         DocumentFile sceneDir = FileRepository.getSceneDir();
         DocumentFile macrosDir = sceneDir.findFile(getResources().getString(R.string.macro_dir));
         assert macrosDir != null;
-        DocumentFile macroDir = macrosDir.findFile(macro.getMacroName());
+        DocumentFile macroDir = macrosDir.findFile(macro.getName());
         assert macroDir != null;
-        if (!name.equalsIgnoreCase(macro.getMacroName())) {
+        if (!name.equalsIgnoreCase(macro.getName())) {
             macroDir.renameTo(name);
-            macro.setMacroName(name);
-            macroDir = macrosDir.findFile(macro.getMacroName());
+            macro.setName(name);
+            macroDir = macrosDir.findFile(macro.getName());
             assert macroDir != null;
             DocumentFile soundDir = macroDir.findFile(getResources().getString(R.string.sound_dir));
             assert soundDir != null;
-            macro.getActions().forEach(action -> {
+            macro.getPlayables().forEach(action -> {
                 if (action instanceof SoundAction) {
                     DocumentFile soundFile = soundDir.findFile(((SoundAction) action).getName());
                     AudioRepository.replaceSound((SoundAction) action, soundFile);
@@ -258,15 +257,15 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
         boolean saved = macroPos != -1;
         if (saved) {
             isCreate = false;
-            Macro macro = actScene.getMacros().get(macroPos);
+            Macro macro = (Macro) actScene.getPlayables().get(macroPos);
             MainActivity act = (MainActivity) requireActivity();
             act.enableSceneSpinner(false);
-            selectActions = macro.getActions();
-            FileRepository.setCurrentMacroName(macro.getMacroName());
+            selectActions = macro.getPlayables();
+            FileRepository.setCurrentMacroName(macro.getName());
             model.setMacroObservable(macro);
         } else {
             isCreate = true;
-            selectActions = actScript.getLines();
+            selectActions = actScript.getPlayables();
             model.setMacroObservable(null);
         }
         manager = new LinearLayoutManager(getContext());
@@ -343,8 +342,8 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
 
     private void writeMacro() throws IOException {
         Macro macro;
-        macro = actScene.getMacros().get(actScene.getMacros().size() - 1);
-        macro.setPosition(actScene.getMacros().size() - 1);
+        macro = (Macro) actScene.getPlayables().get(actScene.getPlayables().size() - 1);
+        macro.setPosition(actScene.getPlayables().size() - 1);
         DocumentFile charDir = FileRepository.getCharDir();
         assert charDir != null;
         DocumentFile sceneDir = FileRepository.getSceneDir();
@@ -355,11 +354,11 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
         }
         DocumentFile tempDir = FileRepository.getTempDir();
         assert macrosDir != null;
-        DocumentFile macroDir = macrosDir.findFile(macro.getMacroName());
+        DocumentFile macroDir = macrosDir.findFile(macro.getName());
         DocumentFile soundDir;
         DocumentFile macroFile;
         if (macroDir == null || !macroDir.exists()) {
-            macroDir = macrosDir.createDirectory(macro.getMacroName());
+            macroDir = macrosDir.createDirectory(macro.getName());
             assert macroDir != null;
             soundDir = macroDir.createDirectory(getResources().getString(R.string.sound_dir));
             macroFile = macroDir.createFile("*/*", getResources().getString(R.string.macro_file));
@@ -375,9 +374,9 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
         jsonWriter.write(macroString);
         jsonWriter.flush();
         jsonWriter.close();
-        List<Action> lines = macro.getActions();
+        List<Playable> lines = macro.getPlayables();
         if (tempDir != null && tempDir.exists()) {
-            for (Action line : lines) {
+            for (Playable line : lines) {
                 if (line instanceof SoundAction) {
                     SoundAction sa = (SoundAction) line;
                     sa.setSaved(true);

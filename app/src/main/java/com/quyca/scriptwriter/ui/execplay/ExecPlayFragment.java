@@ -14,27 +14,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quyca.scriptwriter.R;
-import com.quyca.scriptwriter.config.ConfiguredRobot;
-import com.quyca.scriptwriter.config.QuycaConfiguration;
 import com.quyca.scriptwriter.databinding.ExecScriptFragmentBinding;
-import com.quyca.scriptwriter.integ.network.QuycaExecutionManager;
-import com.quyca.scriptwriter.integ.network.QuycaMessageCreator;
+import com.quyca.scriptwriter.integ.exceptions.NonValidPlayableException;
 import com.quyca.scriptwriter.integ.network.QuycaPlayExecutionManager;
-import com.quyca.scriptwriter.integ.network.QuycaSender;
-import com.quyca.scriptwriter.integ.network.TestPlayQuycaSender;
-import com.quyca.scriptwriter.integ.network.TestQuycaSender;
-import com.quyca.scriptwriter.model.Macro;
+import com.quyca.scriptwriter.integ.utils.PlayBundle;
+import com.quyca.scriptwriter.integ.utils.UIBundle;
 import com.quyca.scriptwriter.model.Play;
-import com.quyca.scriptwriter.model.PlayCharacter;
 import com.quyca.scriptwriter.model.Playable;
 import com.quyca.scriptwriter.model.QuycaCommandState;
-import com.quyca.scriptwriter.model.Script;
 import com.quyca.scriptwriter.ui.shared.PlaySharedViewModel;
-import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The type Exec script fragment.
@@ -44,14 +35,13 @@ public class ExecPlayFragment extends Fragment {
     private PlaySharedViewModel mViewModel;
     private ExecScriptFragmentBinding binding;
     private RecyclerView.LayoutManager manager;
-    private List<Macro> actionList;
+    private List<Playable> actionList;
     private Button pause;
     private Button resume;
     private Button cancel;
-    private QuycaSender sender;
     private QuycaPlayExecutionManager execManager;
     private Play selPlay;
-    private boolean started=false;
+    private boolean started = false;
     private Thread execThread;
 
     @Override
@@ -66,20 +56,24 @@ public class ExecPlayFragment extends Fragment {
         binding = ExecScriptFragmentBinding.inflate(inflater, container, false);
 
 
-        mViewModel.getToDoActionsObservable().observe(getViewLifecycleOwner(),playables -> {
-            actionList=playables;
+        mViewModel.getToDoActionsObservable().observe(getViewLifecycleOwner(), playables -> {
+            actionList = playables;
             actionList.forEach(playable -> playable.setDone(QuycaCommandState.TO_EXECUTE));
             mViewModel.setActionListObservable(actionList);
 
         });
-        mViewModel.getPlayObservable().observe(getViewLifecycleOwner(),play -> {
-            selPlay=play;
-            startMessageSending();
+        mViewModel.getPlayObservable().observe(getViewLifecycleOwner(), play -> {
+            selPlay = play;
+            try {
+                startMessageSending();
+            } catch (IOException | NonValidPlayableException e) {
+                e.printStackTrace();
+            }
         });
 
-        mViewModel.getActionListObservable().observe(getViewLifecycleOwner(),playables -> {
-            if(playables!=null){
-                ExecPlayLineAdapter slAdapter = new ExecPlayLineAdapter( actionList );
+        mViewModel.getActionListObservable().observe(getViewLifecycleOwner(), playables -> {
+            if (playables != null) {
+                ExecPlayLineAdapter slAdapter = new ExecPlayLineAdapter(actionList);
                 binding.execlineView.setAdapter(slAdapter);
                 startScriptView();
             }
@@ -88,9 +82,9 @@ public class ExecPlayFragment extends Fragment {
 
         View root = binding.getRoot();
 
-        pause = root.findViewById( R.id.stop_script );
-        resume = root.findViewById( R.id.resume_script );
-        cancel = root.findViewById( R.id.cancel_script );
+        pause = root.findViewById(R.id.stop_script);
+        resume = root.findViewById(R.id.resume_script);
+        cancel = root.findViewById(R.id.cancel_script);
 
 
         pause.setOnClickListener(v -> {
@@ -110,18 +104,20 @@ public class ExecPlayFragment extends Fragment {
         return root;
     }
 
-    private void startMessageSending() {
-        if(!started) {
-            Map<String, QuycaMessageCreator> msgCreators = new HashMap<>();
-            selPlay.getCharacters().forEach(playCharacter -> {
-                msgCreators.put(playCharacter.getName(), new QuycaMessageCreator(playCharacter));
-            });
-            int port = getResources().getInteger(R.integer.port_value);
-            sender = new TestPlayQuycaSender(selPlay.getCharacters(), port);
-            execManager = new QuycaPlayExecutionManager(msgCreators, sender, requireContext(), actionList, mViewModel);
+    @Override
+    public void onStop() {
+        super.onStop();
+        execManager.stop();
+        execThread.interrupt();
+    }
+
+    private void startMessageSending() throws IOException, NonValidPlayableException {
+        if (!started) {
+            UIBundle bundle = new UIBundle(requireContext(), mViewModel);
+            execManager = new QuycaPlayExecutionManager(new PlayBundle(selPlay), bundle);
             execThread = new Thread(execManager);
             execThread.start();
-            started=true;
+            started = true;
         }
     }
 

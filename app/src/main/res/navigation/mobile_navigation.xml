@@ -9,49 +9,42 @@
         android:id="@+id/navigation_macro_home"
         android:name="com.quyca.scriptwriter.ui.macros.MacroHomeFragment"
         android:label="@string/title_new_macro"
-        tools:layout="@layout/fragment_macro_home">
-    </fragment>
+        tools:layout="@layout/fragment_macro_home"></fragment>
 
     <fragment
         android:id="@+id/navigation_macro_extra"
         android:name="com.quyca.scriptwriter.ui.macros.MacroExtrasFragment"
         android:label="@string/title_new_macro"
-        tools:layout="@layout/fragment_macro_extras">
-    </fragment>
+        tools:layout="@layout/fragment_macro_extras"></fragment>
 
     <fragment
         android:id="@+id/navigation_macro_record"
         android:name="com.quyca.scriptwriter.ui.macros.MacroRecordFragment"
         android:label="@string/title_new_macro"
-        tools:layout="@layout/fragment_macro_record">
-    </fragment>
+        tools:layout="@layout/fragment_macro_record"></fragment>
 
     <fragment
         android:id="@+id/navigation_macro_movement"
         android:name="com.quyca.scriptwriter.ui.macros.MacroMovementFragment"
         android:label="@string/title_new_macro"
-        tools:layout="@layout/fragment_macro_movement">
-    </fragment>
+        tools:layout="@layout/fragment_macro_movement"></fragment>
 
     <fragment
         android:id="@+id/navigation_script_viewer"
         android:name="com.quyca.scriptwriter.ui.scriptviewer.ScriptViewerFragment"
         android:label="@string/title_actscript"
-        tools:layout="@layout/fragment_script_viewer" >
-    </fragment>
+        tools:layout="@layout/fragment_script_viewer"></fragment>
 
     <fragment
         android:id="@+id/navigation_execscript"
         android:name="com.quyca.scriptwriter.ui.execscript.ExecScriptFragment"
         android:label="@string/label_exec"
-        tools:layout="@layout/exec_script_fragment">
-    </fragment>
+        tools:layout="@layout/exec_script_fragment"></fragment>
 
     <fragment
         android:id="@+id/navigation_script_edit"
         android:name="com.quyca.scriptwriter.ui.scripteditor.ScriptEditorFragment"
         android:label="@string/label_edit_script"
-        tools:layout="@layout/fragment_script_editor">
-    </fragment>
+        tools:layout="@layout/fragment_script_editor"></fragment>
 
 </navigation>

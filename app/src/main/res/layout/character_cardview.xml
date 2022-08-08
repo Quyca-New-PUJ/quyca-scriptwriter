@@ -5,48 +5,47 @@
     android:id="@+id/scriptCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="10dp"
     android:layout_margin="5dp"
     app:cardCornerRadius="10dp"
-    app:cardPreventCornerOverlap="true"
-    >
+    app:cardElevation="10dp"
+    app:cardPreventCornerOverlap="true">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_scriptline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:padding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            tools:layout_editor_absoluteX="15dp"
-            android:gravity="center"
-            >
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="15dp">
 
             <ImageView
                 android:id="@+id/char_view"
                 android:layout_width="0dp"
-                android:layout_weight="3"
                 android:layout_height="match_parent"
+                android:layout_weight="3"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/def_char_placeholder" />
 
             <TextView
                 android:id="@+id/char_name"
                 android:layout_width="0dp"
-                android:layout_weight="2"
-                android:textSize="15sp"
-                android:textStyle="bold"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="2"
                 android:gravity="end|center_vertical"
-                android:text="" />
+                android:text=""
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/go_button"

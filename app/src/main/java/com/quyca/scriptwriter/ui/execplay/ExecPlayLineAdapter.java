@@ -12,26 +12,56 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quyca.scriptwriter.R;
-import com.quyca.scriptwriter.model.Action;
 import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.Playable;
 import com.quyca.scriptwriter.model.QuycaCommandState;
-import com.quyca.scriptwriter.model.SoundAction;
+import com.quyca.scriptwriter.utils.UIUtils;
 
 import java.util.List;
 
 /**
  * The type Exec script line adapter.
  */
-public class ExecPlayLineAdapter extends RecyclerView.Adapter<ExecPlayLineAdapter.ExecPlayLineViewHolder>{
+public class ExecPlayLineAdapter extends RecyclerView.Adapter<ExecPlayLineAdapter.ExecPlayLineViewHolder> {
 
-    private final List<Macro> lines;
+    private final List<Playable> lines;
+
+    /**
+     * Instantiates a new Exec script line adapter.
+     *
+     * @param lines the lines
+     */
+    public ExecPlayLineAdapter(List<Playable> lines) {
+        this.lines = lines;
+    }
+
+    @NonNull
+    @Override
+    public ExecPlayLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.execplayline_cardview, parent, false);
+        return new ExecPlayLineViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final ExecPlayLineViewHolder holder, int position) {
+        Macro play = (Macro) lines.get(position);
+        holder.scriptCard.getBackground().setTint(Color.parseColor(play.getCharColor()));
+        holder.characName.setText(play.getCharName());
+        holder.macroName.setText(play.getName());
+
+        QuycaCommandState state = play.getDone();
+        UIUtils.changeQuycaHolderColor(holder,state);
+    }
+
+    @Override
+    public int getItemCount() {
+        return lines.size();
+    }
 
     /**
      * The type Exec script line view holder.
      */
-    public static class ExecPlayLineViewHolder extends RecyclerView.ViewHolder
-    {
+    public static class ExecPlayLineViewHolder extends RecyclerView.ViewHolder {
         /**
          * The Script card.
          */
@@ -50,55 +80,13 @@ public class ExecPlayLineAdapter extends RecyclerView.Adapter<ExecPlayLineAdapte
          *
          * @param v the v
          */
-        public ExecPlayLineViewHolder(View v )
-        {
-            super( v );
-            scriptCard = v.findViewById( R.id.scriptCard );
-            characName=  v.findViewById( R.id.character );
-            macroName=  v.findViewById( R.id.macro );
+        public ExecPlayLineViewHolder(View v) {
+            super(v);
+            scriptCard = v.findViewById(R.id.scriptCard);
+            characName = v.findViewById(R.id.character);
+            macroName = v.findViewById(R.id.macro);
         }
 
-    }
-
-    /**
-     * Instantiates a new Exec script line adapter.
-     *
-     * @param lines the lines
-     */
-    public ExecPlayLineAdapter(List<Macro> lines)
-    {
-        this.lines = lines;
-    }
-
-
-    @NonNull
-    @Override
-    public ExecPlayLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from( parent.getContext() ).inflate( R.layout.execplayline_cardview, parent, false );
-        return new ExecPlayLineViewHolder( v );
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull final ExecPlayLineViewHolder holder, int position) {
-        Macro play = lines.get(position);
-        holder.scriptCard.getBackground().setTint(Color.parseColor(play.getCharColor()));
-        holder.characName.setText( play.getCharName());
-        holder.macroName.setText(play.getMacroName());
-
-        QuycaCommandState state = play.getDone();
-        switch(state){
-            case IN_EXECUTION:
-                holder.itemView.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.teal_200));
-                break;
-            case DONE:
-                holder.itemView.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.teal_700));
-                break;
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return lines.size();
     }
 
 }

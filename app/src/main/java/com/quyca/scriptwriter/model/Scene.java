@@ -17,21 +17,18 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Scene implements Serializable {
+public class Scene extends PlayableComponent implements Serializable {
     @Expose
-    private String name;
-    @Expose
-    private  int position;
-    private List<Macro> macros;
+    private int position;
     private String sceneDirName;
     private DocumentFile file;
     private String charColor;
     private String charName;
 
     public Scene(Scene scene) {
-        this.name=scene.getName();
-        this.position=scene.position;
-        this.macros = new ArrayList<>();
+        this.name = scene.getName();
+        this.position = scene.position;
+        this.playables = new ArrayList<>();
     }
 
     public static Scene parseJSON(String response) {
@@ -41,23 +38,6 @@ public class Scene implements Serializable {
         return gson.fromJson(response, Scene.class);
 
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Macro> getMacros() {
-        return macros;
-    }
-
-    public void setMacros(List<Macro> macros) {
-        this.macros = macros;
-    }
-
 
     public String getSceneDirName() {
         return sceneDirName;
@@ -108,37 +88,49 @@ public class Scene implements Serializable {
     }
 
     public void orderMacrosPerCharacter() {
-        List<Macro> macAux= new ArrayList<>();
-        Map<String,List<Macro>> charAux = new HashMap<>();
-        Map<String,Integer> charInt = new HashMap<>();
+        List<Playable> macAux = new ArrayList<>();
+        Map<String, List<Playable>> charAux = new HashMap<>();
+        Map<String, Integer> charInt = new HashMap<>();
 
-        macros.forEach(macro -> {
-            if(!charAux.containsKey(macro.getCharName())){
-                charAux.put(macro.getCharName(),new ArrayList<>());
+        playables.forEach(playable -> {
+            Macro macro = (Macro) playable;
+            if (!charAux.containsKey(macro.getCharName())) {
+                charAux.put(macro.getCharName(), new ArrayList<>());
             }
             Objects.requireNonNull(charAux.get(macro.getCharName())).add(macro);
         });
         charAux.keySet().forEach(s -> {
-            charInt.put(s,0);
+            charInt.put(s, 0);
         });
-        AtomicInteger macSize= new AtomicInteger(macros.size());
-        while(macSize.get() >0){
+        AtomicInteger macSize = new AtomicInteger(playables.size());
+        while (macSize.get() > 0) {
             charAux.keySet().forEach(s -> {
-                List<Macro> macList = charAux.get(s);
+                List<Playable> macList = charAux.get(s);
                 assert macList != null;
-                int curSize=charInt.get(s);
-                if(macList.size()>curSize){
-                    Macro mac= macList.get(curSize);
+                int curSize = charInt.get(s);
+                if (macList.size() > curSize) {
+                    Macro mac = (Macro) macList.get(curSize);
                     macAux.add(mac);
                     curSize++;
-                    charInt.replace(s,curSize);
+                    charInt.replace(s, curSize);
                     macSize.getAndDecrement();
                 }
             });
-            Log.i("ALMOSTTHERE",macSize.get()+"");
+            Log.i("ALMOSTTHERE", macSize.get() + "");
         }
 
-        macros=macAux;
+        playables = macAux;
 
+    }
+
+    @Override
+    public String toString() {
+        return "Scene{" +
+                "name='" + name + '\'' +
+                ", macros=" + playables +
+                ", position=" + position +
+                ", charColor='" + charColor + '\'' +
+                ", charName='" + charName + '\'' +
+                '}';
     }
 }

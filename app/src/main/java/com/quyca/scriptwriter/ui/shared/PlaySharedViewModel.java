@@ -2,49 +2,37 @@ package com.quyca.scriptwriter.ui.shared;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.Play;
-import com.quyca.scriptwriter.model.PlayCharacter;
 import com.quyca.scriptwriter.model.Playable;
-import com.quyca.scriptwriter.model.Scene;
-import com.quyca.scriptwriter.model.Script;
 
 import java.util.List;
 
 /**
  * The type Shared view model.
  */
-public class PlaySharedViewModel extends ViewModel {
+public class PlaySharedViewModel extends UpdatablePlayableView {
+    private final MutableLiveData<List<Playable>> doneActions = new MutableLiveData<>();
     private final MutableLiveData<Play> play = new MutableLiveData<>();
-    private final MutableLiveData<List<Macro>> macros = new MutableLiveData<>();
-    private final MutableLiveData<List<Macro>> doneActions = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> started = new MutableLiveData<>();
-
-    public void setPlayObservable(Play item) {
-        play.setValue(item);
-    }
-
+    private final MutableLiveData<List<Playable>> macros = new MutableLiveData<>();
 
     public LiveData<Play> getPlayObservable() {
         return play;
     }
 
-    public void setActionListObservable( List<Macro> item) {
-        doneActions.setValue(item);
+    public void setPlayObservable(Play item) {
+        play.setValue(item);
     }
 
-    public void setToDoActionsObservable(List<Macro> item) {
-        macros.setValue(item);
-
-    }
-    public LiveData<List<Macro>> getToDoActionsObservable() {
+    public LiveData<List<Playable>> getToDoActionsObservable() {
         return macros;
     }
 
+    public void setToDoActionsObservable(List<Playable> item) {
+        macros.setValue(item);
 
-    public LiveData<List<Macro>> getActionListObservable() {
-        return doneActions;
     }
+
+
+
 }

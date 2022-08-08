@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.playeditor.PlayViewerFragment">
 
     <Button
         android:id="@+id/back_button"
-        android:button="@android:color/transparent"
-        app:layout_constraintHeight_percent=".06"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/custom_radio_emotion"
+        android:button="@android:color/transparent"
         android:text="@string/play_back_bttn"
         app:layout_constraintBottom_toTopOf="@+id/lay"
+        app:layout_constraintHeight_percent=".06"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/custom_radio_emotion"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/lay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:id="@+id/lay"
         android:paddingTop="5dp"
-        app:layout_constraintHeight_percent=".92"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent=".92"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/back_button">
@@ -35,29 +34,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="horizontal"
             android:layout_weight="1.5"
-            >
+            android:orientation="horizontal">
+
             <Spinner
                 android:id="@+id/scene_spinner"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                />
+                android:layout_weight="2" />
 
             <Button
                 android:id="@+id/play_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/custom_radio_emotion"
                 android:layout_weight="1"
+                android:background="@drawable/custom_radio_emotion"
                 android:text="@string/play_play" />
         </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/playline_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"/>
+            android:layout_weight="20" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

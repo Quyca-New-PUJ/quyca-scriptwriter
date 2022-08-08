@@ -13,37 +13,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.config.ConfiguredAction;
 import com.quyca.scriptwriter.config.QuycaConfiguration;
 import com.quyca.scriptwriter.databinding.FragmentMacroExtrasBinding;
-import com.quyca.scriptwriter.integ.backend.model.ActionDTO;
-import com.quyca.scriptwriter.integ.backend.interfaces.ActionAPI;
 import com.quyca.scriptwriter.model.Action;
 import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.PlayCharacter;
-import com.quyca.scriptwriter.model.Script;
 import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 
 public class MacroExtrasFragment extends Fragment {
     private SharedViewModel model;
     private FragmentMacroExtrasBinding binding;
-    private Script actScript;
+    private Macro actScript;
     private RadioButton extra1;
     private RadioButton extra2;
     private RadioButton extra3;
@@ -64,10 +50,10 @@ public class MacroExtrasFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
-            toEdit= getArguments().getInt("toEdit");
-        }else{
-            toEdit=-1;
+        if (getArguments() != null) {
+            toEdit = getArguments().getInt("toEdit");
+        } else {
+            toEdit = -1;
         }
 
      /*   HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -90,8 +76,8 @@ public class MacroExtrasFragment extends Fragment {
         model.getScriptObservable().observe(getViewLifecycleOwner(), script -> {
             actScript = script;
         });
-        model.getMacroObservable().observe(getViewLifecycleOwner(),macro -> {
-            selMacro=macro;
+        model.getMacroObservable().observe(getViewLifecycleOwner(), macro -> {
+            selMacro = macro;
         });
 
         save = root.findViewById(R.id.save_button);
@@ -101,23 +87,23 @@ public class MacroExtrasFragment extends Fragment {
                 Toast.makeText(requireContext(), "Selecciona una accion", Toast.LENGTH_LONG).show();
 
             } else {
-                Action newAction = new Action(currentAction,true);
-                if(toEdit==-1){
-                    if(selMacro==null) {
-                        actScript.getLines().add(newAction);
+                Action newAction = new Action(currentAction, true, character.getName());
+                if (toEdit == -1) {
+                    if (selMacro == null) {
+                        actScript.getPlayables().add(newAction);
                         model.setScriptObservable(actScript);
-                    }else{
-                        selMacro.getActions().add(newAction);
+                    } else {
+                        selMacro.getPlayables().add(newAction);
                         model.setMacroObservable(selMacro);
                     }
                     Toast.makeText(requireContext(), "Accion Creada!", Toast.LENGTH_SHORT).show();
-                }else{
-                    if(selMacro==null){
-                        actScript.getLines().set(toEdit,newAction);
+                } else {
+                    if (selMacro == null) {
+                        actScript.getPlayables().set(toEdit, newAction);
                         model.setScriptObservable(actScript);
 
-                    }else{
-                        selMacro.getActions().set(toEdit,newAction);
+                    } else {
+                        selMacro.getPlayables().set(toEdit, newAction);
                         model.setMacroObservable(selMacro);
                     }
                     Toast.makeText(requireContext(), "Accion Modificada!", Toast.LENGTH_SHORT).show();
@@ -160,7 +146,7 @@ public class MacroExtrasFragment extends Fragment {
 
     private void resetButtons() {
         buttons.forEach(radioButton -> {
-                radioButton.setChecked(false);
+            radioButton.setChecked(false);
         });
     }
 
@@ -211,16 +197,16 @@ public class MacroExtrasFragment extends Fragment {
             }
         }
 
-        if(toEdit!=-1){
-           Action act;
-            if(selMacro==null){
-                act= (Action) actScript.getLines().get(toEdit);
-            }else{
-                act = (Action) selMacro.getActions().get(toEdit);
+        if (toEdit != -1) {
+            Action act;
+            if (selMacro == null) {
+                act = (Action) actScript.getPlayables().get(toEdit);
+            } else {
+                act = (Action) selMacro.getPlayables().get(toEdit);
             }
             buttons.forEach(radioButton -> {
-                ConfiguredAction tag= (ConfiguredAction) radioButton.getTag();
-                if (tag!=null && tag.getActionId().equalsIgnoreCase(act.getAction().getActionId())) {
+                ConfiguredAction tag = (ConfiguredAction) radioButton.getTag();
+                if (tag != null && tag.getActionId().equalsIgnoreCase(act.getAction().getActionId())) {
                     radioButton.setChecked(true);
                 }
             });
