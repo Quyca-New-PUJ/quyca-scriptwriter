@@ -6,11 +6,9 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
 
-import com.quyca.scriptwriter.MainActivity;
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.model.PlayCharacter;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +24,7 @@ public class FileRepository {
     private static String macrosDirName;
     private static String charScenesDirName;
     private static Uri startUri;
-    private static Map<PlayCharacter,DocumentFile> charRel;
+    private static Map<PlayCharacter, DocumentFile> charRel;
 
     public static DocumentFile getCharactersDir() {
         return charactersDir;
@@ -61,22 +59,22 @@ public class FileRepository {
     }
 
     public static DocumentFile getCharScenesDir() {
-        if(charScenesDir==null){
-            charScenesDir=charDir.findFile(charScenesDirName);
+        if (charScenesDir == null) {
+            charScenesDir = charDir.findFile(charScenesDirName);
         }
         return charScenesDir;
     }
 
     public static DocumentFile getTempDir() {
-        if(tempDir==null){
-            tempDir=charDir.findFile(tempDirName);
+        if (tempDir == null) {
+            tempDir = charDir.findFile(tempDirName);
         }
         return tempDir;
     }
 
     public static DocumentFile getMacrosDir() {
-        if(macrosDir==null){
-            macrosDir=sceneDir.findFile(macrosDirName);
+        if (macrosDir == null) {
+            macrosDir = sceneDir.findFile(macrosDirName);
         }
         return macrosDir;
     }
@@ -99,7 +97,7 @@ public class FileRepository {
         FileRepository.setTempDirName(activity.getResources().getString(R.string.temp_dir));
     }
 
-    public static DocumentFile getCharDirectory(PlayCharacter character){
+    public static DocumentFile getCharDirectory(PlayCharacter character) {
         charRel.forEach((playCharacter, documentFile) -> {
             Log.i("DEBUGFILE", playCharacter.getName());
             Log.i("DEBUGFILE", documentFile.getName());
@@ -108,11 +106,11 @@ public class FileRepository {
         return charRel.get(character);
     }
 
-    public static void addCharDirectory(PlayCharacter character,DocumentFile doc){
-        if(charRel==null){
-            FileRepository.charRel=new HashMap<>();
+    public static void addCharDirectory(PlayCharacter character, DocumentFile doc) {
+        if (charRel == null) {
+            FileRepository.charRel = new HashMap<>();
         }
-        charRel.put(character,doc);
+        charRel.put(character, doc);
     }
 
     public static Uri getStartUri() {

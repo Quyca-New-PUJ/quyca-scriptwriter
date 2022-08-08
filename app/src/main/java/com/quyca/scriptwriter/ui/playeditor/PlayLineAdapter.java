@@ -1,34 +1,25 @@
 package com.quyca.scriptwriter.ui.playeditor;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.documentfile.provider.DocumentFile;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.model.Macro;
+import com.quyca.scriptwriter.model.Playable;
 import com.quyca.scriptwriter.model.Scene;
 import com.quyca.scriptwriter.ui.touchhelper.ItemMoveCallback;
-import com.quyca.scriptwriter.utils.FileRepository;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,16 +29,14 @@ import java.util.List;
 public class PlayLineAdapter extends RecyclerView.Adapter<PlayLineAdapter.ScriptLineViewHolder>
         implements ItemMoveCallback.ItemTouchHelperContract<PlayLineAdapter.ScriptLineViewHolder> {
 
-    private final Scene scene;
-    private final List<Macro> lines;
+    private final List<Playable> lines;
     private ActivityResultLauncher<String> requestRemoveLauncher;
     private int oldColor;
     private PlayViewerFragment mStartDragListener;
     private int toDelete;
 
     public PlayLineAdapter(Scene scene, PlayViewerFragment playViewerFragment) {
-        this.scene = scene;
-        this.lines = scene.getMacros();
+        this.lines = scene.getPlayables();
         this.mStartDragListener = playViewerFragment;
     }
 
@@ -86,11 +75,11 @@ public class PlayLineAdapter extends RecyclerView.Adapter<PlayLineAdapter.Script
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull final ScriptLineViewHolder holder, int position) {
-        Macro line = lines.get(position);
+        Macro line = (Macro) lines.get(position);
         int color = Color.parseColor(line.getCharColor());
         holder.scriptCard.setCardBackgroundColor(color);
         holder.charName.setText(line.getCharName());
-        holder.action.setText(line.getMacroName());
+        holder.action.setText(line.getName());
         holder.dragHolder.setOnTouchListener((v, event) -> {
             if (event.getAction() ==
                     MotionEvent.ACTION_DOWN) {

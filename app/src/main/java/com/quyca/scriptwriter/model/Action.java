@@ -1,47 +1,57 @@
 package com.quyca.scriptwriter.model;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
+import com.quyca.robotmanager.net.PetriNet;
+import com.quyca.robotmanager.net.Place;
+import com.quyca.robotmanager.network.RobotExecutioner;
 import com.quyca.scriptwriter.config.ConfiguredAction;
 import com.quyca.scriptwriter.config.ConfiguredEmotion;
 import com.quyca.scriptwriter.config.FixedConfiguredAction;
-import com.quyca.scriptwriter.integ.network.QuycaMessageCreator;
-import com.quyca.scriptwriter.integ.network.QuycaMessageTransformer;
-import com.quyca.scriptwriter.integ.network.QuycaSender;
 import com.quyca.scriptwriter.integ.model.QuycaMessage;
+import com.quyca.scriptwriter.integ.network.QuycaMessageTransformer;
+import com.quyca.scriptwriter.integ.petrinet.places.PlayViewPlace;
+import com.quyca.scriptwriter.integ.utils.NetBundle;
+import com.quyca.scriptwriter.integ.utils.UIBundle;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type Action.
  */
 public class Action extends Playable {
     @Expose
+    protected String charName;
+    @Expose
     private ConfiguredEmotion emotion;
     @Expose
     private ConfiguredAction action;
     @Expose
     private boolean extra;
-    public Action(){
+
+    public Action() {
 
     }
 
 
-    public Action(ConfiguredEmotion emotion, ConfiguredAction action, boolean extra) {
+    public Action(ConfiguredEmotion emotion, ConfiguredAction action, boolean extra, String charName) {
         super();
+        this.name = action.getActionName();
         this.emotion = emotion;
         this.action = action;
-        this.extra=extra;
+        this.extra = extra;
+        this.charName = charName;
     }
 
-    public Action(ConfiguredAction action, boolean extra) {
+    public Action(ConfiguredAction action, boolean extra, String charName) {
         super();
         this.action = action;
-        this.extra=extra;
-
+        this.name = action.getActionName();
+        this.extra = extra;
+        this.charName = charName;
     }
 
     /**
@@ -91,20 +101,29 @@ public class Action extends Playable {
     @NonNull
     @Override
     public String toString() {
-        return super.toString()+" \nAction{" +
+        return super.toString() + " \nAction{" +
                 "emotion=" + emotion +
                 ", action=" + action +
                 '}';
     }
 
     @Override
-    public boolean play(QuycaMessageTransformer msgCreator, QuycaSender msgSender, Context context) {
-        List<QuycaMessage> msg = msgCreator.createMessages(this);
-        return msgSender.send(msg);
+    public NetBundle play(Map<String, QuycaMessageTransformer> msgCreators, Map<String, RobotExecutioner> senders, PetriNet net, UIBundle bundle) {
+        List<Place> places = new ArrayList<>();
+        QuycaMessageTransformer msgCreator = msgCreators.get(charName);
+        RobotExecutioner executioner = senders.get(charName);
+        assert msgCreator != null;
+        List<QuycaMessage> msgs = msgCreator.createMessages(this);
+        msgs.forEach(msg -> {
+            PlayViewPlace place = new PlayViewPlace(this, executioner, bundle, msg);
+            places.add(place);
+            net.addPlace(place);
+        });
+
+        return new NetBundle(places, places);
     }
 
-    public boolean isSameAction(FixedConfiguredAction otherAction){
+    public boolean isSameAction(FixedConfiguredAction otherAction) {
         return otherAction.name().equalsIgnoreCase(action.getActionId());
-
     }
 }

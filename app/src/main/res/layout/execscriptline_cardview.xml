@@ -5,28 +5,27 @@
     android:id="@+id/scriptCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="10dp"
     android:layout_margin="5dp"
     app:cardCornerRadius="10dp"
-    app:cardPreventCornerOverlap="true"
-    >
+    app:cardElevation="10dp"
+    app:cardPreventCornerOverlap="true">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_scriptline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:padding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="15dp">
 
             <LinearLayout

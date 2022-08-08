@@ -1,33 +1,24 @@
 package com.quyca.scriptwriter.model;
 
-import android.content.Context;
-
 import com.google.gson.annotations.Expose;
-import com.quyca.scriptwriter.integ.network.QuycaMessageCreator;
+import com.quyca.robotmanager.net.PetriNet;
+import com.quyca.robotmanager.network.RobotExecutioner;
 import com.quyca.scriptwriter.integ.network.QuycaMessageTransformer;
-import com.quyca.scriptwriter.integ.network.QuycaSender;
+import com.quyca.scriptwriter.integ.utils.NetBundle;
+import com.quyca.scriptwriter.integ.utils.UIBundle;
 
-import java.io.Serializable;
+import java.util.Map;
 
-public abstract class Playable implements Serializable {
-    @Expose
-    protected boolean isAgrupable;
-    @Expose
+public abstract class Playable {
     protected QuycaCommandState done;
+    @Expose
+    protected String name;
 
-
-    protected Playable(){
+    public Playable() {
         done = QuycaCommandState.TO_EXECUTE;
     }
-    public abstract boolean play(QuycaMessageTransformer msgCreator, QuycaSender msgSender, Context context);
 
-    public boolean isAgrupable() {
-        return isAgrupable;
-    }
-
-    public void setAgrupable(boolean agrupable) {
-        isAgrupable = agrupable;
-    }
+    public abstract NetBundle play(Map<String, QuycaMessageTransformer> msgCreators, Map<String, RobotExecutioner> senders, PetriNet net, UIBundle bundle);
 
     /**
      * Gets done.
@@ -47,10 +38,17 @@ public abstract class Playable implements Serializable {
         this.done = done;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Playable{" +
-                "isAgrupable=" + isAgrupable +
                 ", done=" + done +
                 '}';
     }

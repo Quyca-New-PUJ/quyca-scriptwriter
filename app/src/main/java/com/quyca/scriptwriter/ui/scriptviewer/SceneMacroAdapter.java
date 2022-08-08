@@ -29,7 +29,6 @@ import com.quyca.scriptwriter.ui.touchhelper.ItemMoveCallback;
 import com.quyca.scriptwriter.utils.FileRepository;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class SceneMacroAdapter extends RecyclerView.Adapter<SceneMacroAdapter.Sc
         implements ItemMoveCallback.ItemTouchHelperContract<SceneMacroAdapter.ScriptLineViewHolder> {
 
     private final Scene scene;
-    private final List<Macro> lines;
+    private final List<Playable> lines;
     private ActivityResultLauncher<String> requestRemoveLauncher;
     private int oldColor;
     private ScriptViewerFragment mStartDragListener;
@@ -48,7 +47,7 @@ public class SceneMacroAdapter extends RecyclerView.Adapter<SceneMacroAdapter.Sc
 
     public SceneMacroAdapter(Scene scene, ScriptViewerFragment scriptViewerFragment, ActivityResultLauncher<String> requestRemoveLauncher) {
         this.scene = scene;
-        this.lines = scene.getMacros();
+        this.lines = scene.getPlayables();
         this.mStartDragListener = scriptViewerFragment;
     }
 
@@ -78,12 +77,12 @@ public class SceneMacroAdapter extends RecyclerView.Adapter<SceneMacroAdapter.Sc
     }
 
     public void deleteMacro() throws IOException {
-        Macro macro = lines.get(toDelete);
+        Macro macro = (Macro) lines.get(toDelete);
         DocumentFile sceneDir = FileRepository.getSceneDir();
         assert sceneDir != null;
         DocumentFile macrosDir = sceneDir.findFile(mStartDragListener.getResources().getString(R.string.macro_dir));
         if (macrosDir != null && macrosDir.exists()) {
-            DocumentFile macroDir = macrosDir.findFile(macro.getMacroName());
+            DocumentFile macroDir = macrosDir.findFile(macro.getName());
             assert macroDir != null;
             boolean del = macroDir.delete();
             if (!del) {
@@ -116,7 +115,7 @@ public class SceneMacroAdapter extends RecyclerView.Adapter<SceneMacroAdapter.Sc
     @Override
     public void onBindViewHolder(@NonNull final ScriptLineViewHolder holder, int position) {
 
-        Macro line = lines.get(position);
+        Macro line = (Macro)lines.get(position);
         holder.dragHolder.setOnTouchListener((v, event) -> {
             if (event.getAction() ==
                     MotionEvent.ACTION_DOWN) {
@@ -126,13 +125,12 @@ public class SceneMacroAdapter extends RecyclerView.Adapter<SceneMacroAdapter.Sc
         });
 
         holder.playButton.setOnClickListener(v -> {
-            FileRepository.setCurrentMacroName(line.getMacroName());
-            List<Playable> plays = new ArrayList<>(line.getActions());
-            mStartDragListener.getExecViewModel().setToDoActionsObservable(plays);
+            FileRepository.setCurrentMacroName(line.getName());
+            mStartDragListener.getExecViewModel().setToDoActionsObservable(line);
             Navigation.findNavController(v).navigate(R.id.navigation_execscript);
         });
 
-        holder.action.setText(line.getMacroName());
+        holder.action.setText(line.getName());
         holder.editButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt("macroPos", holder.getAdapterPosition());

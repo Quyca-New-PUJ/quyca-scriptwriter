@@ -1,13 +1,8 @@
 package com.quyca.scriptwriter.ui.playeditor;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.storage.StorageManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +33,7 @@ import com.quyca.scriptwriter.databinding.FragmentPlayViewerBinding;
 import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.Play;
 import com.quyca.scriptwriter.model.PlayCharacter;
+import com.quyca.scriptwriter.model.Playable;
 import com.quyca.scriptwriter.model.Scene;
 import com.quyca.scriptwriter.model.SoundAction;
 import com.quyca.scriptwriter.ui.shared.PlaySharedViewModel;
@@ -47,9 +43,6 @@ import com.quyca.scriptwriter.utils.AudioRepository;
 import com.quyca.scriptwriter.utils.FileRepository;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -111,7 +104,7 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
         saveButton.setOnClickListener(v -> requireActivity().onBackPressed());
 
         model.getPlayObservable().observe(getViewLifecycleOwner(), play -> {
-            if(play!=null){
+            if (play != null) {
                 Log.i("PLAYSCENE", "OK");
                 selPlay = play;
                 try {
@@ -126,6 +119,7 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
 
         return root;
     }
+
 
 
     @Override
@@ -174,30 +168,31 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
         for (PlayCharacter character : selPlay.getCharacters()) {
 
             character.getScenes().forEach(scene -> {
-                scene.getMacros().forEach(macro -> {
+                scene.getPlayables().forEach(playable -> {
+                    Macro macro = (Macro) playable;
                     macro.setCharColor(character.getColor());
                 });
 
                 if (!helpMap.containsKey(scene.getPosition())) {
                     helpMap.put(scene.getPosition(), new Scene(scene));
                 }
-                Objects.requireNonNull(helpMap.get(scene.getPosition())).getMacros().addAll(scene.getMacros());
+                Objects.requireNonNull(helpMap.get(scene.getPosition())).getPlayables().addAll(scene.getPlayables());
             });
         }
-        List<Scene> aux = new ArrayList<>();
+        List<Playable> aux = new ArrayList<>();
         helpMap.keySet().forEach(integer -> {
             Scene scen = helpMap.get(integer);
             assert scen != null;
             scen.orderMacrosPerCharacter();
             aux.add(scen);
         });
-        selPlay.setScenes(aux);
+        selPlay.setPlayables(aux);
 
     }
 
     private void setUpSceneSpinner() {
         List<String> sceneNames = new ArrayList<>();
-        List<Scene> scenes = selPlay.getScenes();
+        List<Playable> scenes = selPlay.getPlayables();
         scenes.forEach(scene -> sceneNames.add(scene.getName()));
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, sceneNames);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -205,7 +200,7 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
         sceneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Scene scene = selPlay.getScenes().get(position);
+                Scene scene = (Scene) selPlay.getPlayables().get(position);
                 startScriptView(scene);
             }
 
@@ -283,7 +278,7 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
 
     private void processScene(DocumentFile sceneDir, Scene scene) throws IOException {
         if (sceneDir != null && sceneDir.exists()) {
-            scene.setMacros(new ArrayList<>());
+            scene.setPlayables(new ArrayList<>());
             DocumentFile macrosDir = sceneDir.findFile(getResources().getString(R.string.macro_dir));
             TreeMap<Integer, Macro> macroSet = new TreeMap<>();
             List<Macro> duplicates = new ArrayList<>();
@@ -291,6 +286,7 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
             for (DocumentFile macroDir : macrosDir.listFiles()) {
                 if (macroDir != null && macroDir.exists()) {
                     DocumentFile macroFile = macroDir.findFile(getResources().getString(R.string.macro_file));
+                    assert macroFile != null;
                     BufferedReader jsonConfReader = new BufferedReader(new InputStreamReader(requireContext().getContentResolver().openInputStream(macroFile.getUri())));
                     StringBuilder jsonConfBuilder = new StringBuilder();
                     for (String line; (line = jsonConfReader.readLine()) != null; ) {
@@ -301,12 +297,12 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
                     macro.setCharColor(scene.getCharColor());
                     macro.setFile(macroDir);
                     DocumentFile soundDir = macroDir.findFile(getResources().getString(R.string.sound_dir));
-                    assert soundDir!=null;
-                    macro.getActions().forEach(action -> {
-                        if(action instanceof SoundAction){
-                                DocumentFile soundFile = soundDir.findFile(((SoundAction) action).getName());
-                                assert soundFile!=null;
-                                AudioRepository.addAudioPlay((SoundAction) action,soundFile);
+                    assert soundDir != null;
+                    macro.getPlayables().forEach(action -> {
+                        if (action instanceof SoundAction) {
+                            DocumentFile soundFile = soundDir.findFile(((SoundAction) action).getName());
+                            assert soundFile != null;
+                            AudioRepository.addAudioPlay((SoundAction) action, soundFile);
 
                         }
 
@@ -318,10 +314,8 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
                     }
                 }
             }
-            macroSet.keySet().forEach(key -> {
-                scene.getMacros().add(macroSet.get(key));
-            });
-            scene.getMacros().addAll(duplicates);
+            macroSet.keySet().forEach(key -> scene.getPlayables().add(macroSet.get(key)));
+            scene.getPlayables().addAll(duplicates);
         }
 
     }

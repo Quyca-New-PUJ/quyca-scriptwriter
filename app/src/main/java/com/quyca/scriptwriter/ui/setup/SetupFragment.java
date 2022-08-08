@@ -39,17 +39,17 @@ public class SetupFragment extends Fragment {
         mViewModel = new ViewModelProvider(requireActivity()).get(SetupViewModel.class);
         binding = SetupFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        startPlay =root.findViewById(R.id.start_play);
+        startPlay = root.findViewById(R.id.start_play);
 
-        mViewModel.getPlayObservable().observe(getViewLifecycleOwner(),play -> {
-            selPlay=play;
+        mViewModel.getPlayObservable().observe(getViewLifecycleOwner(), play -> {
+            selPlay = play;
             setCharacterAdapter();
         });
 
         startPlay.setOnClickListener(v -> {
             Intent i = new Intent(requireContext(), PlayActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            i.putExtra("play",selPlay);
+            i.putExtra("play", selPlay);
             requireActivity().startActivity(i);
         });
 
@@ -57,7 +57,7 @@ public class SetupFragment extends Fragment {
     }
 
 
-    private void setCharacterAdapter(){
+    private void setCharacterAdapter() {
         manager = new LinearLayoutManager(getContext());
         binding.scriptlineView.setLayoutManager(manager);
         CharacterAdapter slAdapter = new CharacterAdapter(selPlay);

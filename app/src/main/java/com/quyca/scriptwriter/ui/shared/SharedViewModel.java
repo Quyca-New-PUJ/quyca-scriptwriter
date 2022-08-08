@@ -4,39 +4,29 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.quyca.scriptwriter.config.ConfiguredRobot;
-import com.quyca.scriptwriter.config.QuycaConfiguration;
 import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.Play;
 import com.quyca.scriptwriter.model.PlayCharacter;
 import com.quyca.scriptwriter.model.Scene;
-import com.quyca.scriptwriter.model.Script;
+
+import java.util.ArrayList;
 
 /**
  * The type Shared view model.
  */
 public class SharedViewModel extends ViewModel {
-    private final MutableLiveData<Script> script = new MutableLiveData<>();
+    private final MutableLiveData<Macro> activeMacro = new MutableLiveData<>();
     private final MutableLiveData<Scene> selectedScene = new MutableLiveData<>();
     private final MutableLiveData<PlayCharacter> character = new MutableLiveData<>();
     private final MutableLiveData<Macro> macro = new MutableLiveData<>();
     private final MutableLiveData<Play> play = new MutableLiveData<>();
 
-    public void setPlayObservable(Play item) {
-        play.setValue(item);
-    }
-
-
     public LiveData<Play> getPlayObservable() {
         return play;
     }
-    /**
-     * Sets script observable.
-     *
-     * @param item the item
-     */
-    public void setScriptObservable(Script item) {
-        script.setValue(item);
+
+    public void setPlayObservable(Play item) {
+        play.setValue(item);
     }
 
     /**
@@ -44,15 +34,20 @@ public class SharedViewModel extends ViewModel {
      *
      * @return the script observable
      */
-    public LiveData<Script> getScriptObservable() {
-        if(script.getValue()==null){
-            script.setValue(new Script());
+    public LiveData<Macro> getScriptObservable() {
+        if (activeMacro.getValue() == null) {
+            activeMacro.setValue(new Macro(new ArrayList<>()));
         }
-        return script;
+        return activeMacro;
     }
 
-    public void setSceneObservable(Scene item) {
-        selectedScene.setValue(item);
+    /**
+     * Sets script observable.
+     *
+     * @param item the item
+     */
+    public void setScriptObservable(Macro item) {
+        activeMacro.setValue(item);
     }
 
     /**
@@ -64,6 +59,22 @@ public class SharedViewModel extends ViewModel {
         return selectedScene;
     }
 
+    public void setSceneObservable(Scene item) {
+        selectedScene.setValue(item);
+    }
+
+    /**
+     * Gets conf observable.
+     *
+     * @return the conf observable
+     */
+    public LiveData<PlayCharacter> getCharacterObservable() {
+        if (character.getValue() == null) {
+            character.setValue(null);
+        }
+        return character;
+    }
+
     public void setCharacterObservable(PlayCharacter item) {
         character.setValue(item);
     }
@@ -73,27 +84,14 @@ public class SharedViewModel extends ViewModel {
      *
      * @return the conf observable
      */
-    public LiveData<PlayCharacter> getCharacterObservable() {
-        if(character.getValue()==null){
-            character.setValue(null);
-        }
-        return character;
-    }
-
-
-    public void setMacroObservable(Macro item) {
-        macro.setValue(item);
-    }
-
-    /**
-     * Gets conf observable.
-     *
-     * @return the conf observable
-     */
     public LiveData<Macro> getMacroObservable() {
-        if(macro.getValue()==null){
+        if (macro.getValue() == null) {
             macro.setValue(null);
         }
         return macro;
+    }
+
+    public void setMacroObservable(Macro item) {
+        macro.setValue(item);
     }
 }

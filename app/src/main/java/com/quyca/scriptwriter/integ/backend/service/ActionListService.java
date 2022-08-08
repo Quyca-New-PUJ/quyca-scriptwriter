@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ActionListService {
     private ActionListAPI actionListAPI;
 
-    public ActionListService(){
+    public ActionListService() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("")
                 .addConverterFactory(GsonConverterFactory.create())

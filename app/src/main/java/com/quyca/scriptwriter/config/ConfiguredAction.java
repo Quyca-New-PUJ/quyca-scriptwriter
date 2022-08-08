@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Representa una accion configurada para un robot actor en especifico. Generalmente se carga a partir de un archivo JSON de configuracion.
@@ -32,13 +31,17 @@ public class ConfiguredAction implements Serializable {
     @Expose
     private int quycaId;
 
+    @Expose
+    private boolean answerable;
+
     /**
      * Crea una accion configurada.
      */
-    public ConfiguredAction(FixedConfiguredAction action, String name,List<String> params) {
+    public ConfiguredAction(FixedConfiguredAction action, String name, List<String> params) {
         this.actionId = action.name();
-        this.actionName=name;
+        this.actionName = name;
         this.params = params;
+        this.answerable = action.isAnswerable();
     }
 
     /**
@@ -82,7 +85,7 @@ public class ConfiguredAction implements Serializable {
      *
      * @return default params
      */
-    public List<String>getParams() {
+    public List<String> getParams() {
         return params;
     }
 
@@ -112,10 +115,18 @@ public class ConfiguredAction implements Serializable {
         this.actionName = actionName;
     }
 
+    public boolean isAnswerable() {
+        return answerable;
+    }
+
     @Override
     public String toString() {
         return "ConfiguredAction{" +
                 "actionId='" + actionId + '\'' +
+                ", actionName='" + actionName + '\'' +
+                ", params=" + params +
+                ", quycaId=" + quycaId +
+                ", answerable=" + answerable +
                 '}';
     }
 }

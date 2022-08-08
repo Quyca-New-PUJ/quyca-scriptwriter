@@ -22,14 +22,15 @@ import com.quyca.scriptwriter.MainActivity;
 import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.config.QuycaConfiguration;
 import com.quyca.scriptwriter.databinding.FragmentScriptViewerBinding;
+import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.Scene;
-import com.quyca.scriptwriter.model.Script;
-import com.quyca.scriptwriter.ui.execscript.ExecScriptViewModel;
+import com.quyca.scriptwriter.ui.shared.ExecScriptViewModel;
 import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 import com.quyca.scriptwriter.ui.touchhelper.ItemMoveCallback;
 import com.quyca.scriptwriter.ui.touchhelper.StartDragListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * The type Act fragment.
@@ -74,15 +75,15 @@ public class ScriptViewerFragment extends Fragment implements StartDragListener 
                         Toast.makeText(requireContext(), "Sin permisos es imposible grabar audio", Toast.LENGTH_SHORT).show();
                     }
                 });
-        model.getSceneObservable().observe(getViewLifecycleOwner(),scene -> {
-            actScene= scene;
+        model.getSceneObservable().observe(getViewLifecycleOwner(), scene -> {
+            actScene = scene;
             startScriptView();
         });
 
         createMacro = root.findViewById(R.id.create_macro);
 
         createMacro.setOnClickListener(v -> {
-            model.setScriptObservable(new Script());
+            model.setScriptObservable(new Macro(new ArrayList<>()));
             Navigation.findNavController(v).navigate(R.id.navigation_macro_home);
         });
 
@@ -93,7 +94,7 @@ public class ScriptViewerFragment extends Fragment implements StartDragListener 
     @Override
     public void onResume() {
         super.onResume();
-        MainActivity main= (MainActivity) requireActivity();
+        MainActivity main = (MainActivity) requireActivity();
         main.setBackButtonText(requireContext().getResources().getString(R.string.regresar_main));
         main.setBackButtonEnabled(true);
     }
@@ -108,7 +109,7 @@ public class ScriptViewerFragment extends Fragment implements StartDragListener 
     private void startScriptView() {
         manager = new LinearLayoutManager(getContext());
         binding.scriptlineView.setLayoutManager(manager);
-        slAdapter = new SceneMacroAdapter(actScene,this,requestRemoveLauncher);
+        slAdapter = new SceneMacroAdapter(actScene, this, requestRemoveLauncher);
         ItemTouchHelper.Callback callback =
                 new ItemMoveCallback<>(slAdapter);
         touchHelper = new ItemTouchHelper(callback);
@@ -122,7 +123,7 @@ public class ScriptViewerFragment extends Fragment implements StartDragListener 
         touchHelper.startDrag(viewHolder);
     }
 
-    public ExecScriptViewModel getExecViewModel(){
+    public ExecScriptViewModel getExecViewModel() {
         return mViewModel;
     }
 
