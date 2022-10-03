@@ -1,7 +1,7 @@
 package com.quyca.scriptwriter.config;
 
 public enum FixedConfiguredAction {
-    emotions(false), forward(true), reverse(true), right(true), left(true), calibration(true);
+    emotions(false), forward(true), reverse(true), right(true), left(true), calibration(true), sound(false);
 
     private boolean answerable;
 

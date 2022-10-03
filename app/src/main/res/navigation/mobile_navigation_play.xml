@@ -9,12 +9,18 @@
         android:id="@+id/navigation_play_home"
         android:name="com.quyca.scriptwriter.ui.playeditor.PlayViewerFragment"
         android:label="@string/title_setup_play"
-        tools:layout="@layout/fragment_play_viewer"></fragment>
+        tools:layout="@layout/fragment_play_viewer" />
 
     <fragment
         android:id="@+id/navigation_execscript_play"
         android:name="com.quyca.scriptwriter.ui.execplay.ExecPlayFragment"
         android:label="@string/label_exec"
-        tools:layout="@layout/exec_play_fragment"></fragment>
+        tools:layout="@layout/exec_play_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_viewplay_play"
+        android:name="com.quyca.scriptwriter.ui.playeditor.PlayEditorFragment"
+        android:label="@string/label_viewer"
+        tools:layout="@layout/fragment_play_editor" />
 
 </navigation>

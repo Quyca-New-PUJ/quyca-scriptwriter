@@ -38,7 +38,7 @@
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout-land/fragment_script_editor.xml" value="0.11772486772486772" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout-land/fragment_script_viewer.xml" value="0.176" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/activity_play.xml" value="0.15625" />
+        <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/activity_play.xml" value="0.4" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/activity_play_script.xml" value="0.1234375" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/activity_setup.xml" value="0.15625" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/character_cardview.xml" value="0.21784420289855072" />
@@ -47,9 +47,9 @@
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/emotioneditor_cardview.xml" value="0.1390625" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/emotions_cardview.xml" value="0.176" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/exec_play_fragment.xml" value="0.15625" />
-        <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/exec_script_fragment.xml" value="0.2" />
+        <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/exec_script_fragment.xml" value="0.264" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/execplayline_cardview.xml" value="0.15625" />
-        <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/execscriptline_cardview.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/execscriptline_cardview.xml" value="0.4" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_action_creator.xml" value="0.19746376811594202" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_active_script.xml" value="0.4" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_configuration.xml" value="0.2328125" />
@@ -65,12 +65,14 @@
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_macro_screen.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_matrix_editor.xml" value="0.1265625" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_notifications.xml" value="0.29528985507246375" />
-        <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_play_viewer.xml" value="0.15625" />
+        <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_play_editor.xml" value="0.3704710144927536" />
+        <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_play_viewer.xml" value="0.4" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_qyuca_preference.xml" value="0.14375" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_script_editor.xml" value="0.30724971231300346" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/fragment_script_viewer.xml" value="0.2128623188405797" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/macroaction_cardview.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/play_cardview.xml" value="0.16259057971014493" />
+        <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/play_editor_cardview.xml" value="0.264" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/scenemacro_cardview.xml" value="0.264" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/scriptline_cardview.xml" value="0.264" />
         <entry key="..\:/Users/juans/OneDrive/Escritorio/Galeon/QuycaScriptWriter/app/src/main/res/layout/setup_activity.xml" value="0.21784420289855072" />

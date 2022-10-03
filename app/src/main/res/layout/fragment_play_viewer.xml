@@ -44,12 +44,12 @@
                 android:layout_weight="2" />
 
             <Button
-                android:id="@+id/play_button"
+                android:id="@+id/view_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/custom_radio_emotion"
-                android:text="@string/play_play" />
+                android:text="@string/order_play" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

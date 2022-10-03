@@ -65,7 +65,7 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
     private PlayLineAdapter slAdapter;
     private Play selPlay;
     private Button playButton;
-    private Button saveButton;
+    private Button backButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,8 +78,8 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
         binding = FragmentPlayViewerBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         sceneSpinner = root.findViewById(R.id.scene_spinner);
-        playButton = root.findViewById(R.id.play_button);
-        saveButton = root.findViewById(R.id.back_button);
+        playButton = root.findViewById(R.id.view_button);
+        backButton = root.findViewById(R.id.back_button);
 
         requestReadLauncher =
                 registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -98,14 +98,13 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
             model.getPlayObservable().removeObservers(getViewLifecycleOwner());
             model.setPlayObservable(selPlay);
             model.setToDoActionsObservable(selPlay.getPlayGraph());
-            Navigation.findNavController(v).navigate(R.id.navigation_execscript_play);
+            Navigation.findNavController(v).navigate(R.id.navigation_viewplay_play);
         });
 
-        saveButton.setOnClickListener(v -> requireActivity().onBackPressed());
+        backButton.setOnClickListener(v -> requireActivity().onBackPressed());
 
         model.getPlayObservable().observe(getViewLifecycleOwner(), play -> {
             if (play != null) {
-                Log.i("PLAYSCENE", "OK");
                 selPlay = play;
                 try {
                     startPlayChargingProcess();
@@ -183,7 +182,6 @@ public class PlayViewerFragment extends Fragment implements StartDragListener {
         helpMap.keySet().forEach(integer -> {
             Scene scen = helpMap.get(integer);
             assert scen != null;
-            scen.orderMacrosPerCharacter();
             aux.add(scen);
         });
         selPlay.setPlayables(aux);

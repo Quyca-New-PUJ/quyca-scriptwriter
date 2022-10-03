@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.quyca.robotmanager.net.PetriNet;
 import com.quyca.robotmanager.net.Place;
 import com.quyca.robotmanager.network.RobotExecutioner;
+import com.quyca.scriptwriter.config.ConfiguredAction;
 import com.quyca.scriptwriter.integ.network.QuycaMessageTransformer;
 import com.quyca.scriptwriter.integ.petrinet.places.PlaySoundPlace;
 import com.quyca.scriptwriter.integ.utils.NetBundle;
@@ -24,8 +25,9 @@ public class SoundAction extends Action {
     @Expose
     private boolean saved;
 
-    public SoundAction() {
+    public SoundAction(ConfiguredAction actionsFromId) {
         super();
+        setAction(actionsFromId);
         saved = false;
     }
 

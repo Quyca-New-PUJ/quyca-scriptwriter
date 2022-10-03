@@ -27,8 +27,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.quyca.scriptwriter.R;
+import com.quyca.scriptwriter.config.FixedConfiguredAction;
 import com.quyca.scriptwriter.databinding.FragmentMacroRecordBinding;
 import com.quyca.scriptwriter.model.Macro;
+import com.quyca.scriptwriter.model.PlayCharacter;
 import com.quyca.scriptwriter.model.SoundAction;
 import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 import com.quyca.scriptwriter.utils.AudioRepository;
@@ -57,6 +59,7 @@ public class MacroRecordFragment extends Fragment {
     private DocumentFile audiotempFile;
     private int oldColor;
     private Macro selMacro;
+    private PlayCharacter currentChar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class MacroRecordFragment extends Fragment {
         binding = FragmentMacroRecordBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         recordButton = root.findViewById(R.id.record_button);
-        playButton = root.findViewById(R.id.play_button);
+        playButton = root.findViewById(R.id.view_button);
         saveButton = root.findViewById(R.id.save_button);
         discButton = root.findViewById(R.id.disc_button);
         recordInfo = root.findViewById(R.id.record_label);
@@ -143,6 +146,9 @@ public class MacroRecordFragment extends Fragment {
             alert.show();
         });
 
+        model.getCharacterObservable().observe(getViewLifecycleOwner(),playCharacter -> {
+            currentChar = playCharacter;
+        });
         model.getScriptObservable().observe(getViewLifecycleOwner(), script -> {
             actScript = script;
         });
@@ -255,7 +261,7 @@ public class MacroRecordFragment extends Fragment {
     }
 
     private void startRecording() throws IOException {
-        sAction = new SoundAction();
+        sAction = new SoundAction(currentChar.getConf().getActionsFromId(FixedConfiguredAction.sound.name()));
         String name = requireContext().getResources().getString(R.string.sound_tmp_name);
         if (!name.isEmpty()) {
             ParcelFileDescriptor descr = null;

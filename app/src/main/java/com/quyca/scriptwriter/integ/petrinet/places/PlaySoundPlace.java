@@ -12,14 +12,13 @@ import java.io.IOException;
 
 public class PlaySoundPlace extends PlayViewPlace {
 
-
     public PlaySoundPlace(Playable playable, UIBundle bundle) {
         super(playable, bundle);
     }
 
     @Override
     public void run() {
-        done = true;
+        done = false;
         SoundAction sAction = (SoundAction) playable;
         playable.setDone(QuycaCommandState.IN_EXECUTION);
         refreshUI();
@@ -27,20 +26,20 @@ public class PlaySoundPlace extends PlayViewPlace {
         try {
             FileDescriptor file = sAction.getSoundFile(context);
             player.setDataSource(file);
+            player.setOnCompletionListener(mp -> {
+                done = true;
+                fireTransitions();
+                playable.setDone(done ? QuycaCommandState.DONE : QuycaCommandState.ERROR);
+                refreshUI();
+            });
             player.prepare();
             player.start();
         } catch (IOException e) {
             e.printStackTrace();
             done = false;
         } finally {
-            sAction.setSound(null);
             player.reset();
             player.release();
         }
-        if(done){
-            fireTransitions();
-        }
-        playable.setDone(done ? QuycaCommandState.DONE : QuycaCommandState.ERROR);
-        refreshUI();
     }
 }

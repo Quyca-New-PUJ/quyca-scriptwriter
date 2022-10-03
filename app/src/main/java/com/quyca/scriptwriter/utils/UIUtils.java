@@ -21,6 +21,7 @@ public static void changeQuycaHolderColor(@NonNull final RecyclerView.ViewHolder
             break;
         case ERROR:
             holder.itemView.getBackground().setTint(ContextCompat.getColor(holder.itemView.getContext(), R.color.error));
+            break;
     }
 }
 }

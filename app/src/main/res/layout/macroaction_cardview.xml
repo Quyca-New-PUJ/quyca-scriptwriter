@@ -84,7 +84,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/play_button"
+                android:id="@+id/view_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

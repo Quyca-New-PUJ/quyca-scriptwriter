@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     QuycaMessage actMsg = new QuycaMessage(0);
                     actMsg.setAlias(character.getRobotConf().getAlias());
                     actMsg.setActionId("calibration");
-                    actMsg.setAction(new Action(new ConfiguredAction(FixedConfiguredAction.calibration, FixedConfiguredAction.calibration.name(), null), false, character.getName()));
+                    actMsg.setAction(new Action(new ConfiguredAction(FixedConfiguredAction.calibration, FixedConfiguredAction.calibration.name(), null, null), false, character.getName()));
                     int port = getResources().getInteger(R.integer.port_value);
                     RobotExecutioner sender = new QuycaCharacterSender(character);
                     sender.sendMessage(actMsg);

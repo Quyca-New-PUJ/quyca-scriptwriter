@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.quyca.scriptwriter.config.ConfiguredAction;
 import com.quyca.scriptwriter.config.FixedConfiguredAction;
+import com.quyca.scriptwriter.config.QuycaConfiguration;
 import com.quyca.scriptwriter.model.Action;
 import com.quyca.scriptwriter.model.Macro;
 
@@ -24,4 +25,12 @@ public class ModelUnitTest {
         System.out.println(Macro.toJSON(macro));
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void conf_showString() {
+        QuycaConfiguration conf = QuycaConfiguration.getBasicConfig();
+        System.out.println(QuycaConfiguration.toJSON(conf));
+        assertEquals(4, 2 + 2);
+    }
+
 }

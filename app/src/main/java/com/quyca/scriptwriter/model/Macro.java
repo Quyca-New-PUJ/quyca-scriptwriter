@@ -1,5 +1,8 @@
 package com.quyca.scriptwriter.model;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.documentfile.provider.DocumentFile;
 
 import com.google.gson.FieldNamingPolicy;
@@ -8,7 +11,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.quyca.scriptwriter.gson.PlayableAdapter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Macro extends PlayableComponent {
     @Expose
@@ -24,15 +29,6 @@ public class Macro extends PlayableComponent {
 
     public static String toJSON(Macro macro) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-       /* RuntimeTypeAdapterFactory<Action> adapter =
-                RuntimeTypeAdapterFactory
-                        .of(Action.class)
-                        .registerSubtype(Action.class)
-                        .registerSubtype(SoundAction.class);
-
-        Gson gson = gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .registerTypeAdapterFactory(adapter)
-                .excludeFieldsWithoutExposeAnnotation().create();*/
         Gson gson = gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                 .registerTypeAdapter(Playable.class, new PlayableAdapter()).excludeFieldsWithoutExposeAnnotation().create();
         return gson.toJson(macro);
@@ -40,13 +36,7 @@ public class Macro extends PlayableComponent {
 
     public static Macro parseJSON(String response) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        /*RuntimeTypeAdapterFactory<Playable> adapter =
-               RuntimeTypeAdapterFactory
-                        .of(Playable.class)
-                        .registerSubtype(Action.class)
-                        .registerSubtype(SoundAction.class);*/
         Gson gson = gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                //.registerTypeAdapterFactory(adapter)
                 .registerTypeAdapter(Playable.class, new PlayableAdapter()).excludeFieldsWithoutExposeAnnotation().create();
         return gson.fromJson(response, Macro.class);
     }
@@ -84,10 +74,20 @@ public class Macro extends PlayableComponent {
         this.charName = charName;
     }
 
+    public Set<String> getResources(){
+        Set<String> set = new HashSet<>();
+        playables.forEach(playable -> {
+            Action action = (Action) playable;
+            set.addAll(action.getAction().getUsedResources());
+        });
+        return set;
+    }
+
+    @NonNull
     @Override
     public String toString() {
-        return super.toString() + "\nScene{" +
-                "sceneName='" + name + '\'' +
+        return super.toString() + "\nMacro{" +
+                "MacroName='" + name + '\'' +
                 ", playables=" + playables.size() +
                 ", position=" + position +
                 '}';

@@ -20,7 +20,6 @@ public class PlayableAdapter implements JsonSerializer<Playable>, JsonDeserializ
         JsonObject result = new JsonObject();
         result.add("type", new JsonPrimitive(src.getClass().getName()));
         result.add("properties", context.serialize(src, src.getClass()));
-        Log.i("JSONDEBUG", src.getClass().getName());
         return result;
     }
 

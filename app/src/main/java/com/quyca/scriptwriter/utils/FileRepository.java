@@ -98,11 +98,6 @@ public class FileRepository {
     }
 
     public static DocumentFile getCharDirectory(PlayCharacter character) {
-        charRel.forEach((playCharacter, documentFile) -> {
-            Log.i("DEBUGFILE", playCharacter.getName());
-            Log.i("DEBUGFILE", documentFile.getName());
-
-        });
         return charRel.get(character);
     }
 

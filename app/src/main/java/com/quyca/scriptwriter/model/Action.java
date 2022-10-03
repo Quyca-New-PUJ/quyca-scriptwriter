@@ -33,7 +33,7 @@ public class Action extends Playable {
     private boolean extra;
 
     public Action() {
-
+        super();
     }
 
 
@@ -104,6 +104,7 @@ public class Action extends Playable {
         return super.toString() + " \nAction{" +
                 "emotion=" + emotion +
                 ", action=" + action +
+                ", resources=" + action.getUsedResources() +
                 '}';
     }
 

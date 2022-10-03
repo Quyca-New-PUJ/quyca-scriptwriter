@@ -1,5 +1,7 @@
 package com.quyca.scriptwriter.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.quyca.robotmanager.net.Arc;
 import com.quyca.robotmanager.net.PetriNet;
@@ -26,7 +28,6 @@ public abstract class PlayableComponent extends Playable implements Serializable
     public NetBundle play(Map<String, QuycaMessageTransformer> msgCreators, Map<String, RobotExecutioner> senders, PetriNet net, UIBundle bundle) {
         TransitionBuilder tBuilder = net.getCreator().createNewTransition();
         ArcBuilder aBuilder = net.getCreator().createNewArc();
-        List<Place> places = new ArrayList<>();
         NetBundle netBundle = new NetBundle();
 
         Transition toPlace = null, fromPlace;
@@ -95,6 +96,11 @@ public abstract class PlayableComponent extends Playable implements Serializable
         return state;
     }
 
+    @Override
+    public void setDone(QuycaCommandState done) {
+        playables.forEach(playable -> playable.setDone(done));
+    }
+
     public List<Playable> getPlayables() {
         return playables;
     }
@@ -102,4 +108,5 @@ public abstract class PlayableComponent extends Playable implements Serializable
     public void setPlayables(List<Playable> playables) {
         this.playables = playables;
     }
+
 }

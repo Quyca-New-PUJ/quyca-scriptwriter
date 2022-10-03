@@ -181,7 +181,7 @@ public class SceneMacroAdapter extends RecyclerView.Adapter<SceneMacroAdapter.Sc
             action = v.findViewById(R.id.action);
             delete = v.findViewById(R.id.delete_button);
             editButton = v.findViewById(R.id.edit_button);
-            playButton = v.findViewById(R.id.play_button);
+            playButton = v.findViewById(R.id.view_button);
             actionLabel = v.findViewById(R.id.action_label);
             dragHolder = v.findViewById(R.id.drag_button);
         }

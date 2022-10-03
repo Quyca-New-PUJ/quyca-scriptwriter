@@ -7,6 +7,7 @@
     <string name="title_config">Configuracion</string>
     <string name="title_emoprofile">Perfil Emocional</string>
     <string name="label_exec">A Mover los Robots</string>
+    <string name="label_viewer">Organiza Tu Obra</string>
     <string name="label_edit_script">Edita Tu Guion</string>
     <string name="label_edit_emotion">Edita la emocion</string>
     <string name="label_edit_matrix">Edita la cara</string>
@@ -99,6 +100,7 @@
     <string name="recording_end_label">¡Ya grabaste!</string>
 
     <string name="play_back_bttn">Regresar al Menu de Personajes</string>
+    <string name="play_overview_bttn">Regresar a la Vista General de la Obra</string>
 
     <string name="disc_label">Descartar</string>
     <string name="temp_dir">tmp</string>
@@ -106,6 +108,9 @@
 
 
     <string name="play_play">Ver la Obra</string>
+    <string name="next_scene">Siguiente Escena</string>
+    <string name="selec_macros">Seleccionar Acciones Paralelas</string>
+    <string name="order_play">Organizar la  Obra</string>
     <string name="Regresar">Regresar</string>
     <string name="regresar_macro_home">Regresar al Guion de</string>
     <string name="regresar_main">Regresar a Menu de Personajes</string>

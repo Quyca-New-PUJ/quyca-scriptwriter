@@ -143,7 +143,6 @@ public class ExecScriptFragment extends Fragment {
     }
 
     public void sendMessages() throws IOException, NonValidPlayableException {
-        QuycaMessageCreator msgCreator = new QuycaMessageCreator(charac);
         UIBundle bundle = new UIBundle(requireContext(), mViewModel);
         PlayBundle playBundle = new PlayBundle(actionList, charac);
         execManager = new QuycaPlayExecutionManager(playBundle, bundle);

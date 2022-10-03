@@ -17,9 +17,9 @@
     <color name="action">#3F51B5</color>
     <color name="extras">#4CAF50</color>
 
-    <color name="to_execute">#4CAFA7</color>
-    <color name="in_execution">#2FE6D7</color>
-    <color name="done">#307E33</color>
+    <color name="to_execute">#33756F</color>
+    <color name="in_execution">#08803F</color>
+    <color name="done">#308A33</color>
     <color name="error">#93222F</color>
 
 </resources>

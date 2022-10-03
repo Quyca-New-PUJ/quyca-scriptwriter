@@ -258,7 +258,7 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
             emotion = v.findViewById(R.id.emotion);
             delete = v.findViewById(R.id.delete_button);
             editButton = v.findViewById(R.id.edit_button);
-            playButton = v.findViewById(R.id.play_button);
+            playButton = v.findViewById(R.id.view_button);
             actionLabel = v.findViewById(R.id.action_label);
             emotionLabel = v.findViewById(R.id.emotion_label);
             dragHolder = v.findViewById(R.id.drag_button);

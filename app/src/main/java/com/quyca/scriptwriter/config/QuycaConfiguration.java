@@ -10,7 +10,9 @@ import com.google.gson.GsonBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Representa una accion configurada para un robot actor en especifico. Generalmente se carga a partir de un archivo JSON de configuracion.
@@ -44,9 +46,6 @@ public class QuycaConfiguration implements Serializable {
         QuycaConfiguration baseConf = getBasicConfig();
         QuycaConfiguration mergedConf = new QuycaConfiguration();
         if (config.getExtraActions() != null) {
-            config.getExtraActions().forEach(configuredAction -> {
-                Log.i("AnsTest",configuredAction.toString());
-            });
             mergedConf.setExtraActions(config.getExtraActions());
         } else {
             mergedConf.setExtraActions(new ArrayList<>());
@@ -55,9 +54,13 @@ public class QuycaConfiguration implements Serializable {
             int idx = config.getActions().indexOf(fixedAction);
             if (idx != -1) {
                 ConfiguredAction tempAction = config.getActions().get(idx);
-                fixedAction.setParams(tempAction.getParams());
+                if(tempAction.getParams()!=null) {
+                    fixedAction.setParams(tempAction.getParams());
+                }
                 fixedAction.setQuycaId(tempAction.getQuycaId());
-                fixedAction.setParams(tempAction.getParams());
+                if(tempAction.getUsedResources()!=null){
+                    fixedAction.setUsedResources(tempAction.getUsedResources());
+                }
             }
             mergedConf.getActions().add(fixedAction);
         });
@@ -70,6 +73,7 @@ public class QuycaConfiguration implements Serializable {
             }
             mergedConf.getEmotions().add(fixedEmotion);
         });
+
         return mergedConf;
 
     }
@@ -105,12 +109,19 @@ public class QuycaConfiguration implements Serializable {
         QuycaConfiguration conf = new QuycaConfiguration();
         List<String> defaultParams = new ArrayList<>();
         defaultParams.add("perc_nominal_vel");
-
-        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.reverse, "Reversa", new ArrayList<>(defaultParams)));
-        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.forward, "Avanzar", new ArrayList<>(defaultParams)));
-        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.right, "Girar a la Derecha", new ArrayList<>(defaultParams)));
-        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.left, "Girar a la Izquierda", new ArrayList<>(defaultParams)));
-        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.emotions, "Cambiar Emocion", new ArrayList<>()));
+        Set<String> defaultResources = new HashSet<>();
+        defaultResources.add("screen");
+        defaultResources.add("mvtMotors");
+        Set<String> defaultEmoResources = new HashSet<>();
+        defaultEmoResources.add("screen");
+        Set<String> defaultSpeakResources = new HashSet<>();
+        defaultSpeakResources.add("speaker");
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.reverse, "Reversa", new ArrayList<>(defaultParams), new HashSet<>(defaultResources)));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.forward, "Avanzar", new ArrayList<>(defaultParams), new HashSet<>(defaultResources)));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.right, "Girar a la Derecha", new ArrayList<>(defaultParams), new HashSet<>(defaultResources)));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.left, "Girar a la Izquierda", new ArrayList<>(defaultParams), new HashSet<>(defaultResources)));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.emotions, "Cambiar Emocion", new ArrayList<>(),new HashSet<>(defaultEmoResources) ));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.sound, "Hablar", new ArrayList<>(),new HashSet<>(defaultSpeakResources) ));
 
 
         conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.happy, "Feliz", 0.5f));
