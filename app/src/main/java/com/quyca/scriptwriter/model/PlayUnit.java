@@ -17,8 +17,14 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Play unit represents a intermediate state of the playable tree.
+ */
 public class PlayUnit extends Playable implements Serializable {
 
+    /**
+     * The Playables related to single a playunit.
+     */
     @Expose
     protected List<Playable> playables;
 
@@ -36,14 +42,30 @@ public class PlayUnit extends Playable implements Serializable {
         return netBundle;
     }
 
+    /**
+     * Gets playables.
+     *
+     * @return the playables
+     */
     public List<Playable> getPlayables() {
         return playables;
     }
 
+    /**
+     * Sets playables.
+     *
+     * @param playables the playables
+     */
     public void setPlayables(List<Playable> playables) {
         this.playables = playables;
     }
 
+    /**
+     * Get playable playable.
+     *
+     * @param i the
+     * @return the playable
+     */
     public Playable getPlayable(int i){
         return playables.get(i);
     }

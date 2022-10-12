@@ -2,6 +2,7 @@ package com.quyca.scriptwriter;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -31,6 +32,9 @@ import com.quyca.scriptwriter.utils.FileUtils;
 
 import java.io.IOException;
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private SharedViewModel model;
@@ -61,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
                     QuycaMessage actMsg = new QuycaMessage(0);
                     actMsg.setAlias(character.getRobotConf().getAlias());
                     actMsg.setActionId("calibration");
-                    actMsg.setAction(new Action(new ConfiguredAction(FixedConfiguredAction.calibration, FixedConfiguredAction.calibration.name(), null, null), false, character.getName()));
+                    actMsg.setAction(new Action(new ConfiguredAction(FixedConfiguredAction.calibration, FixedConfiguredAction.calibration.name(), null, null), false, character.getName(), character.getRobotConf().getAlias()));
+                    Log.i("Calib", actMsg.toMessageString());
+                    Log.i("Calib", character.getIp());
                     int port = getResources().getInteger(R.integer.port_value);
                     RobotExecutioner sender = new QuycaCharacterSender(character);
                     sender.sendMessage(actMsg);
@@ -121,18 +127,38 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Enable scene spinner.
+     *
+     * @param enable the enable
+     */
     public void enableSceneSpinner(boolean enable) {
         sceneSpinner.setEnabled(enable);
     }
 
+    /**
+     * Sets back button text.
+     *
+     * @param text the text
+     */
     public void setBackButtonText(String text) {
         backButton.setText(text);
     }
 
+    /**
+     * Sets back button enabled.
+     *
+     * @param enable the enable
+     */
     public void setBackButtonEnabled(boolean enable) {
         backButton.setEnabled(enable);
     }
 
+    /**
+     * Gets play.
+     *
+     * @return the play
+     */
     public Play getPlay() {
         return play;
     }

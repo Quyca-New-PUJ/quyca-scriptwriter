@@ -32,9 +32,15 @@ public class PlayLineAdapter extends RecyclerView.Adapter<PlayLineAdapter.Script
     private final List<Playable> lines;
     private ActivityResultLauncher<String> requestRemoveLauncher;
     private int oldColor;
-    private PlayViewerFragment mStartDragListener;
+    private final PlayViewerFragment mStartDragListener;
     private int toDelete;
 
+    /**
+     * Instantiates a new Play line adapter.
+     *
+     * @param scene              the scene
+     * @param playViewerFragment the play viewer fragment
+     */
     public PlayLineAdapter(Scene scene, PlayViewerFragment playViewerFragment) {
         this.lines = scene.getPlayables();
         this.mStartDragListener = playViewerFragment;
@@ -99,11 +105,26 @@ public class PlayLineAdapter extends RecyclerView.Adapter<PlayLineAdapter.Script
      */
     public static class ScriptLineViewHolder extends RecyclerView.ViewHolder {
 
+        /**
+         * The Script card.
+         */
         CardView scriptCard;
 
+        /**
+         * The Action.
+         */
         TextView action;
+        /**
+         * The Char name.
+         */
         TextView charName;
+        /**
+         * The Action label.
+         */
         TextView actionLabel;
+        /**
+         * The Drag holder.
+         */
         ImageButton dragHolder;
 
         /**

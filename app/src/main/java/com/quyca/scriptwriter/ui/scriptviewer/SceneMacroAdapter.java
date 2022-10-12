@@ -42,9 +42,16 @@ public class SceneMacroAdapter extends RecyclerView.Adapter<SceneMacroAdapter.Sc
     private final List<Playable> lines;
     private ActivityResultLauncher<String> requestRemoveLauncher;
     private int oldColor;
-    private ScriptViewerFragment mStartDragListener;
+    private final ScriptViewerFragment mStartDragListener;
     private int toDelete;
 
+    /**
+     * Instantiates a new Scene macro adapter.
+     *
+     * @param scene                 the scene
+     * @param scriptViewerFragment  the script viewer fragment
+     * @param requestRemoveLauncher the request remove launcher
+     */
     public SceneMacroAdapter(Scene scene, ScriptViewerFragment scriptViewerFragment, ActivityResultLauncher<String> requestRemoveLauncher) {
         this.scene = scene;
         this.lines = scene.getPlayables();
@@ -76,6 +83,11 @@ public class SceneMacroAdapter extends RecyclerView.Adapter<SceneMacroAdapter.Sc
 
     }
 
+    /**
+     * Delete macro.
+     *
+     * @throws IOException the io exception
+     */
     public void deleteMacro() throws IOException {
         Macro macro = (Macro) lines.get(toDelete);
         DocumentFile sceneDir = FileRepository.getSceneDir();
@@ -160,14 +172,35 @@ public class SceneMacroAdapter extends RecyclerView.Adapter<SceneMacroAdapter.Sc
      */
     public static class ScriptLineViewHolder extends RecyclerView.ViewHolder {
 
+        /**
+         * The Script card.
+         */
         CardView scriptCard;
 
+        /**
+         * The Action.
+         */
         TextView action;
 
+        /**
+         * The Delete.
+         */
         ImageButton delete;
+        /**
+         * The Edit button.
+         */
         ImageButton editButton;
+        /**
+         * The Play button.
+         */
         ImageButton playButton;
+        /**
+         * The Drag holder.
+         */
         ImageButton dragHolder;
+        /**
+         * The Action label.
+         */
         TextView actionLabel;
 
         /**

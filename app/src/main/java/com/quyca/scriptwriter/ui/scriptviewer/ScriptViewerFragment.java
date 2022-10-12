@@ -35,7 +35,6 @@ import java.util.ArrayList;
 /**
  * The type Act fragment.
  */
-
 public class ScriptViewerFragment extends Fragment implements StartDragListener {
 
     private ScriptViewerViewModel actScriptViewModel;
@@ -123,6 +122,11 @@ public class ScriptViewerFragment extends Fragment implements StartDragListener 
         touchHelper.startDrag(viewHolder);
     }
 
+    /**
+     * Gets exec view model.
+     *
+     * @return the exec view model
+     */
     public ExecScriptViewModel getExecViewModel() {
         return mViewModel;
     }

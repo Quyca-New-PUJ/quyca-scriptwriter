@@ -33,6 +33,12 @@ public class PlayLineSelectorAdapter extends RecyclerView.Adapter<PlayLineSelect
     private final List<PlayableBundle> lines;
     private final PlayEditorViewModel localModel;
 
+    /**
+     * Instantiates a new Play line selector adapter.
+     *
+     * @param scene      the scene
+     * @param localModel the local model
+     */
     public PlayLineSelectorAdapter(List<PlayableBundle> scene, PlayEditorViewModel localModel) {
         this.lines = scene;
         this.localModel = localModel;
@@ -87,11 +93,29 @@ public class PlayLineSelectorAdapter extends RecyclerView.Adapter<PlayLineSelect
      */
     public static class ScriptLineViewHolder extends RecyclerView.ViewHolder {
 
+        /**
+         * The Script card.
+         */
         CardView scriptCard;
+        /**
+         * The Playable.
+         */
         PlayableBundle playable;
+        /**
+         * The Action.
+         */
         TextView action;
+        /**
+         * The Char name.
+         */
         TextView charName;
+        /**
+         * The Action label.
+         */
         TextView actionLabel;
+        /**
+         * The Selected.
+         */
         CheckBox selected;
 
         /**
@@ -111,6 +135,11 @@ public class PlayLineSelectorAdapter extends RecyclerView.Adapter<PlayLineSelect
 
     }
 
+    /**
+     * Gets selected.
+     *
+     * @return the selected
+     */
     public List<PlayableBundle> getSelected() {
         List<PlayableBundle> bundles = new ArrayList<>();
         lines.forEach(playableBundle -> {

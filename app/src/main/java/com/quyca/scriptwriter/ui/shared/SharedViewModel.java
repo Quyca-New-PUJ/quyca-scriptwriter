@@ -21,10 +21,20 @@ public class SharedViewModel extends ViewModel {
     private final MutableLiveData<Macro> macro = new MutableLiveData<>();
     private final MutableLiveData<Play> play = new MutableLiveData<>();
 
+    /**
+     * Gets play observable.
+     *
+     * @return the play observable
+     */
     public LiveData<Play> getPlayObservable() {
         return play;
     }
 
+    /**
+     * Sets play observable.
+     *
+     * @param item the item
+     */
     public void setPlayObservable(Play item) {
         play.setValue(item);
     }
@@ -51,22 +61,27 @@ public class SharedViewModel extends ViewModel {
     }
 
     /**
-     * Gets conf observable.
+     * Gets scene observable.
      *
-     * @return the conf observable
+     * @return the scene observable
      */
     public LiveData<Scene> getSceneObservable() {
         return selectedScene;
     }
 
+    /**
+     * Sets scene observable.
+     *
+     * @param item the item
+     */
     public void setSceneObservable(Scene item) {
         selectedScene.setValue(item);
     }
 
     /**
-     * Gets conf observable.
+     * Gets Character observable.
      *
-     * @return the conf observable
+     * @return the Character observable
      */
     public LiveData<PlayCharacter> getCharacterObservable() {
         if (character.getValue() == null) {
@@ -75,14 +90,19 @@ public class SharedViewModel extends ViewModel {
         return character;
     }
 
+    /**
+     * Sets character observable.
+     *
+     * @param item the item
+     */
     public void setCharacterObservable(PlayCharacter item) {
         character.setValue(item);
     }
 
     /**
-     * Gets conf observable.
+     * Gets macro observable.
      *
-     * @return the conf observable
+     * @return the macro observable
      */
     public LiveData<Macro> getMacroObservable() {
         if (macro.getValue() == null) {
@@ -91,6 +111,11 @@ public class SharedViewModel extends ViewModel {
         return macro;
     }
 
+    /**
+     * Sets macro observable.
+     *
+     * @param item the item
+     */
     public void setMacroObservable(Macro item) {
         macro.setValue(item);
     }

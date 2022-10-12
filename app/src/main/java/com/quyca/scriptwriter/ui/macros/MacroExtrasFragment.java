@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * The type Macro extras fragment shows the extra actions configured for a character
+ */
 public class MacroExtrasFragment extends Fragment {
     private SharedViewModel model;
     private FragmentMacroExtrasBinding binding;
@@ -56,14 +59,6 @@ public class MacroExtrasFragment extends Fragment {
             toEdit = -1;
         }
 
-     /*   HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();*/
-
     }
 
     @Override
@@ -87,7 +82,7 @@ public class MacroExtrasFragment extends Fragment {
                 Toast.makeText(requireContext(), "Selecciona una accion", Toast.LENGTH_LONG).show();
 
             } else {
-                Action newAction = new Action(currentAction, true, character.getName());
+                Action newAction = new Action(currentAction, true, character.getName(), character.getRobotConf().getAlias());
                 if (toEdit == -1) {
                     if (selMacro == null) {
                         actScript.getPlayables().add(newAction);

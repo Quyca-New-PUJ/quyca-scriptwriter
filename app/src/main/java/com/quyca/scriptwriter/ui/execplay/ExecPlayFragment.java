@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * The type Exec script fragment.
+ * The type Exec script fragment shows the play to be executed.
  */
 public class ExecPlayFragment extends Fragment {
 

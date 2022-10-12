@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.quyca.scriptwriter.model.Play;
 
+/**
+ * The type Setup view model.
+ */
 public class SetupViewModel extends ViewModel {
     private final MutableLiveData<Play> play = new MutableLiveData<>();
 
@@ -21,6 +24,11 @@ public class SetupViewModel extends ViewModel {
         return play;
     }
 
+    /**
+     * Sets play observable.
+     *
+     * @param item the item
+     */
     public void setPlayObservable(Play item) {
         play.setValue(item);
     }

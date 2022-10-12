@@ -19,12 +19,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Sound actio repsents a local action that uses a media file.
+ */
 public class SoundAction extends Action {
 
     private FileDescriptor sound;
     @Expose
     private boolean saved;
 
+    /**
+     * Instantiates a new Sound action.
+     *
+     * @param actionsFromId the actions from id
+     */
     public SoundAction(ConfiguredAction actionsFromId) {
         super();
         setAction(actionsFromId);
@@ -40,26 +48,58 @@ public class SoundAction extends Action {
         return new NetBundle(places, places);
     }
 
+    /**
+     * Gets sound file.
+     *
+     * @param context the context
+     * @return the sound file
+     * @throws FileNotFoundException the file not found exception
+     */
     public FileDescriptor getSoundFile(Context context) throws FileNotFoundException {
         return AudioRepository.getAudio(this, context);
     }
 
+    /**
+     * Gets sound.
+     *
+     * @return the sound
+     */
     public FileDescriptor getSound() {
         return sound;
     }
 
+    /**
+     * Sets sound.
+     *
+     * @param sound the sound
+     */
     public void setSound(FileDescriptor sound) {
         this.sound = sound;
     }
 
+    /**
+     * Gets name without prefix.
+     *
+     * @return the name without prefix
+     */
     public String getNameWithoutPrefix() {
         return name.split(".mp4")[0];
     }
 
+    /**
+     * Is saved boolean.
+     *
+     * @return the boolean
+     */
     public boolean isSaved() {
         return saved;
     }
 
+    /**
+     * Sets saved.
+     *
+     * @param saved the saved
+     */
     public void setSaved(boolean saved) {
         this.saved = saved;
     }

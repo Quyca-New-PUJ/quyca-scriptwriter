@@ -10,19 +10,44 @@ import com.quyca.scriptwriter.model.PlayCharacter;
 import java.io.IOException;
 
 /**
- * The type Test quyca sender.
+ * The type Test quyca sender. Class that extends the logic of message sending for robotic actors.
  */
 public class QuycaCharacterSender extends RobotActorExecutioner {
 
-    public String name;
+    private String name;
+
+    /**
+     * Instantiates a new Quyca character sender.
+     *
+     * @param charac the charac
+     * @throws IOException the io exception
+     */
     public QuycaCharacterSender(PlayCharacter charac) throws IOException {
         super(charac.getIp(), charac.getPort());
         name = charac.getName();
     }
 
     @Override
-    public synchronized boolean sendMessage(Message msg) {
+    public boolean sendMessage(Message msg) {
         Log.i("Debug","sendMessage "+ msg.toMessageString());
         return super.sendMessage(msg);
+    }
+
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 }

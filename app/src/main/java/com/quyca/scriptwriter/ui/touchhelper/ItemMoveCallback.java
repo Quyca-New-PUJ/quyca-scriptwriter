@@ -5,10 +5,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * The type Item move callback.
+ *
+ * @param <T> the type parameter
+ */
 public class ItemMoveCallback<T extends RecyclerView.ViewHolder> extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperContract<T> mAdapter;
 
+    /**
+     * Instantiates a new Item move callback.
+     *
+     * @param adapter the adapter
+     */
     public ItemMoveCallback(ItemTouchHelperContract<T> adapter) {
         mAdapter = adapter;
     }
@@ -61,12 +71,33 @@ public class ItemMoveCallback<T extends RecyclerView.ViewHolder> extends ItemTou
         mAdapter.onRowClear((T) viewHolder);
     }
 
+    /**
+     * The interface Item touch helper contract.
+     *
+     * @param <T> the type parameter
+     */
     public interface ItemTouchHelperContract<T extends RecyclerView.ViewHolder> {
 
+        /**
+         * On row moved.
+         *
+         * @param fromPosition the from position
+         * @param toPosition   the to position
+         */
         void onRowMoved(int fromPosition, int toPosition);
 
+        /**
+         * On row selected.
+         *
+         * @param myViewHolder the my view holder
+         */
         void onRowSelected(T myViewHolder);
 
+        /**
+         * On row clear.
+         *
+         * @param myViewHolder the my view holder
+         */
         void onRowClear(T myViewHolder);
 
     }

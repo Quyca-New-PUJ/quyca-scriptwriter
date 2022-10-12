@@ -142,6 +142,12 @@ public class ExecScriptFragment extends Fragment {
 
     }
 
+    /**
+     * Send messages.
+     *
+     * @throws IOException               the io exception
+     * @throws NonValidPlayableException the non valid playable exception
+     */
     public void sendMessages() throws IOException, NonValidPlayableException {
         UIBundle bundle = new UIBundle(requireContext(), mViewModel);
         PlayBundle playBundle = new PlayBundle(actionList, charac);

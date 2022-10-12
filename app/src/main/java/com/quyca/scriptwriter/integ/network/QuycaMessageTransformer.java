@@ -10,6 +10,12 @@ import java.util.List;
  */
 public interface QuycaMessageTransformer {
 
+    /**
+     * Create messages list. The method creates a list of related QuycaMessages from a given action.
+     *
+     * @param action the action
+     * @return the list of related QuycaMessages
+     */
     List<QuycaMessage> createMessages(Action action);
 
 }

@@ -1,7 +1,7 @@
 package com.quyca.scriptwriter.model;
 
 /**
- * The enum Action state.
+ * The enum Action stat represented the state of an action in the play.
  */
 public enum QuycaCommandState {
     /**
@@ -16,6 +16,9 @@ public enum QuycaCommandState {
      * Done action state.
      */
     DONE,
-    ERROR;
+    /**
+     * Error quyca command state.
+     */
+    ERROR
 
 }

@@ -20,7 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Playable component. It represents a component that can be played and that is composed by multiple playables.
+ */
 public abstract class PlayableComponent extends Playable implements Serializable {
+    /**
+     * The Playables that compose this component.
+     */
     @Expose
     protected List<Playable> playables;
 
@@ -101,10 +107,20 @@ public abstract class PlayableComponent extends Playable implements Serializable
         playables.forEach(playable -> playable.setDone(done));
     }
 
+    /**
+     * Gets playables.
+     *
+     * @return the playables
+     */
     public List<Playable> getPlayables() {
         return playables;
     }
 
+    /**
+     * Sets playables.
+     *
+     * @param playables the playables
+     */
     public void setPlayables(List<Playable> playables) {
         this.playables = playables;
     }

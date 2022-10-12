@@ -18,6 +18,9 @@ import com.quyca.scriptwriter.ui.setup.SetupFragment;
 import com.quyca.scriptwriter.ui.setup.SetupViewModel;
 import com.quyca.scriptwriter.utils.FileUtils;
 
+/**
+ * The type Setup activity.
+ */
 public class SetupActivity extends AppCompatActivity {
     private ActivityResultLauncher<Uri> mGetContent;
     private ActivityResultLauncher<String> requestReadLauncher;

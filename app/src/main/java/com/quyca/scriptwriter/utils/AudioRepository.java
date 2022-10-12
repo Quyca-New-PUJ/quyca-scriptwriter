@@ -12,11 +12,19 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Audio repository manages a map that relates audio files to a certain action.
+ */
 public class AudioRepository {
     private static Map<SoundAction, DocumentFile> audioMap;
     private static Map<SoundAction, DocumentFile> audioPlayMap;
 
 
+    /**
+     * Gets audio map.
+     *
+     * @return the audio map
+     */
     public static Map<SoundAction, DocumentFile> getAudioMap() {
         if (audioMap == null) {
             audioMap = new HashMap<>();
@@ -25,10 +33,20 @@ public class AudioRepository {
     }
 
 
+    /**
+     * Sets audio map.
+     *
+     * @param audioMap the audio map
+     */
     public static void setAudioMap(Map<SoundAction, DocumentFile> audioMap) {
         AudioRepository.audioMap = audioMap;
     }
 
+    /**
+     * Gets audio play map.
+     *
+     * @return the audio play map
+     */
     public static Map<SoundAction, DocumentFile> getAudioPlayMap() {
         if (audioPlayMap == null) {
             audioPlayMap = new HashMap<>();
@@ -36,14 +54,31 @@ public class AudioRepository {
         return audioPlayMap;
     }
 
+    /**
+     * Sets audio play map.
+     *
+     * @param audioPlayMap the audio play map
+     */
     public static void setAudioPlayMap(Map<SoundAction, DocumentFile> audioPlayMap) {
         AudioRepository.audioPlayMap = audioPlayMap;
     }
 
+    /**
+     * Adds audio to the map.
+     *
+     * @param sound the sound
+     * @param file  the file
+     */
     public static void addAudio(SoundAction sound, DocumentFile file) {
         getAudioMap().put(sound, file);
     }
 
+    /**
+     * Add audio to the play map.
+     *
+     * @param sound the sound
+     * @param file  the file
+     */
     public static void addAudioPlay(SoundAction sound, DocumentFile file) {
         getAudioPlayMap().put(sound, file);
     }
@@ -77,6 +112,13 @@ public class AudioRepository {
     }
 
 
+    /**
+     * Gets audio either form the play  or the temp map.
+     *
+     * @param sound   the SoundAction
+     * @param context the context
+     * @return the audio filedescriptor.
+     */
     public static FileDescriptor getAudio(SoundAction sound, Context context) {
         FileDescriptor descr = null;
         if (getAudioPlayMap().containsKey(sound)) {
@@ -88,10 +130,21 @@ public class AudioRepository {
         return descr;
     }
 
+    /**
+     * Remove sound.
+     *
+     * @param sound the sound
+     */
     public static void removeSound(SoundAction sound) {
         getAudioMap().remove(sound);
     }
 
+    /**
+     * Replace sound.
+     *
+     * @param sa    the sa
+     * @param descr the descr
+     */
     public static void replaceSound(SoundAction sa, DocumentFile descr) {
         getAudioMap().replace(sa, descr);
     }

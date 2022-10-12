@@ -39,6 +39,9 @@ import com.quyca.scriptwriter.utils.FileRepository;
 import java.io.IOException;
 
 
+/**
+ * The type Macro record fragment shows the  options available to create sound actions.
+ */
 public class MacroRecordFragment extends Fragment {
     private SharedViewModel model;
     private FragmentMacroRecordBinding binding;

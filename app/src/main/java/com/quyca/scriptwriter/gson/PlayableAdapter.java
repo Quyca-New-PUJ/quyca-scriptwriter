@@ -14,6 +14,9 @@ import com.quyca.scriptwriter.model.Playable;
 
 import java.lang.reflect.Type;
 
+/**
+ * The type Playable adapter. It implements JsonSerializer interface to facilitate the serialziation of the subtypes of a playable.
+ */
 public class PlayableAdapter implements JsonSerializer<Playable>, JsonDeserializer<Playable> {
     @Override
     public JsonElement serialize(Playable src, Type typeOfSrc, JsonSerializationContext context) {

@@ -16,18 +16,38 @@ public class PlaySharedViewModel extends UpdatablePlayableView {
     private final MutableLiveData<Play> play = new MutableLiveData<>();
     private final MutableLiveData<List<Playable>> macros = new MutableLiveData<>();
 
+    /**
+     * Gets play observable.
+     *
+     * @return the play observable
+     */
     public LiveData<Play> getPlayObservable() {
         return play;
     }
 
+    /**
+     * Sets play observable.
+     *
+     * @param item the item
+     */
     public void setPlayObservable(Play item) {
         play.setValue(item);
     }
 
+    /**
+     * Gets to do actions observable.
+     *
+     * @return the to do actions observable
+     */
     public LiveData<List<Playable>> getToDoActionsObservable() {
         return macros;
     }
 
+    /**
+     * Sets to do actions observable.
+     *
+     * @param item the item
+     */
     public void setToDoActionsObservable(List<Playable> item) {
         macros.setValue(item);
 

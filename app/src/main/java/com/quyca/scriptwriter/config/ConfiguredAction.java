@@ -28,18 +28,29 @@ public class ConfiguredAction implements Serializable {
      */
     @Expose
     private List<String> params;
-
+    /**
+     * Representa el id quyca
+     */
     @Expose
     private int quycaId;
-
+    /**
+     * Representa si la accion necesita mensaje de respuesta o no.
+     */
     @Expose
     private boolean answerable;
-
+    /**
+     * Representa los recursos usados por la accion..
+     */
     @Expose
     private Set<String> usedResources;
 
     /**
      * Crea una accion configurada.
+     *
+     * @param action    the action
+     * @param name      the name
+     * @param params    the params
+     * @param resources the resources
      */
     public ConfiguredAction(FixedConfiguredAction action, String name, List<String> params, Set<String> resources) {
         this.actionId = action.name();
@@ -51,8 +62,10 @@ public class ConfiguredAction implements Serializable {
 
     /**
      * Crea una accion configurada.
+     *
+     * @param actionId the action id
+     * @param params   the parameters of the action
      */
-
     public ConfiguredAction(String actionId, List<String> params) {
         this.actionId = actionId;
         this.params = params;
@@ -103,32 +116,67 @@ public class ConfiguredAction implements Serializable {
         this.params = params;
     }
 
+    /**
+     * Gets quyca id.
+     *
+     * @return the quyca id
+     */
     public int getQuycaId() {
         return quycaId;
     }
 
+    /**
+     * Sets quyca id.
+     *
+     * @param quycaId the quyca id
+     */
     public void setQuycaId(int quycaId) {
         this.quycaId = quycaId;
     }
 
 
+    /**
+     * Gets action name.
+     *
+     * @return the action name
+     */
     public String getActionName() {
         return actionName;
     }
 
+    /**
+     * Sets action name.
+     *
+     * @param actionName the action name
+     */
     public void setActionName(String actionName) {
         this.actionName = actionName;
     }
 
+    /**
+     * Is answerable boolean.
+     *
+     * @return the boolean
+     */
     public boolean isAnswerable() {
         return answerable;
     }
 
 
+    /**
+     * Gets used resources.
+     *
+     * @return the used resources
+     */
     public Set<String> getUsedResources() {
         return usedResources;
     }
 
+    /**
+     * Sets used resources.
+     *
+     * @param usedResources the used resources
+     */
     public void setUsedResources(Set<String> usedResources) {
         this.usedResources = usedResources;
     }

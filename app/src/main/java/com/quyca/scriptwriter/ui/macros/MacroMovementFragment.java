@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * The type Macro movement fragment shows the movement actions configured for a character
+ */
 public class MacroMovementFragment extends Fragment {
     private SharedViewModel model;
     private FragmentMacroMovementBinding binding;
@@ -90,7 +93,7 @@ public class MacroMovementFragment extends Fragment {
                 Toast.makeText(requireContext(), "Selecciona una emocion", Toast.LENGTH_LONG).show();
 
             } else {
-                Action newAction = new Action(currentEmotion, currentAction, false, character.getName());
+                Action newAction = new Action(currentEmotion, currentAction, false, character.getName(),character.getRobotConf().getAlias());
                 if (toEdit == -1) {
                     if (selMacro == null) {
                         actScript.getPlayables().add(newAction);
@@ -159,11 +162,6 @@ public class MacroMovementFragment extends Fragment {
     }
 
     private void resetButtons() {
-        /*centro.setChecked(false);
-        arriba.setChecked(false);
-        abajo.setChecked(false);
-        izq.setChecked(false);
-        der.setChecked(false);*/
         centro.setSelected(false);
         arriba.setSelected(false);
         abajo.setSelected(false);
@@ -208,8 +206,8 @@ public class MacroMovementFragment extends Fragment {
         emoButtons.add(feliz);
 
         sorprendido.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.surprised));
-        muyTriste.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.verysad));
-        muyFeliz.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.veryhappy));
+        muyTriste.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.very_sad));
+        muyFeliz.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.very_happy));
         furioso.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.angry));
         enfermo.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.sick));
         triste.setTag(conf.getEmotionsFromId(FixedConfiguredEmotion.sad));

@@ -11,10 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
+/**
+ * The type Play.
+ */
 public class Play extends PlayableComponent implements Serializable {
     private List<PlayCharacter> characters;
     private String uriString;
 
+    /**
+     * It converts a play object into a json string.
+     *
+     * @param play the play
+     * @return the string representation
+     */
     public static String toJson(Play play) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
@@ -23,6 +32,12 @@ public class Play extends PlayableComponent implements Serializable {
 
     }
 
+    /**
+     * Parse json play.
+     *
+     * @param response the string representation
+     * @return the play object
+     */
     public static Play parseJson(String response) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
@@ -39,10 +54,20 @@ public class Play extends PlayableComponent implements Serializable {
         this.name = name;
     }
 
+    /**
+     * Gets characters related to the play
+     *
+     * @return the characters
+     */
     public List<PlayCharacter> getCharacters() {
         return characters;
     }
 
+    /**
+     * Sets characters related to the play
+     *
+     * @param characters the characters
+     */
     public void setCharacters(List<PlayCharacter> characters) {
         this.characters = characters;
     }
@@ -59,16 +84,31 @@ public class Play extends PlayableComponent implements Serializable {
     }
 
 
+    /**
+     * Gets all playables realted to the play.
+     *
+     * @return the play graph
+     */
     public List<Playable> getPlayGraph() {
         List<Playable> graph = new ArrayList<>();
         playables.forEach(scene -> graph.addAll(((PlayableComponent)scene).getPlayables()));
         return graph;
     }
 
+    /**
+     * Gets uri string.
+     *
+     * @return the uri string
+     */
     public String getUriString() {
         return uriString;
     }
 
+    /**
+     * Sets uri string.
+     *
+     * @param uriString the uri string
+     */
     public void setUriString(String uriString) {
         this.uriString = uriString;
     }

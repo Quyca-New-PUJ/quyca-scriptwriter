@@ -35,8 +35,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.TreeMap;
 
+/**
+ * The type File utils implements utility methods for play parsing and set up.
+ */
 public class FileUtils {
 
+    /**
+     * Start storage permission process.
+     *
+     * @param context             the context
+     * @param requestReadLauncher the request read permission launcher
+     * @param character           the character
+     * @param sceneSpinner        the scene spinner
+     * @param model               the model
+     * @throws IOException the io exception
+     */
     public static void startStoragePermissionProcess(Activity context, ActivityResultLauncher<String> requestReadLauncher, PlayCharacter character, Spinner sceneSpinner, SharedViewModel model) throws IOException {
 
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -49,6 +62,15 @@ public class FileUtils {
         }
     }
 
+    /**
+     * Load scenes.
+     *
+     * @param context      the context
+     * @param character    the character
+     * @param sceneSpinner the scene spinner
+     * @param model        the model
+     * @throws IOException the io exception
+     */
     public static void loadScenes(Context context, PlayCharacter character, Spinner sceneSpinner, SharedViewModel model) throws IOException {
         character.setScenes(new ArrayList<>());
         DocumentFile charsDir = FileRepository.getCharactersDir();
@@ -106,6 +128,14 @@ public class FileUtils {
         setUpSceneSpinner(context, character, sceneSpinner, model);
     }
 
+    /**
+     * Process scene.
+     *
+     * @param context  the context
+     * @param sceneDir the scene dir
+     * @param scene    the scene
+     * @throws IOException the io exception
+     */
     public static void processScene(Context context, DocumentFile sceneDir, Scene scene) throws IOException {
         if (sceneDir != null && sceneDir.exists()) {
             scene.setPlayables(new ArrayList<>());
@@ -148,6 +178,14 @@ public class FileUtils {
 
     }
 
+    /**
+     * Sets up scene spinner.
+     *
+     * @param context      the context
+     * @param character    the character
+     * @param sceneSpinner the scene spinner
+     * @param model        the model
+     */
     public static void setUpSceneSpinner(Context context, PlayCharacter character, Spinner sceneSpinner, SharedViewModel model) {
         List<String> sceneNames = new ArrayList<>();
         List<Scene> scenes = character.getScenes();
@@ -182,6 +220,13 @@ public class FileUtils {
         sceneSpinner.setSelection(0);
     }
 
+    /**
+     * Read play files play.
+     *
+     * @param context the context
+     * @param uri     the uri
+     * @return the play
+     */
     public static Play readPlayFiles(Activity context, Uri uri) {
         Play selectPlay = null;
         try {

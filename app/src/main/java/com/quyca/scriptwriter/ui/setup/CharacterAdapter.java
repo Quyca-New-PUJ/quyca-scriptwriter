@@ -21,11 +21,19 @@ import com.quyca.scriptwriter.model.PlayCharacter;
 import java.util.List;
 
 
+/**
+ * The type Character adapter is used to rresent a character during character selection.
+ */
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
 
     private final List<PlayCharacter> chars;
     private final Play play;
 
+    /**
+     * Instantiates a new Character adapter.
+     *
+     * @param play the play
+     */
     public CharacterAdapter(Play play) {
         this.play = play;
         this.chars = play.getCharacters();
@@ -68,16 +76,36 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         return chars.size();
     }
 
+    /**
+     * The type Character view holder.
+     */
     public static class CharacterViewHolder extends RecyclerView.ViewHolder {
 
+        /**
+         * The Script card.
+         */
         CardView scriptCard;
 
+        /**
+         * The Char name.
+         */
         TextView charName;
 
+        /**
+         * The Go.
+         */
         ImageButton go;
 
+        /**
+         * The Image.
+         */
         ImageView image;
 
+        /**
+         * Instantiates a new Character view holder.
+         *
+         * @param v the v
+         */
         public CharacterViewHolder(View v) {
             super(v);
             scriptCard = v.findViewById(R.id.scriptCard);

@@ -13,6 +13,9 @@ import com.quyca.scriptwriter.databinding.ActivityPlayBinding;
 import com.quyca.scriptwriter.model.Play;
 import com.quyca.scriptwriter.ui.shared.PlaySharedViewModel;
 
+/**
+ * The type Play activity.
+ */
 public class PlayActivity extends AppCompatActivity {
 
     private ActivityPlayBinding binding;

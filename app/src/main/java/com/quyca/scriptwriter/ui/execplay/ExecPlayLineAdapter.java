@@ -20,7 +20,7 @@ import com.quyca.scriptwriter.utils.UIUtils;
 import java.util.List;
 
 /**
- * The type Exec script line adapter.
+ * The type Exec script line adapter represents a graphical playable.
  */
 public class ExecPlayLineAdapter extends RecyclerView.Adapter<ExecPlayLineAdapter.ExecPlayLineViewHolder> {
 

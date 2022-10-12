@@ -42,13 +42,21 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
         implements ItemMoveCallback.ItemTouchHelperContract<MacroActionAdapter.ScriptLineViewHolder> {
 
     private final List<Playable> lines;
-    private boolean saved;
+    private final boolean saved;
     private int oldColor;
-    private ScriptEditorFragment mStartDragListener;
-    private ActivityResultLauncher<String> requestRemoveLauncher;
+    private final ScriptEditorFragment mStartDragListener;
+    private final ActivityResultLauncher<String> requestRemoveLauncher;
     private int toDelete;
 
 
+    /**
+     * Instantiates a new Macro action adapter.
+     *
+     * @param lines                 the lines
+     * @param scriptEditorFragment  the script editor fragment
+     * @param requestRemoveLauncher the request remove launcher
+     * @param saved                 the saved
+     */
     public MacroActionAdapter(List<Playable> lines, ScriptEditorFragment scriptEditorFragment,
                               ActivityResultLauncher<String> requestRemoveLauncher, boolean saved) {
         this.lines = lines;
@@ -195,6 +203,11 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
         }
     }
 
+    /**
+     * Delete sound action.
+     *
+     * @throws IOException the io exception
+     */
     public void deleteSoundAction() throws IOException {
         DocumentFile audioFile = null;
         SoundAction sa = (SoundAction) lines.get(toDelete);
@@ -231,19 +244,49 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
      */
     public static class ScriptLineViewHolder extends RecyclerView.ViewHolder {
 
+        /**
+         * The Script card.
+         */
         CardView scriptCard;
 
+        /**
+         * The Action.
+         */
         TextView action;
 
+        /**
+         * The Emotion.
+         */
         TextView emotion;
 
+        /**
+         * The Delete.
+         */
         ImageButton delete;
+        /**
+         * The Edit button.
+         */
         ImageButton editButton;
+        /**
+         * The Play button.
+         */
         ImageButton playButton;
+        /**
+         * The Drag holder.
+         */
         ImageButton dragHolder;
 
+        /**
+         * The Action label.
+         */
         TextView actionLabel;
+        /**
+         * The Emotion label.
+         */
         TextView emotionLabel;
+        /**
+         * The Playable.
+         */
         Playable playable;
 
         /**

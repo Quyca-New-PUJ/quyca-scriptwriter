@@ -35,6 +35,9 @@ import com.quyca.scriptwriter.utils.PlayableBundle;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Play editor fragment is used to edit and organize the diferent playables before playing the play.
+ */
 public class PlayEditorFragment extends Fragment{
 
     private PlaySharedViewModel model;

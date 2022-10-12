@@ -22,15 +22,17 @@ import java.util.Set;
  */
 public class QuycaConfiguration implements Serializable {
     /**
-     *
+     * Configured Emotions
      */
     private List<ConfiguredEmotion> emotions;
     /**
-     *
+     * Configured Action
      */
     private List<ConfiguredAction> actions;
 
-
+    /**
+     * Extra Configured Action
+     */
     private List<ConfiguredAction> extraActions;
 
     /**
@@ -42,6 +44,12 @@ public class QuycaConfiguration implements Serializable {
         extraActions = new ArrayList<>();
     }
 
+    /**
+     * Merge conf with base conf quyca configuration.
+     *
+     * @param config the config to be merged
+     * @return the merged quyca configuration
+     */
     public static QuycaConfiguration mergeConfWithBaseConf(QuycaConfiguration config) {
         QuycaConfiguration baseConf = getBasicConfig();
         QuycaConfiguration mergedConf = new QuycaConfiguration();
@@ -81,8 +89,8 @@ public class QuycaConfiguration implements Serializable {
     /**
      * Parse json quyca configuration.
      *
-     * @param response the response
-     * @return the quyca configuration
+     * @param response the JSON representation of a quica conf object
+     * @return the quyca configuration object
      */
     public static QuycaConfiguration parseJSON(String response) {
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -92,10 +100,10 @@ public class QuycaConfiguration implements Serializable {
     }
 
     /**
-     * To json string.
+     * Parse a quycaConf object To json string.
      *
-     * @param response the response
-     * @return the string
+     * @param response the quycaConf object
+     * @return the string representation.
      */
     public static String toJSON(QuycaConfiguration response) {
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -104,6 +112,11 @@ public class QuycaConfiguration implements Serializable {
         return gson.toJson(response);
     }
 
+    /**
+     * Gets basic config.
+     *
+     * @return the basic config
+     */
     @NonNull
     public static QuycaConfiguration getBasicConfig() {
         QuycaConfiguration conf = new QuycaConfiguration();
@@ -126,8 +139,8 @@ public class QuycaConfiguration implements Serializable {
 
         conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.happy, "Feliz", 0.5f));
         conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.sad, "Triste", -0.5f));
-        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.veryhappy, "Muy Feliz", 1f));
-        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.verysad, "Muy Triste", -1f));
+        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.very_happy, "Muy Feliz", 1f));
+        conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.very_sad, "Muy Triste", -1f));
         conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.sick, "Enfermo", 0));
         conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.angry, "Furioso", 0.3f));
         conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.neutral, "Neutro", 0.5f));
@@ -208,10 +221,20 @@ public class QuycaConfiguration implements Serializable {
         return null;
     }
 
+    /**
+     * Gets extra actions.
+     *
+     * @return the extra actions
+     */
     public List<ConfiguredAction> getExtraActions() {
         return extraActions;
     }
 
+    /**
+     * Sets extra actions.
+     *
+     * @param extraActions the extra actions
+     */
     public void setExtraActions(List<ConfiguredAction> extraActions) {
         this.extraActions = extraActions;
     }

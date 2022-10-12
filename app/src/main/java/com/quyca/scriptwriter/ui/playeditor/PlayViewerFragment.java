@@ -53,7 +53,6 @@ import java.util.TreeMap;
 /**
  * The type Act fragment.
  */
-
 public class PlayViewerFragment extends Fragment implements StartDragListener {
 
     private FragmentPlayViewerBinding binding;

@@ -49,6 +49,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * The type Script editor fragment.
+ */
 public class ScriptEditorFragment extends Fragment implements StartDragListener {
     private List<Playable> selectActions;
     private Button saveButton;
@@ -396,6 +399,11 @@ public class ScriptEditorFragment extends Fragment implements StartDragListener 
 
     }
 
+    /**
+     * Gets exec view model.
+     *
+     * @return the exec view model
+     */
     public ExecScriptViewModel getExecViewModel() {
         return mViewModel;
     }

@@ -1,5 +1,7 @@
 package com.quyca.scriptwriter.model;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
@@ -23,8 +25,16 @@ import java.util.Map;
  * The type Action.
  */
 public class Action extends Playable {
+    /**
+     * The Char name.
+     */
     @Expose
     protected String charName;
+    /**
+     * The Alias.
+     */
+    @Expose
+    protected String alias;
     @Expose
     private ConfiguredEmotion emotion;
     @Expose
@@ -32,26 +42,48 @@ public class Action extends Playable {
     @Expose
     private boolean extra;
 
+    /**
+     * Instantiates a new Action.
+     */
     public Action() {
         super();
     }
 
 
-    public Action(ConfiguredEmotion emotion, ConfiguredAction action, boolean extra, String charName) {
+    /**
+     * Instantiates a new Action.
+     *
+     * @param emotion  the emotion
+     * @param action   the action
+     * @param extra    the extra
+     * @param charName the char name
+     * @param alias    the alias
+     */
+    public Action(ConfiguredEmotion emotion, ConfiguredAction action, boolean extra, String charName, String alias) {
         super();
         this.name = action.getActionName();
         this.emotion = emotion;
         this.action = action;
         this.extra = extra;
         this.charName = charName;
+        this.alias = alias;
     }
 
-    public Action(ConfiguredAction action, boolean extra, String charName) {
+    /**
+     * Instantiates a new Action.
+     *
+     * @param action   the action
+     * @param extra    the extra
+     * @param charName the char name
+     * @param alias    the alias
+     */
+    public Action(ConfiguredAction action, boolean extra, String charName, String alias) {
         super();
         this.action = action;
         this.name = action.getActionName();
         this.extra = extra;
         this.charName = charName;
+        this.alias = alias;
     }
 
     /**
@@ -90,10 +122,20 @@ public class Action extends Playable {
         this.action = action;
     }
 
+    /**
+     * Is extra boolean.
+     *
+     * @return the boolean
+     */
     public boolean isExtra() {
         return extra;
     }
 
+    /**
+     * Sets extra.
+     *
+     * @param extra the extra
+     */
     public void setExtra(boolean extra) {
         this.extra = extra;
     }
@@ -111,8 +153,10 @@ public class Action extends Playable {
     @Override
     public NetBundle play(Map<String, QuycaMessageTransformer> msgCreators, Map<String, RobotExecutioner> senders, PetriNet net, UIBundle bundle) {
         List<Place> places = new ArrayList<>();
-        QuycaMessageTransformer msgCreator = msgCreators.get(charName);
-        RobotExecutioner executioner = senders.get(charName);
+        QuycaMessageTransformer msgCreator = msgCreators.get(alias);
+        Log.i("msgCreators1",alias);
+        msgCreators.forEach((s, quycaMessageTransformer) -> Log.i("msgCreators1", s));
+        RobotExecutioner executioner = senders.get(alias);
         assert msgCreator != null;
         List<QuycaMessage> msgs = msgCreator.createMessages(this);
         msgs.forEach(msg -> {
@@ -124,6 +168,12 @@ public class Action extends Playable {
         return new NetBundle(places, places);
     }
 
+    /**
+     * It checks if two actions are the same action given an action id.
+     *
+     * @param otherAction the other action
+     * @return true if they are the same action, false otherwise
+     */
     public boolean isSameAction(FixedConfiguredAction otherAction) {
         return otherAction.name().equalsIgnoreCase(action.getActionId());
     }

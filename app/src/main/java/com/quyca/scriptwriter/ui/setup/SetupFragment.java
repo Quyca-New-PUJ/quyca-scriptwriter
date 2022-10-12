@@ -19,6 +19,9 @@ import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.databinding.SetupFragmentBinding;
 import com.quyca.scriptwriter.model.Play;
 
+/**
+ * The type Setup fragment.
+ */
 public class SetupFragment extends Fragment {
 
     private SetupViewModel mViewModel;
@@ -27,6 +30,11 @@ public class SetupFragment extends Fragment {
     private Play selPlay;
     private RecyclerView.LayoutManager manager;
 
+    /**
+     * New instance setup fragment.
+     *
+     * @return the setup fragment
+     */
     public static SetupFragment newInstance() {
         return new SetupFragment();
     }

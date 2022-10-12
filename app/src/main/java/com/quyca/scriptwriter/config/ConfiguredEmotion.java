@@ -24,6 +24,8 @@ public class ConfiguredEmotion implements Serializable {
      * Instantiates a new Configured emotion.
      *
      * @param emotionId the emotion id
+     * @param name      the name
+     * @param intensity the intensity that determines the emotional modulation.
      */
     public ConfiguredEmotion(FixedConfiguredEmotion emotionId, String name, float intensity) {
         this.emotionId = emotionId;
@@ -57,18 +59,38 @@ public class ConfiguredEmotion implements Serializable {
         return emotionId.equals(that.emotionId);
     }
 
+    /**
+     * Gets intensity.
+     *
+     * @return the intensity
+     */
     public float getIntensity() {
         return intensity;
     }
 
+    /**
+     * Sets intensity.
+     *
+     * @param intensity the intensity
+     */
     public void setIntensity(float intensity) {
         this.intensity = intensity;
     }
 
+    /**
+     * Gets emotion name.
+     *
+     * @return the emotion name
+     */
     public String getEmotionName() {
         return emotionName;
     }
 
+    /**
+     * Sets emotion name.
+     *
+     * @param emotionName the emotion name
+     */
     public void setEmotionName(String emotionName) {
         this.emotionName = emotionName;
     }

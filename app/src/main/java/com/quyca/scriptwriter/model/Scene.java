@@ -28,6 +28,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * The type Scene is composed of multiple playables, specially macros.
+ */
 public class Scene extends PlayableComponent implements Serializable {
     @Expose
     private int position;
@@ -36,6 +39,12 @@ public class Scene extends PlayableComponent implements Serializable {
     private String charColor;
     private String charName;
     private List<PlayUnit> playUnits;
+
+    /**
+     * Instantiates a new Scene.
+     *
+     * @param scene the scene
+     */
     public Scene(Scene scene) {
         this.name = scene.getName();
         this.position = scene.position;
@@ -43,6 +52,12 @@ public class Scene extends PlayableComponent implements Serializable {
         playUnits= new ArrayList<>();
     }
 
+    /**
+     * Parse json string into a  scene.
+     *
+     * @param response the json string
+     * @return the scene object
+     */
     public static Scene parseJSON(String response) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
@@ -51,42 +66,92 @@ public class Scene extends PlayableComponent implements Serializable {
 
     }
 
+    /**
+     * Gets scene dir name.
+     *
+     * @return the scene dir name
+     */
     public String getSceneDirName() {
         return sceneDirName;
     }
 
+    /**
+     * Sets scene dir name.
+     *
+     * @param sceneDirName the scene dir name
+     */
     public void setSceneDirName(String sceneDirName) {
         this.sceneDirName = sceneDirName;
     }
 
+    /**
+     * Gets file.
+     *
+     * @return the file
+     */
     public DocumentFile getFile() {
         return file;
     }
 
+    /**
+     * Sets file.
+     *
+     * @param file the file
+     */
     public void setFile(DocumentFile file) {
         this.file = file;
     }
 
+    /**
+     * Gets the position in the play.
+     *
+     * @return the position
+     */
     public int getPosition() {
         return position;
     }
 
+    /**
+     * Sets the position in the play.
+     *
+     * @param position the position
+     */
     public void setPosition(int position) {
         this.position = position;
     }
 
+    /**
+     * Gets the character color.
+     *
+     * @return the character color
+     */
     public String getCharColor() {
         return charColor;
     }
 
+    /**
+     * Sets character color.
+     *
+     * @param charColor the character color
+     */
     public void setCharColor(String charColor) {
         this.charColor = charColor;
     }
 
+    /**
+     * Gets character name.
+     *
+     * @return the character name
+     */
     public String getCharName() {
         return charName;
     }
 
+    /**
+     * Sets character name.
+     *
+     * @param charName the character name
+     */
     public void setCharName(String charName) {
         this.charName = charName;
     }
@@ -174,10 +239,20 @@ public class Scene extends PlayableComponent implements Serializable {
     }
 
 
+    /**
+     * Gets play units.
+     *
+     * @return the play units
+     */
     public List<PlayUnit> getPlayUnits() {
         return playUnits;
     }
 
+    /**
+     * Sets play units.
+     *
+     * @param playUnits the play units
+     */
     public void setPlayUnits(List<PlayUnit> playUnits) {
         this.playUnits = playUnits;
     }

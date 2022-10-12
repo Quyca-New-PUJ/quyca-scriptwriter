@@ -18,6 +18,9 @@ import java.util.ArrayList;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ModelUnitTest {
+    /**
+     * Macro show string.
+     */
     @Test
     public void macro_showString() {
         Macro macro = new Macro(new ArrayList<>());
@@ -26,6 +29,9 @@ public class ModelUnitTest {
         assertEquals(4, 2 + 2);
     }
 
+    /**
+     * Conf show string.
+     */
     @Test
     public void conf_showString() {
         QuycaConfiguration conf = QuycaConfiguration.getBasicConfig();

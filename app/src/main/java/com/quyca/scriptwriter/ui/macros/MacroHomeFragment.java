@@ -22,6 +22,9 @@ import com.quyca.scriptwriter.ui.shared.SharedViewModel;
 import com.quyca.scriptwriter.utils.FileRepository;
 
 
+/**
+ * The type Macro home fragmen encapsultes the logic to switch between multiple types of actions.
+ */
 public class MacroHomeFragment extends Fragment {
     private SharedViewModel model;
     private FragmentMacroHomeBinding binding;
@@ -108,6 +111,11 @@ public class MacroHomeFragment extends Fragment {
             mvtButton.callOnClick();
     }
 
+    /**
+     * On click resets the fragments according to the selection.
+     *
+     * @param v the view that triggered the onClick.
+     */
     public void onClick(View v) {
 
         int id = v.getId();
