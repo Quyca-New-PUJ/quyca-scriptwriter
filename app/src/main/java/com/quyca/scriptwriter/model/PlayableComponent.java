@@ -42,6 +42,9 @@ public abstract class PlayableComponent extends Playable implements Serializable
         NetBundle actBundle;
         List<Place> top;
         List<Place> bottom;
+        if(last == 0){
+            return playables.get(last).play(msgCreators, senders, net, bundle);
+        }
         for (int i = 0; i <= last; i++) {
             actBundle = playables.get(i).play(msgCreators, senders, net, bundle);
             top = actBundle.getTopPlaces();

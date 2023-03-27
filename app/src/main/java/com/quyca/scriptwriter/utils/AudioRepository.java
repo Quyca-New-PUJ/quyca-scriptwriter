@@ -1,6 +1,7 @@
 package com.quyca.scriptwriter.utils;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.documentfile.provider.DocumentFile;
@@ -84,31 +85,32 @@ public class AudioRepository {
     }
 
 
-    private static FileDescriptor getAudioFile(SoundAction sound, Context context) {
+    private static Uri getAudioFile(SoundAction sound, Context context) {
         DocumentFile soundFile = getAudioMap().get(sound);
         assert soundFile != null;
         FileDescriptor descr = null;
-        try {
+        /*try {
             descr = context.getContentResolver().openFileDescriptor(soundFile.getUri(), "r").getFileDescriptor();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
-        return descr;
+        return soundFile.getUri();
     }
 
-    private static FileDescriptor getAudioPlayFile(SoundAction sound, Context context) {
+    public static Uri getAudioPlayFile(SoundAction sound, Context context) {
         DocumentFile soundFile = getAudioPlayMap().get(sound);
         assert soundFile != null;
-        FileDescriptor descr = null;
+        Uri descr = null;
 
-        try {
-            descr = context.getContentResolver().openFileDescriptor(soundFile.getUri(), "r").getFileDescriptor();
+        /*try {
+            //descr = context.getContentResolver().openFileDescriptor(soundFile.getUri(), "r").getFileDescriptor();
+            soundFile.getUri();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
-        return descr;
+        return soundFile.getUri();
     }
 
 
@@ -119,8 +121,8 @@ public class AudioRepository {
      * @param context the context
      * @return the audio filedescriptor.
      */
-    public static FileDescriptor getAudio(SoundAction sound, Context context) {
-        FileDescriptor descr = null;
+    public static Uri getAudio(SoundAction sound, Context context) {
+        Uri descr = null;
         if (getAudioPlayMap().containsKey(sound)) {
             descr = getAudioPlayFile(sound, context);
         } else if (getAudioMap().containsKey(sound)) {

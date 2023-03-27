@@ -64,7 +64,7 @@ public class QuycaMessageCreator implements QuycaMessageTransformer {
         return msg;
     }
 
-    private static int getNewTimestamp() {
+    public static int getNewTimestamp() {
         return timestamp++;
     }
     /**

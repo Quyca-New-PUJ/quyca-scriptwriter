@@ -100,6 +100,7 @@ public class ConfiguredEmotion implements Serializable {
     public String toString() {
         return "ConfiguredEmotion{" +
                 "emotionId='" + emotionId +
+                "emotionName='" + emotionName +
                 '}';
     }
 }

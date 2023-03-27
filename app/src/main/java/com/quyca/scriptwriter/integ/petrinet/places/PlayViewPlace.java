@@ -44,6 +44,7 @@ public class PlayViewPlace extends PlayPlace {
         this.model = bundle.getModel();
         this.setMsg(msg);
         this.setExecutioner(executioner);
+        setStatusToPrepared();
     }
 
     /**
@@ -76,7 +77,7 @@ public class PlayViewPlace extends PlayPlace {
 
     @Override
     public void setStatusToActive() {
-
+        System.out.println("setStatusToActive");
         super.setStatusToActive();
         playable.setDone(QuycaCommandState.IN_EXECUTION);
         refreshUI();
@@ -84,6 +85,7 @@ public class PlayViewPlace extends PlayPlace {
 
     @Override
     public void setStatusToDone() {
+        System.out.println("setStatusToDone");
         super.setStatusToDone();
         playable.setDone(QuycaCommandState.DONE);
         refreshUI();
@@ -91,6 +93,7 @@ public class PlayViewPlace extends PlayPlace {
 
     @Override
     public void setStatusToPrepared() {
+        System.out.println("setStatusToPrepared");
         super.setStatusToPrepared();
         playable.setDone(QuycaCommandState.TO_EXECUTE);
         refreshUI();

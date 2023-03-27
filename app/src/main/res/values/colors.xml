@@ -19,7 +19,7 @@
 
     <color name="to_execute">#33756F</color>
     <color name="in_execution">#08803F</color>
-    <color name="done">#308A33</color>
+    <color name="done">#333C34</color>
     <color name="error">#93222F</color>
 
 </resources>

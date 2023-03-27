@@ -184,7 +184,7 @@ public class MacroExtrasFragment extends Fragment {
         int size = 0;
         for (ConfiguredAction extra : extras) {
             buttons.get(size).setTag(extra);
-            buttons.get(size).setText(extra.getActionId());
+            buttons.get(size).setText(extra.getActionName());
             buttons.get(size).setEnabled(true);
             size++;
             if (size > buttons.size()) {

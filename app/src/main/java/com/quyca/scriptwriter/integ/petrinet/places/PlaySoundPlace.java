@@ -1,6 +1,8 @@
 package com.quyca.scriptwriter.integ.petrinet.places;
 
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.util.Log;
 
 import com.quyca.scriptwriter.integ.utils.UIBundle;
 import com.quyca.scriptwriter.model.Playable;
@@ -30,14 +32,30 @@ public class PlaySoundPlace extends PlayViewPlace {
         SoundAction sAction = (SoundAction) playable;
         MediaPlayer player = new MediaPlayer();
         try {
-            FileDescriptor file = sAction.getSoundFile(context);
-            player.setDataSource(file);
+            Uri file = sAction.getSoundFile(context);
+            Log.i("SOUNDHEX", ""+file.getPath());
+            player.setDataSource(context,file);
+            Log.i("SOUNDHEX", file.toString());
             player.setOnCompletionListener(mp -> {
                 fireTransitions();
             });
-            player.prepare();
-            player.start();
+            player.setOnErrorListener((mp, what, extra) -> {
+                Log.i("SOUNDHEXERROR", mp+"");
+                Log.i("SOUNDHEXERROR", what+"");
+                Log.i("SOUNDHEXERROR", extra+"");
+                return false;
+            });
+            player.setOnPreparedListener(mp -> {
+                Log.i("SOUNDHEXPREPARED", "file.toString()");
+                //mp.start();
+                Log.i("SOUNDHEXPREPAREDOUT", "file.toString()");
+            });
+            Log.i("SOUNDHEX", "PREPARINGIT");
+
+            player.prepareAsync();
+
         } catch (IOException e) {
+            Log.i("SOUNDHEXFAIL", e.toString());
             e.printStackTrace();
         } finally {
             player.reset();

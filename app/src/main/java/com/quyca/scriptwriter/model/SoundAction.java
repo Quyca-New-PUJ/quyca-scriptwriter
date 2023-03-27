@@ -1,12 +1,15 @@
 package com.quyca.scriptwriter.model;
 
 import android.content.Context;
+import android.net.Uri;
 
 import com.google.gson.annotations.Expose;
 import com.quyca.robotmanager.net.PetriNet;
 import com.quyca.robotmanager.net.Place;
 import com.quyca.robotmanager.network.RobotExecutioner;
 import com.quyca.scriptwriter.config.ConfiguredAction;
+import com.quyca.scriptwriter.integ.model.QuycaMessage;
+import com.quyca.scriptwriter.integ.network.QuycaMessageCreator;
 import com.quyca.scriptwriter.integ.network.QuycaMessageTransformer;
 import com.quyca.scriptwriter.integ.petrinet.places.PlaySoundPlace;
 import com.quyca.scriptwriter.integ.utils.NetBundle;
@@ -43,6 +46,9 @@ public class SoundAction extends Action {
     public NetBundle play(Map<String, QuycaMessageTransformer> msgCreators, Map<String, RobotExecutioner> senders, PetriNet net, UIBundle bundle) {
         List<Place> places = new ArrayList<>();
         PlaySoundPlace soundPlace = new PlaySoundPlace(this, bundle);
+        QuycaMessage msg = new QuycaMessage(QuycaMessageCreator.getNewTimestamp());
+        msg.setShouldAnswer(true);
+        soundPlace.setMsg(msg);
         places.add(soundPlace);
         net.addPlace(soundPlace);
         return new NetBundle(places, places);
@@ -55,7 +61,7 @@ public class SoundAction extends Action {
      * @return the sound file
      * @throws FileNotFoundException the file not found exception
      */
-    public FileDescriptor getSoundFile(Context context) throws FileNotFoundException {
+    public Uri getSoundFile(Context context) throws FileNotFoundException {
         return AudioRepository.getAudio(this, context);
     }
 
@@ -83,7 +89,7 @@ public class SoundAction extends Action {
      * @return the name without prefix
      */
     public String getNameWithoutPrefix() {
-        return name.split(".mp4")[0];
+        return name.split(".mp3")[0];
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.quyca.scriptwriter.ui.execscript;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class ExecScriptLineAdapter extends RecyclerView.Adapter<ExecScriptLineAd
                     holder.emotionLabel.setVisibility(View.INVISIBLE);
                     holder.emotion.setVisibility(View.INVISIBLE);
                 } else {
-                    holder.emotion.setText(line.getEmotion().getEmotionId().name());
+                    holder.emotion.setText(line.getEmotion().getEmotionName());
                 }
             }
         }

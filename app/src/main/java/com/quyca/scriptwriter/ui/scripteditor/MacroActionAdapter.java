@@ -146,7 +146,7 @@ public class MacroActionAdapter extends RecyclerView.Adapter<MacroActionAdapter.
                     holder.emotionLabel.setVisibility(View.INVISIBLE);
                     holder.emotion.setVisibility(View.INVISIBLE);
                 } else {
-                    holder.emotion.setText(play.getEmotion().getEmotionId().name());
+                    holder.emotion.setText(play.getEmotion().getEmotionName());
                 }
                 holder.editButton.setOnClickListener(v -> {
                     Bundle bundle = new Bundle();

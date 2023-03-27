@@ -164,7 +164,10 @@ public class Action extends Playable {
             places.add(place);
             net.addPlace(place);
         });
-
+        Log.i("JLEONHEX CREATION","For action "+action + "actions where created");
+        msgs.forEach(msg -> {
+            Log.i("JLEONHEX CREATION",msg.toMessageString());
+        });
         return new NetBundle(places, places);
     }
 
