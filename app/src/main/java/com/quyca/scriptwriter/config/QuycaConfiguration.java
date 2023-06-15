@@ -113,6 +113,11 @@ public class QuycaConfiguration implements Serializable {
         conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.emotions, "Cambiar Emocion", new ArrayList<>()));
 
 
+        List<String> param = new ArrayList<>();
+        param.add("1");
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.offset_der, "offset der", param));
+        conf.getActions().add(new ConfiguredAction(FixedConfiguredAction.offset_izq, "offset izq", param));
+
         conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.happy, "Feliz", 0.5f));
         conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.sad, "Triste", -0.5f));
         conf.getEmotions().add(new ConfiguredEmotion(FixedConfiguredEmotion.veryhappy, "Muy Feliz", 1f));
