@@ -110,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
             charView.setImageURI(character.getImageUri());
         });
 
-
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_script_viewer)

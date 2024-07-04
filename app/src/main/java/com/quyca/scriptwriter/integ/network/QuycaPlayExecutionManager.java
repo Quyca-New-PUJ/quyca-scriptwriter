@@ -5,7 +5,6 @@ import android.util.Log;
 import com.quyca.robotmanager.net.playnet.PlayManager;
 import com.quyca.robotmanager.net.playnet.PlayPetriNet;
 import com.quyca.robotmanager.network.RobotExecutioner;
-import com.quyca.scriptwriter.R;
 import com.quyca.scriptwriter.integ.exceptions.NonValidPlayableException;
 import com.quyca.scriptwriter.integ.utils.PlayBundle;
 import com.quyca.scriptwriter.integ.utils.UIBundle;

@@ -38,7 +38,5 @@ public class PlayActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_play);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
     }
-
 }

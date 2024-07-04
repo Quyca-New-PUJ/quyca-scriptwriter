@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.quyca.scriptwriter.model.Macro;
 import com.quyca.scriptwriter.model.Playable;
 
 import java.util.List;

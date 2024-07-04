@@ -1,7 +1,6 @@
 package com.quyca.scriptwriter.integ.model;
 
 import com.quyca.robotmanager.network.Message;
-import com.quyca.scriptwriter.config.FixedConfiguredAction;
 import com.quyca.scriptwriter.model.Action;
 
 import java.util.ArrayList;
