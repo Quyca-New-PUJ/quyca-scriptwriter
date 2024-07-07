@@ -27,7 +27,6 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         if (getIntent().getExtras() != null) {
-
             Bundle bundle = getIntent().getExtras();
             play = (Play) bundle.getSerializable("play");
             model.setPlayObservable(play);
