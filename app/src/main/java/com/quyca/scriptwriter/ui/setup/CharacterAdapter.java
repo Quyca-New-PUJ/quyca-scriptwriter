@@ -20,7 +20,6 @@ import com.quyca.scriptwriter.model.PlayCharacter;
 
 import java.util.List;
 
-
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
 
     private final List<PlayCharacter> chars;
@@ -53,7 +52,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             holder.itemView.getContext().startActivity(i);
         });
 
-
         holder.go.setOnClickListener(v -> {
             Intent i = new Intent(holder.itemView.getContext(), MainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -71,11 +69,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     public static class CharacterViewHolder extends RecyclerView.ViewHolder {
 
         CardView scriptCard;
-
         TextView charName;
-
         ImageButton go;
-
         ImageView image;
 
         public CharacterViewHolder(View v) {
@@ -85,7 +80,5 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
             go = v.findViewById(R.id.go_button);
             image = v.findViewById(R.id.char_view);
         }
-
     }
-
 }
