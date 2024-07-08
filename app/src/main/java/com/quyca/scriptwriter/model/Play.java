@@ -20,7 +20,6 @@ public class Play extends PlayableComponent implements Serializable {
         Gson gson = gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                 .excludeFieldsWithoutExposeAnnotation().create();
         return gson.toJson(play);
-
     }
 
     public static Play parseJson(String response) {
@@ -28,7 +27,6 @@ public class Play extends PlayableComponent implements Serializable {
         Gson gson = gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                 .excludeFieldsWithoutExposeAnnotation().create();
         return gson.fromJson(response, Play.class);
-
     }
 
     public String getName() {
@@ -55,9 +53,7 @@ public class Play extends PlayableComponent implements Serializable {
             scList.add(sceneSet.get(key));
         });
         playables = scList;
-
     }
-
 
     public List<Playable> getPlayGraph() {
         List<Playable> graph = new ArrayList<>();

@@ -18,6 +18,8 @@ import com.quyca.scriptwriter.ui.setup.SetupFragment;
 import com.quyca.scriptwriter.ui.setup.SetupViewModel;
 import com.quyca.scriptwriter.utils.FileUtils;
 
+import java.io.File;
+
 public class SetupActivity extends AppCompatActivity {
     private ActivityResultLauncher<Uri> mGetContent;
     private ActivityResultLauncher<String> requestReadLauncher;
@@ -64,9 +66,9 @@ public class SetupActivity extends AppCompatActivity {
                 });
     }
 
-
     private void loadPlay() {
-        Uri in = Uri.fromFile(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
+        File f = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        Uri in = Uri.fromFile(f);
         mGetContent.launch(in);
     }
 

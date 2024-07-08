@@ -188,43 +188,39 @@ public class FileUtils {
             context.getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             FileRepository.setStartUri(uri);
             DocumentFile file = DocumentFile.fromTreeUri(context, uri);
-            if (file != null) {
-                if (file.isDirectory()) {
-                    String filename = context.getResources().getString(R.string.play_prefix) + context.getResources().getString(R.string.json_postfix);
-                    DocumentFile playFile = file.findFile(filename);
-                    if (playFile != null && playFile.exists()) {
-                        BufferedReader jsonReader = new BufferedReader(new InputStreamReader(context.getContentResolver().openInputStream(playFile.getUri())));
-                        StringBuilder jsonBuilder = new StringBuilder();
-                        for (String line; (line = jsonReader.readLine()) != null; ) {
-                            jsonBuilder.append(line).append("\n");
-                        }
-                        selectPlay = Play.parseJson(jsonBuilder.toString());
-                        selectPlay.setCharacters(new ArrayList<>());
-                        selectPlay.setUriString(uri.getPath());
-                        DocumentFile charsDir = file.findFile(context.getResources().getString(R.string.char_dir));
-                        FileRepository.setCharactersDir(charsDir);
-                        if (charsDir != null && charsDir.exists()) {
-                            for (DocumentFile charDir : charsDir.listFiles()) {
-                                DocumentFile charSpecFile = charDir.findFile(context.getResources().getString(R.string.char_spec_name));
-                                if (charSpecFile != null && charSpecFile.exists()) {
-                                    jsonReader = new BufferedReader(new InputStreamReader(context.getContentResolver().openInputStream(charSpecFile.getUri())));
-                                    jsonBuilder = new StringBuilder();
-                                    for (String line; (line = jsonReader.readLine()) != null; ) {
-                                        jsonBuilder.append(line).append("\n");
-                                    }
-                                    PlayCharacter aux = PlayCharacter.parseJson(jsonBuilder.toString());
-                                    FileRepository.addCharDirectory(aux, charDir);
-                                    aux.setBasicUri(charDir.getName());
-                                    aux.setImageUri(Objects.requireNonNull(charDir.findFile(context.getResources().getString(R.string.char_img_name))).getUri());
-                                    selectPlay.getCharacters().add(aux);
+            if (file != null && file.isDirectory()) {
+                String filename = context.getResources().getString(R.string.play_prefix) + context.getResources().getString(R.string.json_postfix);
+                DocumentFile playFile = file.findFile(filename);
+                if (playFile != null && playFile.exists()) {
+                    BufferedReader jsonReader = new BufferedReader(new InputStreamReader(context.getContentResolver().openInputStream(playFile.getUri())));
+                    StringBuilder jsonBuilder = new StringBuilder();
+                    for (String line; (line = jsonReader.readLine()) != null; ) {
+                        jsonBuilder.append(line).append("\n");
+                    }
+                    selectPlay = Play.parseJson(jsonBuilder.toString());
+                    selectPlay.setCharacters(new ArrayList<>());
+                    selectPlay.setUriString(uri.getPath());
+                    DocumentFile charsDir = file.findFile(context.getResources().getString(R.string.char_dir));
+                    FileRepository.setCharactersDir(charsDir);
+                    if (charsDir != null && charsDir.exists()) {
+                        for (DocumentFile charDir : charsDir.listFiles()) {
+                            DocumentFile charSpecFile = charDir.findFile(context.getResources().getString(R.string.char_spec_name));
+                            if (charSpecFile != null && charSpecFile.exists()) {
+                                jsonReader = new BufferedReader(new InputStreamReader(context.getContentResolver().openInputStream(charSpecFile.getUri())));
+                                jsonBuilder = new StringBuilder();
+                                for (String line; (line = jsonReader.readLine()) != null; ) {
+                                    jsonBuilder.append(line).append("\n");
                                 }
+                                PlayCharacter aux = PlayCharacter.parseJson(jsonBuilder.toString());
+                                FileRepository.addCharDirectory(aux, charDir);
+                                aux.setBasicUri(charDir.getName());
+                                aux.setImageUri(Objects.requireNonNull(charDir.findFile(context.getResources().getString(R.string.char_img_name))).getUri());
+                                selectPlay.getCharacters().add(aux);
                             }
-
                         }
                     }
                 }
             }
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
