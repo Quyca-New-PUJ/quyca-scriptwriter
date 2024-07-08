@@ -2,6 +2,7 @@ package com.quyca.scriptwriter;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -50,10 +51,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         charView = findViewById(R.id.char_view);
         sceneSpinner = findViewById(R.id.scene_spinner);
-        Button calibrate = findViewById(R.id.calibrate);
         FileRepository.setUp(this);
         backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> onBackPressed());
+
+        Log.d("test", "calibration");
+        setupCalibrationButton();
+
+        Log.d("test", "read launcher");
+        setupReadLauncher();
+
+        Log.d("test", "model");
+        setupModel();
+
+        Log.d("test", "app bar");
+        setupAppBar();
+    }
+
+    private void setupCalibrationButton() {
+        Button calibrate = findViewById(R.id.calibrate);
         calibrate.setOnClickListener(v -> {
             Activity helper = this;
             Runnable mRunnable = () -> {
@@ -62,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                     actMsg.setAlias(character.getRobotConf().getAlias());
                     actMsg.setActionId("calibration");
                     actMsg.setAction(new Action(new ConfiguredAction(FixedConfiguredAction.calibration, FixedConfiguredAction.calibration.name(), null), false, character.getName()));
-                    int port = getResources().getInteger(R.integer.port_value);
                     RobotExecutioner sender = new QuycaCharacterSender(character);
                     sender.sendMessage(actMsg);
                     sender.closeResources();
@@ -72,8 +87,10 @@ public class MainActivity extends AppCompatActivity {
                 helper.runOnUiThread(() -> Toast.makeText(helper, "Calibrado!", Toast.LENGTH_LONG).show());
             };
             new Thread(mRunnable).start();
-
         });
+    }
+
+    private void setupReadLauncher() {
         requestReadLauncher =
                 registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                     if (isGranted) {
@@ -86,7 +103,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "Sin permisos es imposible cargar la obra", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
 
+    private void setupModel() {
         model.getCharacterObservable().observe(this, playCharacter -> {
             if (playCharacter != null) {
                 character = playCharacter;
@@ -109,7 +128,9 @@ public class MainActivity extends AppCompatActivity {
             }
             charView.setImageURI(character.getImageUri());
         });
+    }
 
+    private void setupAppBar() {
         //BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_script_viewer)
@@ -117,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         //NavigationUI.setupWithNavController(binding.navView, navController);
-
     }
 
     public void enableSceneSpinner(boolean enable) {

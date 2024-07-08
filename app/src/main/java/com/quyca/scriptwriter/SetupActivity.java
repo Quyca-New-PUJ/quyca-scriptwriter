@@ -40,7 +40,6 @@ public class SetupActivity extends AppCompatActivity {
                 startPlayChargingProcess();
             }
         });
-
     }
 
     private void setupActivity() {
@@ -72,7 +71,6 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     private void startPlayChargingProcess() {
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             loadPlay();
         } else if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {

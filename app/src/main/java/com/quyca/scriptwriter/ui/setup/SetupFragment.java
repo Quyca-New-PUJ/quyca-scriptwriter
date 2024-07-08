@@ -21,11 +21,8 @@ import com.quyca.scriptwriter.model.Play;
 
 public class SetupFragment extends Fragment {
 
-    private SetupViewModel mViewModel;
     private SetupFragmentBinding binding;
-    private Button startPlay;
     private Play selPlay;
-    private RecyclerView.LayoutManager manager;
 
     public static SetupFragment newInstance() {
         return new SetupFragment();
@@ -36,10 +33,10 @@ public class SetupFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        mViewModel = new ViewModelProvider(requireActivity()).get(SetupViewModel.class);
+        SetupViewModel mViewModel = new ViewModelProvider(requireActivity()).get(SetupViewModel.class);
         binding = SetupFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        startPlay = root.findViewById(R.id.start_play);
+        Button startPlay = root.findViewById(R.id.start_play);
 
         mViewModel.getPlayObservable().observe(getViewLifecycleOwner(), play -> {
             selPlay = play;
@@ -56,13 +53,10 @@ public class SetupFragment extends Fragment {
         return root;
     }
 
-
     private void setCharacterAdapter() {
-        manager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         binding.scriptlineView.setLayoutManager(manager);
         CharacterAdapter slAdapter = new CharacterAdapter(selPlay);
         binding.scriptlineView.setAdapter(slAdapter);
-
     }
-
 }
