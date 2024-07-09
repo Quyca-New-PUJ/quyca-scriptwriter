@@ -88,6 +88,39 @@ public class MainActivity extends AppCompatActivity {
             };
             new Thread(mRunnable).start();
         });
+
+        findViewById(R.id.offset_der_minus).setOnClickListener(v -> {
+            cambiar_offset(true, -1);
+        });
+        findViewById(R.id.offset_der_plus).setOnClickListener(v -> {
+            cambiar_offset(true, 1);
+        });
+        findViewById(R.id.offset_izq_minus).setOnClickListener(v -> {
+            cambiar_offset(false, -1);
+        });
+        findViewById(R.id.offset_izq_plus).setOnClickListener(v -> {
+            cambiar_offset(false, 1);
+        });
+    }
+
+    private void cambiar_offset(boolean is_der, int cantidad) {
+        Activity helper = this;
+        // TODO: arreglar esto para que se envie el mensaje correcto
+        Runnable mRunnable = () -> {
+            try {
+                QuycaMessage actMsg = new QuycaMessage(0);
+                actMsg.setAlias(character.getRobotConf().getAlias());
+                actMsg.setActionId("calibration");
+                actMsg.setAction(new Action(new ConfiguredAction(FixedConfiguredAction.calibration, FixedConfiguredAction.calibration.name(), null), false, character.getName()));
+                RobotExecutioner sender = new QuycaCharacterSender(character);
+                sender.sendMessage(actMsg);
+                sender.closeResources();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            helper.runOnUiThread(() -> Toast.makeText(helper, "Calibrado!", Toast.LENGTH_LONG).show());
+        };
+        new Thread(mRunnable).start();
     }
 
     private void setupReadLauncher() {
