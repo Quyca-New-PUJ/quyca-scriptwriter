@@ -89,6 +89,12 @@
     <string name="prev_macro_label">Ver Lista de Acciones</string>
     <string name="end_macro_label">Finalizar Lista de Acciones</string>
 
+    <string name="offset_title">Modificar offset</string>
+    <string name="offset_izq_plus">izq +</string>
+    <string name="offset_der_plus">der +</string>
+    <string name="offset_izq_minus">izq -</string>
+    <string name="offset_der_minus">der -</string>
+
     <string name="rec_label">Grabar</string>
     <string name="sound_label">Ingresa el nombre del audio</string>
     <string name="save_act_label">Guardar Accion</string>

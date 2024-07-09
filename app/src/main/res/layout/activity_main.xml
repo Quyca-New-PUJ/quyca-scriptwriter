@@ -41,6 +41,57 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/offset_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/offset_title" />
+
+        <LinearLayout
+            android:id="@+id/plus_offset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintHeight_percent=".07">
+
+            <Button
+                android:id="@+id/offset_izq_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/offset_izq_plus" />
+
+            <Button
+                android:id="@+id/offset_der_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/offset_der_plus" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/minus_offset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintHeight_percent=".07">
+
+            <Button
+                android:id="@+id/offset_izq_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/offset_izq_minus" />
+
+            <Button
+                android:id="@+id/offset_der_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/offset_der_minus" />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/back_button"
             android:layout_width="match_parent"

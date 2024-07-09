@@ -10,7 +10,7 @@
     <Button
         android:id="@+id/create_macro"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:autoSizeTextType="uniform"
         android:background="@drawable/custom_radio_emotion"
         android:text="@string/create_macro"
