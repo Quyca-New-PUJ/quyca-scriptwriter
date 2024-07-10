@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * The type Quyca message.
  */
-public class QuycaMessage extends Message{
+public class QuycaMessage extends Message {
 
     private String actionId;
     private String charName;

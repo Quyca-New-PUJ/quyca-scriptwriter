@@ -31,6 +31,8 @@ import com.quyca.scriptwriter.utils.FileRepository;
 import com.quyca.scriptwriter.utils.FileUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,20 +107,39 @@ public class MainActivity extends AppCompatActivity {
 
     private void cambiar_offset(boolean is_der, int cantidad) {
         Activity helper = this;
-        // TODO: arreglar esto para que se envie el mensaje correcto
         Runnable mRunnable = () -> {
             try {
                 QuycaMessage actMsg = new QuycaMessage(0);
                 actMsg.setAlias(character.getRobotConf().getAlias());
-                actMsg.setActionId("calibration");
-                actMsg.setAction(new Action(new ConfiguredAction(FixedConfiguredAction.calibration, FixedConfiguredAction.calibration.name(), null), false, character.getName()));
+
+                FixedConfiguredAction lado = is_der? FixedConfiguredAction.cfg_offset_der : FixedConfiguredAction.cfg_offset_izq;
+
+                List<String> params = new ArrayList<>();
+                params.add(String.valueOf(cantidad));
+
+                actMsg.setActionId("cfg_offset_" + (is_der? "der" : "izq") + " " + String.valueOf(cantidad));
+
+                actMsg.setAction(
+                        new Action(
+                                new ConfiguredAction(
+                                        lado,
+                                        lado.name(),
+                                        params
+                                ),
+                                false,
+                                character.getName()
+                        )
+                );
+
                 RobotExecutioner sender = new QuycaCharacterSender(character);
                 sender.sendMessage(actMsg);
                 sender.closeResources();
+                helper.runOnUiThread(() -> Toast.makeText(helper, "Offset modificado!", Toast.LENGTH_LONG).show());
             } catch (IOException e) {
-                e.printStackTrace();
+                // e.printStackTrace();
+                helper.runOnUiThread(() -> Toast.makeText(helper, e.toString(), Toast.LENGTH_LONG).show());
             }
-            helper.runOnUiThread(() -> Toast.makeText(helper, "Calibrado!", Toast.LENGTH_LONG).show());
+
         };
         new Thread(mRunnable).start();
     }

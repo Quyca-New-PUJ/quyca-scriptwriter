@@ -8,7 +8,9 @@ public enum FixedConfiguredAction {
     left(true),
     calibration(true),
     offset_der(false),
-    offset_izq(false)
+    offset_izq(false),
+    cfg_offset_der(false),
+    cfg_offset_izq(false),
     ;
 
     private boolean answerable;
