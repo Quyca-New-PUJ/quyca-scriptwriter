@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 public class Play extends PlayableComponent implements Serializable {
-    private List<PlayCharacter> characters;
+    private List<PlayCharacter> characters = new ArrayList<>();
     private String uriString;
 
     public static String toJson(Play play) {

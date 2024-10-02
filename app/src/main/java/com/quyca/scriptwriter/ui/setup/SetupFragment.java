@@ -60,7 +60,7 @@ public class SetupFragment extends Fragment {
     private void setCharacterAdapter() {
         manager = new LinearLayoutManager(getContext());
         binding.scriptlineView.setLayoutManager(manager);
-        CharacterAdapter slAdapter = new CharacterAdapter(selPlay);
+        CharacterAdapter slAdapter = new CharacterAdapter(new Play());
         binding.scriptlineView.setAdapter(slAdapter);
 
     }
