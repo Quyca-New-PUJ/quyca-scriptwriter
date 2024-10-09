@@ -9,8 +9,8 @@
         <option name="gradleJvm" value="temurin-17" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="$USER_HOME$/Insync/jcsu2019369@gmail.com/GoogleDrive/2024-3/Documentos/Javeriana/Quyca/quyca-scriptwriter" />
+            <option value="$USER_HOME$/Insync/jcsu2019369@gmail.com/GoogleDrive/2024-3/Documentos/Javeriana/Quyca/quyca-scriptwriter/app" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
